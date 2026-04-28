@@ -1,0 +1,127 @@
+@use 'variables' as *;
+
+// ── Container ─────────────────────────────────────────────────────────────────
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  // No background — sits transparently over the split layout
+}
+
+// ── Cyan accent strip ─────────────────────────────────────────────────────────
+
+.accent-line {
+  height: 2px;
+  background: $color-accent;
+  width: 100%;
+}
+
+// ── Inner flex row ────────────────────────────────────────────────────────────
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 3rem;
+  height: calc(#{$header-height} - 2px);
+
+  @media (max-width: 768px) {
+    padding: 0 1.5rem;
+    height: calc(#{$header-height-mobile} - 2px);
+  }
+}
+
+// ── Logo ──────────────────────────────────────────────────────────────────────
+
+.logo {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: opacity $transition-fast;
+
+  svg {
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.2));
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+}
+
+// ── Navigation ────────────────────────────────────────────────────────────────
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 2.75rem;
+
+  @media (max-width: 768px) {
+    gap: 1.25rem;
+  }
+}
+
+.nav-link {
+  color: $color-text-light;
+  text-decoration: none;
+  font-size: 0.925rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  position: relative;
+  transition: color $transition-fast;
+
+  // Animated underline
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 1.5px;
+    background: $color-accent;
+    transition: width $transition-smooth;
+  }
+
+  &:hover {
+    color: $color-accent;
+
+    &::after {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    font-size: 0.8rem;
+  }
+}
+
+// ── Contact button ────────────────────────────────────────────────────────────
+
+.contact-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.55rem 1.5rem;
+  background: $color-text-light;
+  color: $color-text-dark;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  border-radius: $radius-pill;
+  text-decoration: none;
+  transition: background $transition-fast, color $transition-fast, box-shadow $transition-fast;
+  cursor: pointer;
+  white-space: nowrap;
+
+  &:hover {
+    background: $color-accent;
+    color: $color-dark-bg;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0.45rem 1rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+  }
+}

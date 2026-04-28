@@ -1,0 +1,50 @@
+<header class="header" role="banner">
+  <!-- Cyan accent line ─ absolute top of page -->
+  <div class="accent-line" aria-hidden="true"></div>
+
+  <div class="header-inner">
+    <!-- Logo TG -->
+    <a href="#" class="logo" aria-label="TG – Início">
+      <svg
+        width="46"
+        height="46"
+        viewBox="0 0 46 46"
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <polygon
+          points="23,3 43,13 43,33 23,43 3,33 3,13"
+          fill="#0A0A0A"
+        />
+        <text
+          x="23"
+          y="28"
+          text-anchor="middle"
+          fill="white"
+          font-family="Inter, sans-serif"
+          font-weight="900"
+          font-size="13"
+          letter-spacing="1.5"
+        >TG</text>
+      </svg>
+    </a>
+
+    <!-- Navigation -->
+    <nav class="nav" aria-label="Navegação principal">
+      @for (link of navLinks; track link.label) {
+        <a [href]="link.href" class="nav-link">{{ link.label }}</a>
+      }
+
+      <a
+        href="#contact"
+        class="contact-btn"
+        role="button"
+        aria-label="Entrar em contato"
+        [@contactHover]="contactHovered ? 'hovered' : 'default'"
+        (mouseenter)="contactHovered = true"
+        (mouseleave)="contactHovered = false"
+      >CONTACT ME</a>
+    </nav>
+  </div>
+</header>

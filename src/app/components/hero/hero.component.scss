@@ -1,0 +1,291 @@
+@use 'variables' as *;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Section wrapper
+// ─────────────────────────────────────────────────────────────────────────────
+
+.hero-section {
+  position: relative;
+  min-height: 100vh;
+  background: $color-light-bg;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  padding-top: $header-height;
+
+  @media (max-width: 768px) {
+    padding-top: $header-height-mobile;
+    flex-direction: column;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Dark diagonal background panel
+//
+// Positioned on the right; clip-path creates the diagonal edge.
+// Top of diagonal: 55% from left  →  bottom: 45% from left
+// clip-path values are relative to the panel's own width.
+// ─────────────────────────────────────────────────────────────────────────────
+
+.bg-dark-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 52%;
+  height: 100%;
+  background: $color-dark-bg;
+  // Diagonal from upper-right to lower-left
+  clip-path: polygon(13% 0%, 100% 0%, 100% 100%, 0% 100%);
+  pointer-events: none;
+
+  @media (max-width: 1024px) {
+    width: 53%;
+    clip-path: polygon(10% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+
+  @media (max-width: 768px) {
+    // Mobile: dark panel sits below light content — no diagonal
+    top: auto;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 55%;
+    clip-path: none;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Inner content row
+// ─────────────────────────────────────────────────────────────────────────────
+
+.hero-inner {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 3rem 6% 3rem 6%;
+  position: relative;
+  z-index: 1;
+  gap: 2rem;
+
+  @media (max-width: 1024px) {
+    padding: 2.5rem 4%;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 2.5rem 1.5rem 1.5rem;
+    gap: 2.5rem;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Left — text content
+// ─────────────────────────────────────────────────────────────────────────────
+
+.hero-left {
+  width: 50%;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  @media (max-width: 1024px) {
+    width: 48%;
+  }
+
+  @media (max-width: 768px) {
+    width: 100%;
+    gap: 1.25rem;
+  }
+}
+
+.greeting {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: $color-text-dark;
+  letter-spacing: 0.02em;
+}
+
+.headline {
+  font-size: clamp(2.8rem, 5.5vw, 5.5rem);
+  font-weight: 900;
+  line-height: 1.04;
+  color: $color-text-dark;
+  letter-spacing: -0.03em;
+
+  @media (max-width: 768px) {
+    font-size: clamp(2.4rem, 10vw, 3.5rem);
+  }
+}
+
+.subtitle {
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: $color-text-muted;
+  letter-spacing: 0.01em;
+  line-height: 1.5;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Social icons
+// ─────────────────────────────────────────────────────────────────────────────
+
+.social-icons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 0.25rem;
+}
+
+.social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: $radius-icon;
+  text-decoration: none;
+  flex-shrink: 0;
+  transition: transform $transition-fast, box-shadow $transition-fast;
+
+  &:hover {
+    transform: scale(1.07);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-accent;
+    outline-offset: 3px;
+  }
+
+  &--email {
+    background: $gradient-email;
+    box-shadow: 0 4px 14px rgba(234, 67, 53, 0.2);
+    &:hover { box-shadow: 0 6px 24px rgba(234, 67, 53, 0.45); }
+  }
+
+  &--github {
+    background: $gradient-github;
+    box-shadow: 0 4px 14px rgba(110, 84, 148, 0.2);
+    &:hover { box-shadow: 0 6px 24px rgba(110, 84, 148, 0.5); }
+  }
+
+  &--linkedin {
+    background: $gradient-linkedin;
+    box-shadow: 0 4px 14px rgba(0, 119, 181, 0.2);
+    &:hover { box-shadow: 0 6px 24px rgba(0, 119, 181, 0.5); }
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Right — project showcase
+// ─────────────────────────────────────────────────────────────────────────────
+
+.hero-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 0 1rem 2rem;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    padding: 1rem 0 2rem;
+    justify-content: flex-start;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Projects grid
+//
+// 5-column base: large spans 3, tablet spans 2, phone spans 2, medium spans 3
+// ─────────────────────────────────────────────────────────────────────────────
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: 165px 115px;
+  gap: 0.8rem;
+  width: 100%;
+  max-width: 440px;
+
+  @media (max-width: 1024px) {
+    grid-template-rows: 140px 100px;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: auto;
+    max-width: 100%;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Individual project card
+// ─────────────────────────────────────────────────────────────────────────────
+
+.project-card {
+  background: $color-card-bg;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: $radius-card;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
+  padding: 1.25rem 1rem;
+  position: relative;
+  cursor: default;
+  // Subtle cyan glow
+  box-shadow:
+    0 0 28px rgba(0, 217, 255, 0.05),
+    0 4px 18px rgba(0, 0, 0, 0.5);
+  transition: box-shadow $transition-fast, border-color $transition-fast, transform $transition-fast;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 0 40px rgba(0, 217, 255, 0.14),
+      0 8px 28px rgba(0, 0, 0, 0.6);
+    border-color: rgba(0, 217, 255, 0.18);
+  }
+
+  // Grid positions — desktop
+  &--large  { grid-column: 1 / 4; grid-row: 1; }
+  &--tablet { grid-column: 4 / 6; grid-row: 1; }
+  &--phone  { grid-column: 1 / 3; grid-row: 2; }
+  &--medium { grid-column: 3 / 6; grid-row: 2; }
+
+  @media (max-width: 768px) {
+    &--large,
+    &--tablet,
+    &--phone,
+    &--medium {
+      grid-column: auto;
+      grid-row: auto;
+      min-height: 100px;
+    }
+  }
+}
+
+.project-number {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: $color-accent;
+  letter-spacing: 0.12em;
+  opacity: 0.8;
+}
+
+.project-label {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: $color-text-light;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.project-device {
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: $color-text-muted;
+  letter-spacing: 0.03em;
+}
