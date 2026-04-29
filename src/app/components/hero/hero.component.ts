@@ -53,10 +53,15 @@ export class HeroComponent {
     },
   ];
 
-  readonly projects = [
-    { id: 1, label: 'Projeto 1', device: 'Laptop', modifier: 'large' },
-    { id: 2, label: 'Projeto 2', device: 'Tablet', modifier: 'tablet' },
-    { id: 3, label: 'Projeto 3', device: 'Smartphone', modifier: 'phone' },
-    { id: 4, label: 'Projeto 4', device: 'Laptop', modifier: 'medium' },
+  readonly webProjects = [
+    { id: 1, label: 'Pet Shop',  large: true,  image: '/images/web_petshop.png'    },
+    { id: 2, label: 'Academia',  large: false, image: '/images/web_fitness.png'    },
+    { id: 3, label: 'Barbearia', large: false, image: '/images/web_barbearia.jpeg' },
+  ];
+
+  readonly mobileProjects = [
+    { id: 4, label: 'Pet Shop',    image: '/images/mobile_petshop.png'     },
+    { id: 5, label: 'Fitness',     image: '/images/mobile_fitness.jpeg'    },
+    { id: 6, label: 'Odontologia', image: '/images/mobile_odontologia.png' },
   ];
 }

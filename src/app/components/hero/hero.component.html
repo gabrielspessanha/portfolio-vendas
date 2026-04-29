@@ -18,7 +18,7 @@
         class="headline"
         [@fadeSlideUp]="{ value: '', params: { duration: 700, delay: 300 } }"
       >
-        Sites que<br>vendem<br>por você
+        SITES QUE <br>VENDEM<br>POR VOCÊ
       </h1>
 
       <p
@@ -68,24 +68,49 @@
       </div>
     </div>
 
-    <!-- ── Right: project showcase placeholder ────────────────────────── -->
+    <!-- ── Right: project showcase ──────────────────────────────────── -->
     <div
       class="hero-right"
       [@fadeSlideUp]="{ value: '', params: { duration: 800, delay: 350 } }"
     >
-      <div class="projects-grid" role="list" aria-label="Projetos em destaque">
-        @for (project of projects; track project.id) {
+
+      <!-- Web cards -->
+      <div class="web-showcase" role="list" aria-label="Projetos web">
+        @for (p of webProjects; track p.id) {
           <div
-            class="project-card project-card--{{ project.modifier }}"
+            class="project-card"
+            [class.project-card--large]="p.large"
             role="listitem"
-            [attr.aria-label]="'Placeholder: ' + project.label"
+            [attr.aria-label]="p.label"
           >
-            <span class="project-number">0{{ project.id }}</span>
-            <span class="project-label">{{ project.label }}</span>
-            <span class="project-device">{{ project.device }}</span>
+            <img [src]="p.image" [alt]="p.label + ' — site'" class="project-img" />
+            <span class="project-number">0{{ p.id }}</span>
+            <div class="project-overlay">
+              <span class="project-label">{{ p.label }}</span>
+              <span class="project-device">Web</span>
+            </div>
           </div>
         }
       </div>
+
+      <!-- Mobile portrait cards -->
+      <div class="mobile-showcase" role="list" aria-label="Projetos mobile">
+        @for (p of mobileProjects; track p.id) {
+          <div
+            class="project-card project-card--mobile"
+            role="listitem"
+            [attr.aria-label]="p.label + ' mobile'"
+          >
+            <img [src]="p.image" [alt]="p.label + ' — mobile'" class="project-img" />
+            <span class="project-number">0{{ p.id }}</span>
+            <div class="project-overlay">
+              <span class="project-label">{{ p.label }}</span>
+              <span class="project-device">Mobile</span>
+            </div>
+          </div>
+        }
+      </div>
+
     </div>
 
   </div>
