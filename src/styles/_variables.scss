@@ -1,16 +1,23 @@
 // ── Brand colours ─────────────────────────────────────────────────────────────
-$color-light-bg:    #E8E8E8;
-$color-dark-bg:     #0A0A0A;
-$color-accent:      #00D9FF;
-$color-text-dark:   #0A0A0A;
-$color-text-light:  #FFFFFF;
-$color-text-muted:  #6B6B6B;
-$color-card-bg:     #1A1A1A;
+$color-light-bg:       #E8E8E8;
+$color-dark-bg:        #0A0A0A;
+$color-accent:         #00D9FF;
+$color-text-dark:      #0A0A0A;
+$color-text-secondary: #2A2A2A;
+$color-text-medium:    #4A4A4A;
+$color-text-light:     #FFFFFF;
+$color-text-muted:     #6B6B6B;
+$color-card-bg:        #1A1A1A;
+$color-success:        #10B981;
+$color-success-dark:   #059669;
+$color-star:           #FBBF24;
 
 // ── Social icon gradients ──────────────────────────────────────────────────────
-$gradient-email:    linear-gradient(135deg, #EA4335 0%, #FBBC04 100%);
-$gradient-github:   linear-gradient(135deg, #6E5494 0%, #4A2C7A 100%);
-$gradient-linkedin: linear-gradient(135deg, #0077B5 0%, #00A0DC 100%);
+$gradient-email:     linear-gradient(135deg, #EA4335 0%, #FBBC04 100%);
+$gradient-github:    linear-gradient(135deg, #6E5494 0%, #4A2C7A 100%);
+$gradient-linkedin:  linear-gradient(135deg, #0077B5 0%, #00A0DC 100%);
+$gradient-whatsapp:  linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+$gradient-instagram: linear-gradient(135deg, #F58529 0%, #DD2A7B 50%, #8134AF 100%);
 
 // ── Layout ────────────────────────────────────────────────────────────────────
 $header-height:        80px;

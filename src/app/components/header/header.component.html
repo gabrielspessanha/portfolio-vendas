@@ -2,7 +2,7 @@
   <!-- Cyan accent line ─ absolute top of page -->
   <div class="accent-line" aria-hidden="true"></div>
 
-  <div class="header-inner">
+  <div class="header-inner" [@slideDown]>
     <!-- Logo TG -->
     <a href="#" class="logo" aria-label="TG – Início">
       <svg
@@ -37,14 +37,14 @@
       }
 
       <a
-        href="#contact"
-        class="contact-btn"
+        href="#contato"
+        class="cta-btn"
         role="button"
-        aria-label="Entrar em contato"
-        [@contactHover]="contactHovered ? 'hovered' : 'default'"
-        (mouseenter)="contactHovered = true"
-        (mouseleave)="contactHovered = false"
-      >CONTACT ME</a>
+        aria-label="Solicitar orçamento grátis"
+        [@ctaHover]="ctaHovered ? 'hovered' : 'default'"
+        (mouseenter)="ctaHovered = true"
+        (mouseleave)="ctaHovered = false"
+      >ORÇAMENTO GRÁTIS</a>
     </nav>
   </div>
 </header>

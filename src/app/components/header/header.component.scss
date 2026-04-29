@@ -97,26 +97,25 @@
   }
 }
 
-// ── Contact button ────────────────────────────────────────────────────────────
+// ── CTA button ────────────────────────────────────────────────────────────────
 
-.contact-btn {
+.cta-btn {
   display: inline-flex;
   align-items: center;
   padding: 0.55rem 1.5rem;
-  background: $color-text-light;
-  color: $color-text-dark;
+  background: $color-success;
+  color: $color-text-light;
   font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.1em;
   border-radius: $radius-pill;
   text-decoration: none;
-  transition: background $transition-fast, color $transition-fast, box-shadow $transition-fast;
+  transition: background $transition-fast, box-shadow $transition-fast;
   cursor: pointer;
   white-space: nowrap;
 
   &:hover {
-    background: $color-accent;
-    color: $color-dark-bg;
+    background: $color-success-dark;
   }
 
   @media (max-width: 768px) {
