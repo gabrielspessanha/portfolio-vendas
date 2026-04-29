@@ -29,12 +29,13 @@
   width: 52%;
   height: 100%;
   background: $color-dark-bg;
-  clip-path: polygon(13% 0%, 100% 0%, 100% 100%, 0% 100%);
+  // Diagonal invertida: corte vai do topo-esquerda para baixo-direita
+  clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 13% 100%);
   pointer-events: none;
 
   @media (max-width: 1024px) {
     width: 53%;
-    clip-path: polygon(10% 0%, 100% 0%, 100% 100%, 0% 100%);
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 10% 100%);
   }
 
   @media (max-width: 768px) {
@@ -138,13 +139,31 @@
   line-height: 0.95;
   color: $color-text-dark;
   letter-spacing: -0.03em;
+  // Sombra sutil para dar profundidade às letras grandes
+  text-shadow:
+    0 2px 4px rgba(0, 0, 0, 0.08),
+    0 4px 12px rgba(0, 0, 0, 0.06);
 
   &--highlight {
     color: $color-success;
+    // Sombra com tonalidade verde para a palavra de destaque
+    text-shadow:
+      0 2px 4px rgba(16, 185, 129, 0.15),
+      0 4px 12px rgba(16, 185, 129, 0.1);
   }
 
   @media (max-width: 768px) {
     font-size: clamp(2.8rem, 12vw, 4rem);
+    // Intensidade reduzida pela metade no mobile
+    text-shadow:
+      0 1px 2px rgba(0, 0, 0, 0.05),
+      0 2px 6px rgba(0, 0, 0, 0.04);
+
+    &--highlight {
+      text-shadow:
+        0 1px 2px rgba(16, 185, 129, 0.1),
+        0 2px 6px rgba(16, 185, 129, 0.06);
+    }
   }
 }
 
@@ -284,22 +303,65 @@
   align-items: center;
   justify-content: center;
   padding: 1.5rem 1.5rem 1.5rem 2rem;
+  position: relative;
+  // overflow: visible permite que a imagem ultrapasse para o lado esquerdo
+  overflow: visible;
+
+  // Glow ciano radial atrás dos mockups (Ajuste 4)
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    height: 70%;
+    background: radial-gradient(
+      ellipse,
+      rgba(0, 217, 255, 0.25) 0%,
+      rgba(0, 217, 255, 0.1) 40%,
+      transparent 70%
+    );
+    filter: blur(40px);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  // Garante que a imagem fique acima do glow
+  > * {
+    position: relative;
+    z-index: 1;
+  }
 
   @media (max-width: 768px) {
     width: 100%;
     padding: 0 0 2.5rem;
+    // Contém a imagem no mobile — sem overflow
+    overflow: hidden;
+
+    &::before {
+      opacity: 0.5; // Glow mais suave no mobile
+    }
   }
 }
 
 .mockups-img {
-  width: 100%;
-  max-width: 560px;
+  // Maior que o container para o efeito de "explosão" 3D (Ajuste 1)
+  width: 115%;
+  max-width: none;
   height: auto;
   object-fit: contain;
   display: block;
   filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.5));
+  // Puxa para a esquerda, invadindo o lado claro
+  transform: translateX(-12%);
+  // Evita bloquear cliques nos elementos do lado esquerdo
+  pointer-events: none;
 
   @media (max-width: 768px) {
-    max-width: 100%;
+    // No mobile volta ao normal — contida no container
+    width: 100%;
+    transform: none;
+    pointer-events: auto;
   }
 }

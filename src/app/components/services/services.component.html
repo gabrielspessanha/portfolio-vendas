@@ -1,0 +1,172 @@
+<section id="servicos" class="services-section" aria-label="Serviços">
+  <div class="section-inner">
+
+    <!-- ── Section header ──────────────────────────────────────────────────── -->
+    <header
+      class="section-header"
+      [@revealOnScroll]="{ value: isVisible ? 'visible' : 'hidden', params: { delay: 0 } }"
+    >
+      <div class="section-tag" aria-hidden="true">
+        <span class="tag-dot">●</span>&nbsp;O QUE EU FAÇO
+      </div>
+
+      <h2 class="section-headline">
+        SOLUÇÕES DIGITAIS <span class="highlight">COMPLETAS</span>
+      </h2>
+
+      <p class="section-subtitle">
+        Tudo que seu negócio precisa para vender mais no digital — em um só lugar
+      </p>
+    </header>
+
+    <!-- ── Desktop: tabs + panel ──────────────────────────────────────────── -->
+    <div class="tabs-layout">
+
+      <!-- Left: tab list -->
+      <div class="tab-list" role="tablist" aria-label="Selecione um serviço">
+        @for (service of services; track service.id; let i = $index) {
+          <button
+            #tabBtn
+            class="tab-item"
+            [class.tab-item--active]="activeServiceId === service.id"
+            role="tab"
+            [id]="'tab-' + service.id"
+            [attr.aria-selected]="activeServiceId === service.id"
+            [attr.aria-controls]="'panel-' + service.id"
+            [attr.tabindex]="activeServiceId === service.id ? 0 : -1"
+            (click)="setActive(service.id)"
+            (keydown)="onTabKeydown($event, i)"
+            [@revealOnScroll]="{ value: isVisible ? 'visible' : 'hidden', params: { delay: 200 + i * 100 } }"
+          >
+            <!-- Coloured icon -->
+            <div
+              class="tab-icon"
+              [style.background]="service.iconGradient"
+              [innerHTML]="getIconSvg(service.icon, 22)"
+              aria-hidden="true"
+            ></div>
+
+            <div class="tab-info">
+              <span class="tab-number">{{ service.number }}</span>
+              <span class="tab-title">{{ service.title }}</span>
+            </div>
+
+            <!-- Arrow right -->
+            <svg class="tab-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        }
+      </div>
+
+      <!-- Right: content panel — outer div handles scroll-reveal, inner handles tab switch -->
+      <div
+        class="tab-panel-reveal"
+        [@revealOnScroll]="{ value: isVisible ? 'visible' : 'hidden', params: { delay: 400 } }"
+      >
+        <div
+          class="tab-panel"
+          role="tabpanel"
+          [id]="'panel-' + activeServiceId"
+          [attr.aria-labelledby]="'tab-' + activeServiceId"
+          [@contentSwitch]="activeServiceId"
+        >
+          <!-- Large icon -->
+          <div
+            class="panel-icon"
+            [style.background]="activeService.iconGradient"
+            [innerHTML]="getIconSvg(activeService.icon, 36)"
+            aria-hidden="true"
+          ></div>
+
+          <span class="panel-tagline">{{ activeService.tagline }}</span>
+          <h3 class="panel-title">{{ activeService.title }}</h3>
+          <p class="panel-description">{{ activeService.description }}</p>
+
+          <ul class="panel-features" aria-label="Funcionalidades incluídas">
+            @for (feature of activeService.features; track feature) {
+              <li class="panel-feature">
+                <span class="check" aria-hidden="true">✓</span>
+                {{ feature }}
+              </li>
+            }
+          </ul>
+
+          <div class="panel-actions">
+            <a
+              class="btn-primary"
+              [href]="getWhatsAppUrl(activeService)"
+              target="_blank"
+              rel="noopener noreferrer"
+              [attr.aria-label]="activeService.ctaText + ' via WhatsApp'"
+            >{{ activeService.ctaText }}</a>
+
+            <button class="btn-secondary" type="button">
+              Ver projetos similares
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /tabs-layout -->
+
+    <!-- ── Mobile: accordion ──────────────────────────────────────────────── -->
+    <div class="accordion-layout" aria-label="Serviços disponíveis">
+      @for (service of services; track service.id) {
+        <div
+          class="accordion-item"
+          [style.--service-color]="service.iconColor"
+        >
+          <button
+            class="accordion-header"
+            type="button"
+            [attr.aria-expanded]="activeServiceId === service.id"
+            [attr.aria-controls]="'acc-' + service.id"
+            (click)="toggleAccordion(service.id)"
+          >
+            <span class="acc-number">{{ service.number }}</span>
+            <span class="acc-title">{{ service.title }}</span>
+            <svg
+              class="acc-chevron"
+              width="20" height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+              [@chevronRotate]="activeServiceId === service.id ? 'open' : 'closed'"
+            >
+              <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+
+          <div
+            class="accordion-content"
+            [id]="'acc-' + service.id"
+            [@accordionContent]="activeServiceId === service.id ? 'open' : 'closed'"
+          >
+            <div class="acc-body">
+              <span class="acc-tagline">{{ service.tagline }}</span>
+              <p class="acc-description">{{ service.description }}</p>
+
+              <ul class="acc-features" aria-label="Funcionalidades incluídas">
+                @for (feature of service.features; track feature) {
+                  <li>{{ feature }}</li>
+                }
+              </ul>
+
+              <a
+                class="btn-primary btn-full"
+                [href]="getWhatsAppUrl(service)"
+                target="_blank"
+                rel="noopener noreferrer"
+                [attr.aria-label]="service.ctaText + ' via WhatsApp'"
+              >{{ service.ctaText }}</a>
+            </div>
+          </div>
+
+        </div>
+      }
+    </div><!-- /accordion-layout -->
+
+  </div><!-- /section-inner -->
+</section>

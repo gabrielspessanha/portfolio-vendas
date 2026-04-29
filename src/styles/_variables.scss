@@ -19,6 +19,19 @@ $gradient-linkedin:  linear-gradient(135deg, #0077B5 0%, #00A0DC 100%);
 $gradient-whatsapp:  linear-gradient(135deg, #25D366 0%, #128C7E 100%);
 $gradient-instagram: linear-gradient(135deg, #F58529 0%, #DD2A7B 50%, #8134AF 100%);
 
+// ── Service icon colours ──────────────────────────────────────────────────────
+$service-blue:   #3B82F6;
+$service-purple: #8B5CF6;
+$service-pink:   #EC4899;
+$service-orange: #F97316;
+$service-red:    #EF4444;
+
+// ── Card surfaces ─────────────────────────────────────────────────────────────
+$bg-card:       #1A1A1A;
+$bg-card-hover: #252525;
+$border-card:   #2A2A2A;
+$text-muted:    #A0A0A0; // lighter muted for dark-bg sections
+
 // ── Layout ────────────────────────────────────────────────────────────────────
 $header-height:        80px;
 $header-height-mobile: 64px;
