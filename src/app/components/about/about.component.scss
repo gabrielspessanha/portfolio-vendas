@@ -1,0 +1,293 @@
+@use 'variables' as *;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Section wrapper
+// ─────────────────────────────────────────────────────────────────────────────
+
+.about-section {
+  background: $color-dark-bg;
+  padding: 160px 80px;
+  position: relative;
+
+  @media (max-width: 768px) {
+    padding: 100px 24px;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Container — left-aligned editorial layout
+// ─────────────────────────────────────────────────────────────────────────────
+
+.about-container {
+  max-width: 900px;
+  margin-left: 120px;
+
+  @media (max-width: 1200px) {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media (max-width: 768px) {
+    padding: 0;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Tag superior
+// ─────────────────────────────────────────────────────────────────────────────
+
+.about-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid $divider-subtle;
+  border-radius: 100px;
+  margin-bottom: 60px;
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: $color-success;
+    flex-shrink: 0;
+  }
+
+  span:last-child {
+    color: $text-white-secondary;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Headline principal — tipografia ultra-fina e editorial
+// ─────────────────────────────────────────────────────────────────────────────
+
+.about-headline {
+  margin: 0 0 80px;
+  color: $color-text-light;
+  font-size: 96px;
+  font-weight: 300;
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+
+  > span {
+    display: block;
+  }
+
+  // Único acento verde na section: o ponto final
+  .green-period {
+    display: inline;
+    color: $color-success;
+  }
+
+  @media (max-width: 1024px) {
+    font-size: 72px;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 48px;
+    margin-bottom: 48px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 40px;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Descrição e frase em destaque
+// ─────────────────────────────────────────────────────────────────────────────
+
+.about-description {
+  max-width: 640px;
+  color: $text-muted;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.7;
+  margin: 0 0 32px;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
+}
+
+.about-emphasis {
+  max-width: 640px;
+  color: $color-text-light;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 1.5;
+  margin: 0 0 100px;
+
+  @media (max-width: 768px) {
+    font-size: 17px;
+    margin-bottom: 64px;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Divider sutil
+// ─────────────────────────────────────────────────────────────────────────────
+
+.about-divider {
+  width: 100%;
+  max-width: 640px;
+  height: 1px;
+  background: $divider-subtle;
+  margin-bottom: 60px;
+  transform-origin: left;
+
+  @media (max-width: 768px) {
+    margin-bottom: 48px;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Stats — apenas texto, sem cards
+// ─────────────────────────────────────────────────────────────────────────────
+
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 48px;
+  max-width: 640px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.stat-number {
+  color: $color-text-light;
+  font-size: 56px;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  line-height: 1;
+
+  @media (max-width: 768px) {
+    font-size: 48px;
+  }
+}
+
+.stat-label {
+  color: $text-white-muted;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  line-height: 1.4;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Scroll reveal — elementos partem ocultos, animam ao entrar no viewport
+// ─────────────────────────────────────────────────────────────────────────────
+
+$_ease: cubic-bezier(0.4, 0, 0.2, 1);
+$_dur: 800ms;
+
+.about-tag,
+.about-headline > span,
+.about-description,
+.about-emphasis,
+.about-stats .stat-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity $_dur $_ease, transform $_dur $_ease;
+}
+
+// Divider anima em largura (scaleX), não em posição vertical
+.about-divider {
+  opacity: 0;
+  transform: scaleX(0);
+  transition: opacity $_dur $_ease, transform $_dur $_ease;
+}
+
+.about-section.visible {
+  .about-tag {
+    opacity: 1;
+    transform: none;
+    transition-delay: 200ms;
+  }
+
+  .about-headline > span:nth-child(1) {
+    opacity: 1;
+    transform: none;
+    transition-delay: 400ms;
+  }
+
+  .about-headline > span:nth-child(2) {
+    opacity: 1;
+    transform: none;
+    transition-delay: 500ms;
+  }
+
+  .about-headline > span:nth-child(3) {
+    opacity: 1;
+    transform: none;
+    transition-delay: 600ms;
+  }
+
+  .about-description {
+    opacity: 1;
+    transform: none;
+    transition-delay: 800ms;
+  }
+
+  .about-emphasis {
+    opacity: 1;
+    transform: none;
+    transition-delay: 1000ms;
+  }
+
+  .about-divider {
+    opacity: 1;
+    transform: scaleX(1);
+    transition-delay: 1200ms;
+  }
+
+  .about-stats .stat-item:nth-child(1) {
+    opacity: 1;
+    transform: none;
+    transition-delay: 1400ms;
+  }
+
+  .about-stats .stat-item:nth-child(2) {
+    opacity: 1;
+    transform: none;
+    transition-delay: 1500ms;
+  }
+
+  .about-stats .stat-item:nth-child(3) {
+    opacity: 1;
+    transform: none;
+    transition-delay: 1600ms;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Reduced motion
+// ─────────────────────────────────────────────────────────────────────────────
+
+@media (prefers-reduced-motion: reduce) {
+  .about-tag,
+  .about-headline > span,
+  .about-description,
+  .about-emphasis,
+  .about-divider,
+  .about-stats .stat-item {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

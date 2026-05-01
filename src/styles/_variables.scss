@@ -44,3 +44,21 @@ $radius-pill: 999px;
 // ── Transitions ───────────────────────────────────────────────────────────────
 $transition-fast:   200ms ease;
 $transition-smooth: 400ms cubic-bezier(0.16, 1, 0.3, 1);
+
+// ── Projects section glows ────────────────────────────────────────────────────
+$border-card-default: rgba(16, 185, 129, 0.15);
+$border-card-hover:   rgba(16, 185, 129, 0.5);
+$glow-green-card:     rgba(16, 185, 129, 0.3);
+$glow-cyan-soft:      rgba(0, 217, 255, 0.18);
+
+// ── About section tints ───────────────────────────────────────────────────────
+$text-white-secondary: rgba(255, 255, 255, 0.7);
+$text-white-muted:     rgba(255, 255, 255, 0.5);
+$divider-subtle:       rgba(255, 255, 255, 0.1);
+
+// ── Footer ────────────────────────────────────────────────────────────────────
+$footer-bg:      #050505;
+$footer-divider: rgba(255, 255, 255, 0.08);
+
+// ── Form ──────────────────────────────────────────────────────────────────────
+$form-input-border: rgba(255, 255, 255, 0.1);

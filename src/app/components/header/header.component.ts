@@ -32,8 +32,9 @@ export class HeaderComponent {
   ctaHovered = false;
 
   readonly navLinks = [
-    { label: 'Como funciona', href: '#como-funciona' },
+    { label: 'Sobre',         href: '#sobre'         },
     { label: 'Serviços',      href: '#servicos'      },
+    { label: 'Como funciona', href: '#como-funciona' },
     { label: 'Projetos',      href: '#projetos'      },
     { label: 'Contato',       href: '#contato'       },
   ];

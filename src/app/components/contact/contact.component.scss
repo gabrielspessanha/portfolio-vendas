@@ -1,0 +1,511 @@
+@use 'variables' as *;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Pulsing glow animation — applied to form card on desktop after reveal
+// ─────────────────────────────────────────────────────────────────────────────
+
+@keyframes glowPulse {
+  0%, 100% {
+    box-shadow:
+      0 0 0 1px rgba($color-success, 0.15),
+      0 20px 60px rgba(0, 0, 0, 0.5),
+      0 0 60px rgba($color-success, 0.15);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba($color-success, 0.28),
+      0 20px 60px rgba(0, 0, 0, 0.5),
+      0 0 80px rgba($color-success, 0.28);
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Section wrapper
+// ─────────────────────────────────────────────────────────────────────────────
+
+.contact-section {
+  position: relative;
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(16, 185, 129, 0.15) 0%,
+      rgba(16, 185, 129, 0.06) 35%,
+      transparent 65%
+    ),
+    $color-dark-bg;
+  padding: 140px 80px;
+  overflow: hidden;
+
+  // Dot-matrix background pattern
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(
+      circle at 1px 1px,
+      rgba(255, 255, 255, 0.04) 1px,
+      transparent 0
+    );
+    background-size: 24px 24px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (max-width: 768px) {
+    padding: 80px 24px;
+  }
+}
+
+// ── Corner ambient glows ──────────────────────────────────────────────────────
+
+.glow-corner {
+  position: absolute;
+  pointer-events: none;
+  z-index: 0; // declared after > * rule so it overrides z-index: 1
+}
+
+.glow-tr {
+  top: -5%;
+  right: -10%;
+  width: 35%;
+  height: 60%;
+  background: radial-gradient(ellipse, rgba(0, 217, 255, 0.1) 0%, transparent 60%);
+  filter: blur(60px);
+
+  @media (max-width: 768px) {
+    opacity: 0.6;
+  }
+}
+
+.glow-bl {
+  bottom: -5%;
+  left: -10%;
+  width: 35%;
+  height: 60%;
+  background: radial-gradient(ellipse, rgba(16, 185, 129, 0.12) 0%, transparent 60%);
+  filter: blur(60px);
+
+  @media (max-width: 768px) {
+    opacity: 0.6;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Inner container
+// ─────────────────────────────────────────────────────────────────────────────
+
+.contact-inner {
+  max-width: 900px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+// ── Section tag ───────────────────────────────────────────────────────────────
+
+.contact-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba($color-success, 0.1);
+  border: 1px solid rgba($color-success, 0.3);
+  border-radius: 20px;
+  color: $color-success;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+
+  .tag-dot {
+    font-size: 0.5rem;
+    line-height: 1;
+  }
+}
+
+// ── Headline ──────────────────────────────────────────────────────────────────
+
+.contact-headline {
+  font-size: clamp(2.25rem, 5vw, 4rem);
+  font-weight: 900;
+  color: $color-text-light;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0 0 24px;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+}
+
+.highlight-word {
+  color: $color-success;
+  position: relative;
+  display: inline-block;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      $color-success 10%,
+      $color-success 90%,
+      transparent
+    );
+    box-shadow: 0 0 12px rgba($color-success, 0.6);
+    border-radius: 4px;
+  }
+}
+
+// ── Subtitle ──────────────────────────────────────────────────────────────────
+
+.contact-subtitle {
+  font-size: clamp(0.875rem, 1.5vw, 1.125rem);
+  color: $text-muted;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.65;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Form card
+// ─────────────────────────────────────────────────────────────────────────────
+
+.form-card {
+  margin-top: 64px;
+  padding: 48px;
+  background: rgba(26, 26, 26, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba($color-success, 0.3);
+  border-radius: 24px;
+  text-align: left;
+  box-shadow:
+    0 0 0 1px rgba($color-success, 0.15),
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 60px rgba($color-success, 0.15);
+
+  @media (max-width: 768px) {
+    padding: 32px 24px;
+    margin-top: 48px;
+  }
+}
+
+// ── Form layout ───────────────────────────────────────────────────────────────
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+
+  @media (max-width: 640px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  label {
+    color: $color-text-light;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+  }
+}
+
+// ── Input / Select / Textarea ─────────────────────────────────────────────────
+
+%form-control {
+  background: $color-dark-bg;
+  border: 1px solid $form-input-border;
+  border-radius: 12px;
+  padding: 14px 18px;
+  color: $color-text-light;
+  font-family: inherit;
+  font-size: 0.9375rem;
+  width: 100%;
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+
+  &::placeholder {
+    color: $color-text-muted;
+  }
+
+  &:focus {
+    outline: none;
+    border-color: $color-success;
+    box-shadow: 0 0 0 3px rgba($color-success, 0.15);
+  }
+}
+
+input[type='text'],
+input[type='tel'] {
+  @extend %form-control;
+}
+
+select {
+  @extend %form-control;
+  appearance: none;
+  -webkit-appearance: none;
+  // Chevron icon encoded as SVG
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23A0A0A0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 18px center;
+  background-size: 16px;
+  padding-right: 48px;
+  cursor: pointer;
+
+  option {
+    background: #1a1a1a;
+    color: $color-text-light;
+  }
+}
+
+textarea {
+  @extend %form-control;
+  resize: vertical;
+  min-height: 120px;
+  line-height: 1.6;
+}
+
+// ── Submit button ─────────────────────────────────────────────────────────────
+
+.form-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+}
+
+.btn-submit {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 40px;
+  background: linear-gradient(135deg, $color-success, $color-success-dark);
+  color: $color-text-light;
+  border: none;
+  border-radius: $radius-pill;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow:
+    0 4px 20px rgba($color-success, 0.4),
+    0 0 30px rgba($color-success, 0.2);
+  transition: transform $transition-fast, box-shadow $transition-fast;
+
+  svg {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 6px 30px rgba($color-success, 0.6),
+      0 0 50px rgba($color-success, 0.3);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-accent;
+    outline-offset: 3px;
+  }
+
+  @media (max-width: 640px) {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+// ── Trust note ────────────────────────────────────────────────────────────────
+
+.form-trust {
+  text-align: center;
+  color: $color-text-muted;
+  font-size: 0.8125rem;
+  margin-top: 4px;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Alternative contact channels
+// ─────────────────────────────────────────────────────────────────────────────
+
+.alt-contact {
+  margin-top: 60px;
+
+  @media (max-width: 768px) {
+    margin-top: 48px;
+  }
+}
+
+.alt-text {
+  color: $text-muted;
+  font-size: 0.9375rem;
+  margin-bottom: 24px;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.social-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  border-radius: $radius-icon;
+  color: #fff;
+  text-decoration: none;
+  transition: transform $transition-smooth, box-shadow $transition-smooth;
+
+  &:focus-visible {
+    outline: 2px solid $color-accent;
+    outline-offset: 3px;
+  }
+
+  &.whatsapp {
+    background: $gradient-whatsapp;
+    &:hover {
+      transform: scale(1.1) translateY(-2px);
+      box-shadow: 0 8px 24px rgba(37, 211, 102, 0.45);
+    }
+  }
+
+  &.instagram {
+    background: $gradient-instagram;
+    &:hover {
+      transform: scale(1.1) translateY(-2px);
+      box-shadow: 0 8px 24px rgba(221, 42, 123, 0.45);
+    }
+  }
+
+  &.email {
+    background: $gradient-email;
+    &:hover {
+      transform: scale(1.1) translateY(-2px);
+      box-shadow: 0 8px 24px rgba(234, 67, 53, 0.45);
+    }
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Scroll reveal — elements start hidden, animate in when .visible
+// ─────────────────────────────────────────────────────────────────────────────
+
+$_ease: cubic-bezier(0.16, 1, 0.3, 1);
+
+.contact-tag,
+.contact-headline,
+.contact-subtitle,
+.alt-text,
+.social-icon {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 600ms $_ease, transform 600ms $_ease;
+}
+
+.form-card {
+  opacity: 0;
+  transform: translateY(30px) scale(0.97);
+  transition: opacity 700ms $_ease, transform 700ms $_ease;
+}
+
+.contact-section.visible {
+  .contact-tag {
+    opacity: 1;
+    transform: none;
+    transition-delay: 0ms;
+  }
+
+  .contact-headline {
+    opacity: 1;
+    transform: none;
+    transition-delay: 200ms;
+  }
+
+  .contact-subtitle {
+    opacity: 1;
+    transform: none;
+    transition-delay: 400ms;
+  }
+
+  .form-card {
+    opacity: 1;
+    transform: none;
+    transition-delay: 600ms;
+
+    // Pulsing glow begins once the card is fully revealed (desktop only)
+    @media (min-width: 769px) {
+      animation: glowPulse 4s ease-in-out 1300ms infinite;
+    }
+  }
+
+  .alt-text {
+    opacity: 1;
+    transform: none;
+    transition-delay: 900ms;
+  }
+
+  .social-icon:nth-child(1) {
+    opacity: 1;
+    transform: none;
+    transition-delay: 1000ms;
+  }
+
+  .social-icon:nth-child(2) {
+    opacity: 1;
+    transform: none;
+    transition-delay: 1100ms;
+  }
+
+  .social-icon:nth-child(3) {
+    opacity: 1;
+    transform: none;
+    transition-delay: 1200ms;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Reduced motion
+// ─────────────────────────────────────────────────────────────────────────────
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-tag,
+  .contact-headline,
+  .contact-subtitle,
+  .form-card,
+  .alt-text,
+  .social-icon {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+}

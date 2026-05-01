@@ -8,6 +8,7 @@
   position: relative;
   padding: 120px 80px;
   background:
+    radial-gradient(ellipse at top left, rgba(16, 185, 129, 0.12) 0%, rgba(16, 185, 129, 0.05) 30%, transparent 60%),
     radial-gradient(ellipse at top center, rgba(0, 217, 255, 0.08) 0%, transparent 50%),
     #0A0A0A;
   overflow: hidden;
@@ -23,8 +24,32 @@
     z-index: 0;
   }
 
+  // Ambient neon glow — lower-right corner
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -10%;
+    right: -10%;
+    width: 50%;
+    height: 50%;
+    background: radial-gradient(
+      ellipse,
+      rgba(16, 185, 129, 0.10) 0%,
+      rgba(16, 185, 129, 0.04) 30%,
+      transparent 60%
+    );
+    filter: blur(60px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
   @media (max-width: 768px) {
     padding: 60px 24px;
+
+    &::before,
+    &::after {
+      opacity: 0.5;
+    }
   }
 }
 
@@ -122,6 +147,15 @@
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
+  padding: 16px;
+  border-radius: 24px;
+  background: rgba(20, 20, 20, 0.6);
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  box-shadow:
+    0 0 0 1px rgba(16, 185, 129, 0.1),
+    0 0 30px rgba(16, 185, 129, 0.08),
+    0 0 60px rgba(16, 185, 129, 0.04),
+    inset 0 1px 0 rgba(16, 185, 129, 0.1);
 }
 
 .tab-item {
@@ -135,20 +169,47 @@
   cursor: pointer;
   text-align: left;
   width: 100%;
+  position: relative;
+  overflow: hidden;
   transition:
     background $transition-fast,
     transform $transition-fast,
     box-shadow $transition-fast;
+
+  // Subtle top light reflection line
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(16, 185, 129, 0.4),
+      transparent
+    );
+  }
 
   &:hover:not(.tab-item--active) {
     background: $bg-card-hover;
   }
 
   &--active {
-    background: $color-success;
-    border-color: $color-success;
+    background: linear-gradient(135deg, $color-success, $color-success-dark);
+    border-color: rgba(16, 185, 129, 0.6);
     transform: scale(1.02);
-    box-shadow: 0 4px 24px rgba(16, 185, 129, 0.35);
+    box-shadow:
+      0 0 0 1px rgba(16, 185, 129, 0.5),
+      0 0 20px rgba(16, 185, 129, 0.4),
+      0 0 40px rgba(16, 185, 129, 0.25),
+      0 0 60px rgba(16, 185, 129, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+
+    @media (min-width: 769px) {
+      animation: pulseGlow 3s ease-in-out infinite;
+    }
 
     .tab-number { color: rgba(255, 255, 255, 0.7); }
     .tab-title  { color: $color-text-light; }
@@ -206,8 +267,8 @@
 }
 
 .tab-panel {
-  background: $bg-card;
-  border: 1px solid $border-card;
+  background: rgba(20, 20, 20, 0.7);
+  border: 1px solid rgba(16, 185, 129, 0.25);
   border-radius: 20px;
   padding: 48px;
   min-height: 500px;
@@ -216,6 +277,29 @@
   gap: 1.25rem;
   height: 100%;
   box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px rgba(16, 185, 129, 0.15),
+    0 0 40px rgba(16, 185, 129, 0.1),
+    0 0 80px rgba(16, 185, 129, 0.05),
+    inset 0 1px 0 rgba(16, 185, 129, 0.12);
+
+  // Top light reflection line
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    right: 10%;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(16, 185, 129, 0.5),
+      transparent
+    );
+  }
 }
 
 .panel-icon {
@@ -443,6 +527,27 @@
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Pulse glow — active tab neon breathing (desktop only)
+// ─────────────────────────────────────────────────────────────────────────────
+
+@keyframes pulseGlow {
+  0%, 100% {
+    box-shadow:
+      0 0 0 1px rgba(16, 185, 129, 0.5),
+      0 0 20px rgba(16, 185, 129, 0.4),
+      0 0 40px rgba(16, 185, 129, 0.25),
+      0 0 60px rgba(16, 185, 129, 0.15);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(16, 185, 129, 0.6),
+      0 0 25px rgba(16, 185, 129, 0.5),
+      0 0 50px rgba(16, 185, 129, 0.3),
+      0 0 75px rgba(16, 185, 129, 0.2);
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // Reduced motion — disable all animations
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -450,5 +555,9 @@
   * {
     animation-duration: 0.01ms !important;
     transition-duration: 0.01ms !important;
+  }
+
+  .tab-item--active {
+    animation: none !important;
   }
 }

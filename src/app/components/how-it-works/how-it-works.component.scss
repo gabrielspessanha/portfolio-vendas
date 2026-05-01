@@ -1,0 +1,398 @@
+@use 'variables' as *;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Section wrapper — solid dark with a single, very subtle green glow
+// ─────────────────────────────────────────────────────────────────────────────
+
+.how-it-works-section {
+  position: relative;
+  background: $color-dark-bg;
+  padding: 140px 80px;
+  overflow: hidden;
+
+  // Single centred glow — intentionally faint (5% opacity)
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 600px;
+    background: radial-gradient(
+      ellipse,
+      rgba(16, 185, 129, 0.05) 0%,
+      transparent 60%
+    );
+    filter: blur(80px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (max-width: 768px) {
+    padding: 80px 24px;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Inner container
+// ─────────────────────────────────────────────────────────────────────────────
+
+.section-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Section header
+// ─────────────────────────────────────────────────────────────────────────────
+
+.section-header {
+  text-align: center;
+
+  @media (max-width: 768px) {
+    margin-bottom: 0;
+  }
+}
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: $color-success;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.tag-dot {
+  font-size: 0.6rem;
+  line-height: 1;
+}
+
+.section-headline {
+  font-size: clamp(2rem, 4.5vw, 3.25rem);
+  font-weight: 900;
+  color: $color-text-light;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0 0 20px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+
+  .highlight {
+    color: $color-success;
+  }
+}
+
+.section-subtitle {
+  font-size: 1.0625rem;
+  color: $text-muted;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+
+  @media (max-width: 768px) {
+    font-size: 0.875rem;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Timeline — horizontal on desktop, vertical on mobile
+// ─────────────────────────────────────────────────────────────────────────────
+
+.timeline-container {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 1200px;
+  margin: 100px auto 0;
+  padding: 0 40px;
+  list-style: none;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 48px;
+    padding: 0;
+    margin-top: 60px;
+  }
+}
+
+// ── Connector line ────────────────────────────────────────────────────────────
+
+.timeline-connector {
+  position: absolute;
+  // Desktop: horizontal at badge centre (60px badge → top 30px)
+  top: 30px;
+  left: 12.5%;
+  right: 12.5%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(16, 185, 129, 0.1) 0%,
+    rgba(16, 185, 129, 0.3) 20%,
+    rgba(16, 185, 129, 0.3) 80%,
+    rgba(16, 185, 129, 0.1) 100%
+  );
+  z-index: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+
+  @media (max-width: 768px) {
+    // Vertical: left-aligned at badge centre (48px badge → left 24px)
+    top: 24px;
+    left: 24px;
+    right: auto;
+    bottom: 24px;
+    width: 1px;
+    height: auto;
+    background: linear-gradient(
+      180deg,
+      rgba(16, 185, 129, 0.1) 0%,
+      rgba(16, 185, 129, 0.3) 20%,
+      rgba(16, 185, 129, 0.3) 80%,
+      rgba(16, 185, 129, 0.1) 100%
+    );
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+// ── Each step ─────────────────────────────────────────────────────────────────
+
+.timeline-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex: 1;
+  position: relative;
+  z-index: 2;
+  padding: 0 20px;
+  max-width: 260px;
+
+  // Initial state for animation
+  opacity: 0;
+  transform: translateY(20px);
+
+  @media (max-width: 768px) {
+    flex-direction: row;
+    align-items: flex-start;
+    text-align: left;
+    gap: 20px;
+    padding: 0;
+    max-width: 100%;
+  }
+}
+
+// ── Badge ─────────────────────────────────────────────────────────────────────
+
+.step-badge {
+  width: 60px;
+  height: 60px;
+  flex-shrink: 0;
+  background: #1a1a1a;
+  border: 1px solid rgba(16, 185, 129, 0.5);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow:
+    0 0 0 4px rgba(16, 185, 129, 0.05),
+    0 4px 12px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 1;
+
+  @media (max-width: 768px) {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+.step-number {
+  color: $color-success;
+  font-weight: 700;
+  font-size: 1.375rem;
+  font-family: 'Inter', sans-serif;
+
+  @media (max-width: 768px) {
+    font-size: 1.125rem;
+  }
+}
+
+// ── Step content ──────────────────────────────────────────────────────────────
+
+.step-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 32px;
+
+  @media (max-width: 768px) {
+    align-items: flex-start;
+    margin-top: 0;
+    flex: 1;
+  }
+}
+
+.step-icon {
+  width: 32px;
+  height: 32px;
+  opacity: 0.9;
+  margin-bottom: 24px;
+
+  svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  @media (max-width: 768px) {
+    width: 24px;
+    height: 24px;
+    margin-bottom: 12px;
+  }
+}
+
+.step-title {
+  color: $color-text-light;
+  font-size: 1.125rem;
+  font-weight: 700;
+  margin: 0 0 8px;
+  letter-spacing: -0.02em;
+}
+
+.step-tagline {
+  color: $color-success;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  margin: 0 0 12px;
+}
+
+.step-description {
+  color: $text-muted;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  margin: 0;
+  max-width: 220px;
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// CTA
+// ─────────────────────────────────────────────────────────────────────────────
+
+.cta-card {
+  margin-top: 100px;
+  text-align: center;
+
+  @media (max-width: 768px) {
+    margin-top: 64px;
+  }
+}
+
+.cta-text {
+  color: $color-text-light;
+  font-size: 1.375rem;
+  font-weight: 600;
+  margin: 0 0 24px;
+
+  @media (max-width: 768px) {
+    font-size: 1.125rem;
+  }
+}
+
+.cta-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 32px;
+  background: $color-success;
+  color: $color-text-light;
+  border-radius: $radius-pill;
+  font-weight: 700;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  transition:
+    background $transition-fast,
+    transform $transition-fast;
+
+  &:hover {
+    background: $color-success-dark;
+    transform: translateY(-2px);
+  }
+}
+
+.cta-icon {
+  flex-shrink: 0;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Scroll-reveal animation — triggered when .visible is added
+// ─────────────────────────────────────────────────────────────────────────────
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.how-it-works-section.visible {
+  .timeline-connector {
+    transform: scaleX(1);
+
+    @media (max-width: 768px) {
+      transform: scaleY(1);
+    }
+  }
+
+  .timeline-step {
+    animation: fadeSlideUp 600ms var(--step-delay, 200ms) cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+    @media (max-width: 768px) {
+      animation-duration: 400ms;
+    }
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Reduced motion — skip all animations
+// ─────────────────────────────────────────────────────────────────────────────
+
+@media (prefers-reduced-motion: reduce) {
+  .timeline-connector {
+    transition: none;
+  }
+
+  .timeline-step {
+    opacity: 1;
+    transform: none;
+    animation: none !important;
+  }
+
+  .how-it-works-section.visible .timeline-connector {
+    transform: scaleX(1);
+
+    @media (max-width: 768px) {
+      transform: scaleY(1);
+    }
+  }
+}
