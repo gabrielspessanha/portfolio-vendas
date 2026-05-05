@@ -29,7 +29,6 @@ interface Category {
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.scss',
   animations: [
-    // Stagger animation triggered on each filter change
     trigger('listAnimation', [
       transition('* => *', [
         query('article:leave', [
@@ -72,7 +71,14 @@ export class ProjectsComponent implements AfterViewInit, OnDestroy {
       name: 'Amigo Fiel',
       category: 'sites',
       categoryLabel: 'SITE INSTITUCIONAL',
-      image: 'assets/images/projects/petshop1.jpeg',
+      thumbnail: 'assets/images/projects/petshop1.jpeg',
+      images: [
+        {
+          url: 'assets/images/projects/petshop1.jpeg',
+          caption: 'Hero — Apresentação principal',
+          type: 'desktop',
+        },
+      ],
       description: 'Site completo para pet shop com agendamento online, e-commerce de produtos pet e blog informativo.',
       technologies: ['Angular', 'TypeScript', 'SCSS', 'API REST'],
       features: [
@@ -85,13 +91,30 @@ export class ProjectsComponent implements AfterViewInit, OnDestroy {
       result: 'Aumento de 40% nos agendamentos e novo canal de vendas online.',
       color: '#3B82F6',
     },
-    
     {
       id: 'voltagem',
       name: 'Voltagem',
       category: 'sites',
       categoryLabel: 'SITE',
-      image: 'assets/images/projects/academia_hero.jpeg',
+      thumbnail: 'assets/images/projects/academia_hero.jpeg',
+      images: [
+        {
+          url: 'assets/images/projects/academia_hero.jpeg',
+          caption: 'Hero — Apresentação principal',
+          type: 'desktop',
+        },
+        {
+          url: 'assets/images/projects/academia_precos.jpeg',
+          caption: 'Hero — Apresentação principal',
+          type: 'desktop',
+        },
+        {
+          url: 'assets/images/projects/academia_mobile.jpeg',
+          caption: 'Hero — Apresentação principal',
+          type: 'mobile',
+        },
+        
+      ],
       description: 'Plataforma completa para academia com site institucional e app mobile para alunos.',
       technologies: ['Angular', 'Capacitor', 'Firebase'],
       features: [
@@ -109,7 +132,34 @@ export class ProjectsComponent implements AfterViewInit, OnDestroy {
       name: 'Brasa & Bacon',
       category: 'sites',
       categoryLabel: 'SITE + DELIVERY',
-      image: 'assets/images/projects/hamburgueria5.jpeg',
+      thumbnail: 'assets/images/projects/hamburgueria5.jpeg',
+      images: [
+        {
+          url: 'assets/images/projects/hamburgueria5.jpeg',
+          caption: 'Hero — Apresentação principal',
+          type: 'desktop',
+        },
+        {
+          url: 'assets/images/projects/hamburgueria1.jpeg',
+          caption: 'Hero — Apresentação principal',
+          type: 'desktop',
+        },
+        {
+          url: 'assets/images/projects/hamburgueria2.jpeg',
+          caption: 'Hero — Apresentação principal',
+          type: 'desktop',
+        },
+        {
+          url: 'assets/images/projects/hamburgueria3.jpeg',
+          caption: 'Hero — Apresentação principal',
+          type: 'desktop',
+        },
+        {
+          url: 'assets/images/projects/mobile_hamburgueria.jpeg',
+          caption: 'Hero — Apresentação principal',
+          type: 'mobile',
+        },
+      ],
       description: 'Site de restaurante gourmet com cardápio digital e sistema de pedidos.',
       technologies: ['Angular', 'Stripe', 'WhatsApp API'],
       features: [
@@ -127,7 +177,29 @@ export class ProjectsComponent implements AfterViewInit, OnDestroy {
       name: 'Pizzaria do Bairro',
       category: 'sites',
       categoryLabel: 'SITE + DELIVERY',
-      image: 'assets/images/projects/pizzaria1.jpeg',
+      thumbnail: 'assets/images/projects/pizzaria1.jpeg',
+      images: [
+        {
+          url: 'assets/images/projects/pizzaria1.jpeg',
+          caption: 'Hero — Apresentação principal',
+          type: 'desktop',
+        },
+        {
+          url: 'assets/images/projects/pizzaria2.jpeg',
+          caption: 'Hero — Apresentação principal',
+          type: 'desktop',
+        },
+        {
+          url: 'assets/images/projects/pizzaria3.jpeg',
+          caption: 'Hero — Apresentação principal',
+          type: 'desktop',
+        },
+        {
+          url: 'assets/images/projects/mobile_pizzaria.jpeg',
+          caption: 'Hero — Apresentação principal',
+          type: 'mobile',
+        },
+      ],
       description: 'Site completo para pizzaria com cardápio digital, sistema de pedidos online e área de promoções.',
       technologies: ['Angular', 'WhatsApp API', 'SCSS'],
       features: [
@@ -145,7 +217,29 @@ export class ProjectsComponent implements AfterViewInit, OnDestroy {
       name: 'Sabor da Terra',
       category: 'sites',
       categoryLabel: 'SITE INSTITUCIONAL',
-      image: 'assets/images/projects/restaurante1.jpeg',
+      thumbnail: 'assets/images/projects/restaurante1.jpeg',
+      images: [
+        {
+          url: 'assets/images/projects/restaurante1.jpeg',
+          caption: 'Hero — Apresentação principal',
+          type: 'desktop',
+        },
+        {
+          url: 'assets/images/projects/restaurante2.jpeg',
+          caption: 'Hero — Apresentação principal',
+          type: 'desktop',
+        },
+        {
+          url: 'assets/images/projects/restaurante3.jpeg',
+          caption: 'Hero — Apresentação principal',
+          type: 'desktop',
+        },
+        {
+          url: 'assets/images/projects/mobile_restaurante.jpeg',
+          caption: 'Hero — Apresentação principal',
+          type: 'mobile',
+        },
+      ],
       description: 'Site institucional para restaurante de comida típica com menu digital e sistema de reservas online.',
       technologies: ['Angular', 'SCSS', 'WhatsApp API'],
       features: [
@@ -163,7 +257,29 @@ export class ProjectsComponent implements AfterViewInit, OnDestroy {
       name: 'Barbearia Sete',
       category: 'sites',
       categoryLabel: 'LANDING PAGE',
-      image: 'assets/images/projects/barbearia1.jpeg',
+      thumbnail: 'assets/images/projects/barbearia1.jpeg',
+      images: [
+        {
+          url: 'assets/images/projects/barbearia1.jpeg',
+          caption: 'Hero — Apresentação principal',
+          type: 'desktop',
+        },
+        {
+          url: 'assets/images/projects/barbearia2.jpeg',
+          caption: 'Hero — Apresentação principal',
+          type: 'desktop',
+        },
+        {
+          url: 'assets/images/projects/barbearia3.jpeg',
+          caption: 'Hero — Apresentação principal',
+          type: 'desktop',
+        },
+        {
+          url: 'assets/images/projects/mobile_barbearia.jpeg',
+          caption: 'Hero — Apresentação principal',
+          type: 'desktop',
+        },
+      ],
       description: 'Landing page moderna para barbearia com sistema de agendamento e galeria de cortes.',
       technologies: ['Angular', 'SCSS', 'Animations'],
       features: [

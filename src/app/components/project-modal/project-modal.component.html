@@ -26,15 +26,127 @@
       </button>
 
       <div class="modal-content">
-        <!-- Left: project image -->
-        <div class="modal-image">
-          <img
-            [src]="project.image"
-            [alt]="'Screenshot do projeto ' + project.name"
-          />
+
+        <!-- ── Left: Carousel ──────────────────────────────────────────────── -->
+        <div
+          class="carousel-container"
+          (touchstart)="onTouchStart($event)"
+          (touchend)="onTouchEnd($event)"
+        >
+          <div class="carousel-image-wrapper">
+
+            <!-- Type badge -->
+            @if (currentImage) {
+              <span class="image-type-badge">
+                @if (currentImage.type === 'desktop') {
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                    <line x1="8" y1="21" x2="16" y2="21"/>
+                    <line x1="12" y1="17" x2="12" y2="21"/>
+                  </svg>
+                  Desktop
+                } @else {
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+                    <line x1="12" y1="18" x2="12.01" y2="18"/>
+                  </svg>
+                  Mobile
+                }
+              </span>
+            }
+
+            <!-- Counter -->
+            @if (hasMultipleImages) {
+              <span class="image-counter" aria-live="polite" aria-atomic="true">
+                {{ currentIndex + 1 }} / {{ project.images.length }}
+              </span>
+            }
+
+            <!-- Previous arrow -->
+            @if (hasMultipleImages) {
+              <button
+                class="carousel-arrow carousel-arrow-prev"
+                (click)="prevImage()"
+                aria-label="Imagem anterior"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="15 18 9 12 15 6"/>
+                </svg>
+              </button>
+            }
+
+            <!-- Main image -->
+            @if (currentImage) {
+              <img
+                [@imageTransition]="animTrigger"
+                [src]="currentImage.url"
+                [alt]="currentImage.caption || ('Screenshot do projeto ' + project.name)"
+                [class.image-mobile]="currentImage.type === 'mobile'"
+                (load)="onImageLoad()"
+                loading="lazy"
+                decoding="async"
+              />
+            }
+
+            <!-- Loading spinner -->
+            @if (!imageLoaded) {
+              <div class="image-loader" aria-hidden="true">
+                <div class="spinner"></div>
+              </div>
+            }
+
+            <!-- Next arrow -->
+            @if (hasMultipleImages) {
+              <button
+                class="carousel-arrow carousel-arrow-next"
+                (click)="nextImage()"
+                aria-label="Próxima imagem"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <polyline points="9 18 15 12 9 6"/>
+                </svg>
+              </button>
+            }
+          </div>
+
+          <!-- Caption -->
+          @if (currentImage?.caption) {
+            <p class="image-caption">{{ currentImage!.caption }}</p>
+          }
+
+          <!-- Dot indicators -->
+          @if (hasMultipleImages) {
+            <div class="carousel-dots" role="tablist" aria-label="Navegação de imagens">
+              @for (img of project.images; track img.url; let i = $index) {
+                <button
+                  role="tab"
+                  [class.active]="i === currentIndex"
+                  [attr.aria-selected]="i === currentIndex"
+                  [attr.aria-label]="'Ir para imagem ' + (i + 1)"
+                  (click)="goToImage(i)"
+                ></button>
+              }
+            </div>
+          }
+
+          <!-- Thumbnails (desktop only, hidden via CSS on mobile) -->
+          @if (hasMultipleImages) {
+            <div class="carousel-thumbnails" aria-hidden="true">
+              @for (img of project.images; track img.url; let i = $index) {
+                <button
+                  class="thumbnail"
+                  [class.active]="i === currentIndex"
+                  (click)="goToImage(i)"
+                  tabindex="-1"
+                >
+                  <img [src]="img.url" [alt]="'Thumbnail ' + (i + 1)" loading="lazy" decoding="async" />
+                </button>
+              }
+            </div>
+          }
         </div>
 
-        <!-- Right: details -->
+        <!-- ── Right: Project details ──────────────────────────────────────── -->
         <div class="modal-details">
           <span class="modal-category">{{ project.categoryLabel }}</span>
 
@@ -97,6 +209,7 @@
             </a>
           </div>
         </div>
+
       </div>
     </div>
   </div>

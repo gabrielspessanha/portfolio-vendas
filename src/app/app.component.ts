@@ -5,13 +5,14 @@ import { ServicesComponent } from './components/services/services.component';
 import { AboutComponent } from './components/about/about.component';
 import { HowItWorksComponent } from './components/how-it-works/how-it-works.component';
 import { ProjectsComponent } from './components/projects/projects.component';
+import { PricingComponent } from './components/pricing/pricing.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { FooterComponent } from './components/footer/footer.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [HeaderComponent, HeroComponent, ServicesComponent, AboutComponent, HowItWorksComponent, ProjectsComponent, ContactComponent, FooterComponent],
+  imports: [HeaderComponent, HeroComponent, ServicesComponent, AboutComponent, HowItWorksComponent, ProjectsComponent, PricingComponent, ContactComponent, FooterComponent],
   template: `
     <app-header />
     <app-hero />
@@ -19,6 +20,7 @@ import { FooterComponent } from './components/footer/footer.component';
     <app-about />
     <app-how-it-works />
     <app-projects />
+    <app-pricing />
     <app-contact />
     <app-footer />
   `,

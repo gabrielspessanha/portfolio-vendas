@@ -30,10 +30,12 @@
   background: $bg-card;
   border: 1px solid rgba($color-success, 0.3);
   border-radius: 24px;
-  max-width: 1100px;
+  max-width: 1200px;
   width: 100%;
   max-height: 90vh;
-  overflow-y: auto;
+  overflow: hidden;       // desktop: clips both columns
+  display: flex;
+  flex-direction: column;
   box-shadow:
     0 0 0 1px rgba($color-success, 0.2),
     0 30px 80px rgba(0, 0, 0, 0.6),
@@ -42,15 +44,12 @@
   @media (max-width: 768px) {
     border-radius: 24px 24px 0 0;
     max-height: 92vh;
+    overflow-y: auto;     // mobile: whole modal scrolls
   }
 
-  // Custom scrollbar
-  &::-webkit-scrollbar {
-    width: 4px;
-  }
-  &::-webkit-scrollbar-track {
-    background: transparent;
-  }
+  // Scrollbar visible on mobile only (details scroll on desktop)
+  &::-webkit-scrollbar      { width: 4px; }
+  &::-webkit-scrollbar-track { background: transparent; }
   &::-webkit-scrollbar-thumb {
     background: rgba($color-success, 0.3);
     border-radius: 4px;
@@ -90,46 +89,300 @@
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Two-column layout
+// Two-column layout — 60 / 40 split
 // ─────────────────────────────────────────────────────────────────────────────
 
 .modal-content {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 3fr 2fr;
+  flex: 1;
+  min-height: 0;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
-  }
-}
-
-.modal-image {
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 24px 0 0 24px;
-    display: block;
-    min-height: 300px;
-
-    @media (max-width: 768px) {
-      border-radius: 24px 24px 0 0;
-      max-height: 260px;
-      min-height: auto;
-    }
+    flex: none;
   }
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Details panel
+// Carousel — left column
+// ─────────────────────────────────────────────────────────────────────────────
+
+.carousel-container {
+  background: #0F0F0F;
+  border-radius: 24px 0 0 24px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    border-radius: 24px 24px 0 0;
+    overflow: visible;
+  }
+}
+
+.carousel-image-wrapper {
+  position: relative;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px;
+  min-height: 300px;
+  overflow: hidden;
+
+  img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+    display: block;
+
+    &.image-mobile {
+      max-width: 240px;
+      max-height: 520px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    min-height: 240px;
+    padding: 16px;
+
+    img.image-mobile {
+      max-width: 180px;
+      max-height: 380px;
+    }
+  }
+}
+
+// ── Type badge ────────────────────────────────────────────────────────────────
+
+.image-type-badge {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: rgba($color-success, 0.15);
+  border: 1px solid rgba($color-success, 0.3);
+  border-radius: $radius-pill;
+  color: $color-success;
+  font-size: 0.75rem;
+  font-weight: 600;
+  backdrop-filter: blur(8px);
+  z-index: 2;
+  pointer-events: none;
+}
+
+// ── Counter ───────────────────────────────────────────────────────────────────
+
+.image-counter {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  padding: 6px 14px;
+  background: rgba(0, 0, 0, 0.75);
+  color: #fff;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  border-radius: $radius-pill;
+  backdrop-filter: blur(8px);
+  z-index: 2;
+  pointer-events: none;
+}
+
+// ── Navigation arrows ─────────────────────────────────────────────────────────
+
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 48px;
+  height: 48px;
+  background: rgba(0, 0, 0, 0.65);
+  border: 1px solid rgba($color-success, 0.3);
+  border-radius: 50%;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+  transition: background $transition-smooth, border-color $transition-smooth, box-shadow $transition-smooth;
+  z-index: 3;
+
+  &:hover {
+    background: rgba($color-success, 0.2);
+    border-color: $color-success;
+    box-shadow: 0 0 20px rgba($color-success, 0.4);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-accent;
+    outline-offset: 2px;
+  }
+
+  &-prev { left: 20px; }
+  &-next { right: 20px; }
+
+  @media (max-width: 768px) {
+    width: 40px;
+    height: 40px;
+    &-prev { left: 12px; }
+    &-next { right: 12px; }
+  }
+}
+
+// ── Loading spinner ───────────────────────────────────────────────────────────
+
+.image-loader {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 15, 15, 0.6);
+  z-index: 4;
+  border-radius: 12px;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba($color-success, 0.2);
+  border-top-color: $color-success;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+// ── Caption ───────────────────────────────────────────────────────────────────
+
+.image-caption {
+  text-align: center;
+  color: #888;
+  font-size: 0.8125rem;
+  padding: 0 24px 12px;
+  margin: 0;
+}
+
+// ── Dot indicators ────────────────────────────────────────────────────────────
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+
+  button {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    cursor: pointer;
+    transition: all $transition-smooth;
+    padding: 0;
+    flex-shrink: 0;
+
+    &.active {
+      background: $color-success;
+      width: 24px;
+      border-radius: 4px;
+      box-shadow: 0 0 10px rgba($color-success, 0.6);
+    }
+
+    &:hover:not(.active) {
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-accent;
+      outline-offset: 2px;
+    }
+  }
+}
+
+// ── Thumbnails (desktop only) ─────────────────────────────────────────────────
+
+.carousel-thumbnails {
+  display: flex;
+  gap: 8px;
+  padding: 0 24px 20px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba($color-success, 0.3) transparent;
+
+  &::-webkit-scrollbar      { height: 3px; }
+  &::-webkit-scrollbar-track { background: transparent; }
+  &::-webkit-scrollbar-thumb {
+    background: rgba($color-success, 0.3);
+    border-radius: 3px;
+  }
+
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.thumbnail {
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 2px solid transparent;
+  cursor: pointer;
+  background: #1A1A1A;
+  padding: 0;
+  transition: border-color $transition-fast, box-shadow $transition-fast;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  &.active {
+    border-color: $color-success;
+    box-shadow: 0 0 12px rgba($color-success, 0.4);
+  }
+
+  &:hover:not(.active) {
+    border-color: rgba($color-success, 0.5);
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Details panel — right column
 // ─────────────────────────────────────────────────────────────────────────────
 
 .modal-details {
   padding: 48px;
   display: flex;
   flex-direction: column;
+  overflow-y: auto;
+
+  // Custom scrollbar on desktop
+  scrollbar-width: thin;
+  scrollbar-color: rgba($color-success, 0.3) transparent;
+  &::-webkit-scrollbar      { width: 4px; }
+  &::-webkit-scrollbar-track { background: transparent; }
+  &::-webkit-scrollbar-thumb {
+    background: rgba($color-success, 0.3);
+    border-radius: 4px;
+  }
 
   @media (max-width: 768px) {
-    padding: 28px 24px 32px;
+    padding: 28px 24px 40px;
+    overflow-y: visible;
   }
 }
 
@@ -149,12 +402,12 @@
 
 .modal-title {
   color: $color-text-light;
-  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-size: clamp(1.5rem, 2.5vw, 2.25rem);
   font-weight: 900;
   margin: 0 0 16px;
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   letter-spacing: -0.02em;
-  padding-right: 40px; // space for close button
+  padding-right: 40px;
 }
 
 .modal-description {
@@ -290,7 +543,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   .modal-overlay,
-  .modal-container {
+  .modal-container,
+  .spinner {
     animation: none !important;
     transition: none !important;
   }

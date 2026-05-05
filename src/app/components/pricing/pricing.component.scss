@@ -1,0 +1,625 @@
+@use 'variables' as *;
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Section base
+// ─────────────────────────────────────────────────────────────────────────────
+
+.pricing-section {
+  position: relative;
+  background: #0A0A0A;
+  padding: 140px 80px;
+  overflow: hidden;
+
+  // Dot pattern via pseudo-element
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+    background-size: 24px 24px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @media (max-width: 1024px) {
+    padding: 100px 48px;
+  }
+
+  @media (max-width: 768px) {
+    padding: 80px 24px;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Background glows
+// ─────────────────────────────────────────────────────────────────────────────
+
+.glow-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 900px;
+  height: 900px;
+  background: radial-gradient(
+    circle,
+    rgba(16, 185, 129, 0.12) 0%,
+    rgba(16, 185, 129, 0.04) 35%,
+    transparent 65%
+  );
+  pointer-events: none;
+  z-index: 0;
+
+  @media (max-width: 768px) {
+    width: 500px;
+    height: 500px;
+    opacity: 0.5;
+  }
+}
+
+.glow-top-left {
+  position: absolute;
+  top: -60px;
+  left: -60px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(0, 217, 255, 0.10) 0%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+
+  @media (max-width: 768px) {
+    width: 200px;
+    height: 200px;
+    opacity: 0.5;
+  }
+}
+
+.glow-bottom-right {
+  position: absolute;
+  bottom: -60px;
+  right: -60px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.12) 0%, transparent 70%);
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+
+  @media (max-width: 768px) {
+    width: 200px;
+    height: 200px;
+    opacity: 0.5;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Content layers above glows
+// ─────────────────────────────────────────────────────────────────────────────
+
+.section-header,
+.category-toggle,
+.packages-grid {
+  position: relative;
+  z-index: 1;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Scroll-reveal: header + toggle
+// ─────────────────────────────────────────────────────────────────────────────
+
+.reveal-header,
+.reveal-toggle {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-toggle {
+  transition-delay: 200ms;
+}
+
+.pricing-section.visible {
+  .reveal-header,
+  .reveal-toggle {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Section header
+// ─────────────────────────────────────────────────────────────────────────────
+
+.section-header {
+  text-align: center;
+  max-width: 860px;
+  margin: 0 auto 64px;
+}
+
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: rgba($color-success, 0.1);
+  border: 1px solid rgba($color-success, 0.3);
+  border-radius: 20px;
+  color: $color-success;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+
+  .tag-dot {
+    font-size: 0.625rem;
+  }
+}
+
+.section-headline {
+  color: #FFFFFF;
+  font-size: clamp(2.25rem, 5vw, 4rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  margin: 0 0 24px;
+}
+
+.highlight-word {
+  color: $color-success;
+  position: relative;
+  display: inline-block;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: $color-success;
+    border-radius: 2px;
+    box-shadow:
+      0 0 12px rgba($color-success, 0.8),
+      0 0 30px rgba($color-success, 0.5),
+      0 0 60px rgba($color-success, 0.2);
+  }
+}
+
+.section-subtitle {
+  color: #A0A0A0;
+  font-size: 1.125rem;
+  line-height: 1.65;
+  max-width: 700px;
+  margin: 0 auto;
+
+  @media (max-width: 768px) {
+    font-size: 0.875rem;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Category toggle
+// ─────────────────────────────────────────────────────────────────────────────
+
+.category-toggle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 64px;
+  flex-wrap: wrap;
+
+  button {
+    padding: 12px 24px;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: $radius-pill;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    cursor: pointer;
+    white-space: nowrap;
+    transition:
+      background $transition-smooth,
+      border-color $transition-smooth,
+      color $transition-smooth,
+      box-shadow $transition-smooth;
+
+    &:hover:not(.active) {
+      border-color: rgba($color-success, 0.4);
+      color: #fff;
+      background: rgba($color-success, 0.06);
+    }
+
+    &.active {
+      background: linear-gradient(135deg, $color-success, $color-success-dark);
+      border-color: transparent;
+      color: #fff;
+      font-weight: 600;
+      box-shadow:
+        0 0 0 1px rgba($color-success, 0.4),
+        0 4px 20px rgba($color-success, 0.35),
+        0 8px 40px rgba($color-success, 0.2);
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-accent;
+      outline-offset: 2px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding: 0 24px 12px;
+    margin: 0 -24px 48px;
+    gap: 10px;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    button {
+      flex-shrink: 0;
+      padding: 10px 18px;
+      font-size: 0.875rem;
+    }
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Packages grid
+// ─────────────────────────────────────────────────────────────────────────────
+
+.packages-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1280px;
+  margin: 0 auto;
+  align-items: start;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Pricing card
+// ─────────────────────────────────────────────────────────────────────────────
+
+.pricing-card {
+  position: relative;
+  background: #1A1A1A;
+  border: 1px solid rgba($color-success, 0.15);
+  border-radius: 20px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  transition:
+    transform $transition-smooth,
+    border-color $transition-smooth,
+    box-shadow $transition-smooth;
+  box-shadow:
+    0 0 0 1px rgba($color-success, 0.05),
+    0 8px 32px rgba(0, 0, 0, 0.3);
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: rgba($color-success, 0.5);
+    box-shadow:
+      0 0 0 1px rgba($color-success, 0.15),
+      0 0 40px rgba($color-success, 0.15),
+      0 16px 48px rgba(0, 0, 0, 0.5);
+  }
+
+  // Featured card default state
+  &.featured {
+    border-color: rgba($color-success, 0.45);
+    padding-top: 56px; // room for the badge
+    box-shadow:
+      0 0 0 1px rgba($color-success, 0.2),
+      0 0 40px rgba($color-success, 0.2),
+      0 20px 60px rgba(0, 0, 0, 0.5);
+
+    @media (min-width: 769px) {
+      animation: featuredPulse 3s ease-in-out infinite;
+    }
+
+    &:hover {
+      box-shadow:
+        0 0 0 1px rgba($color-success, 0.4),
+        0 0 60px rgba($color-success, 0.35),
+        0 24px 60px rgba(0, 0, 0, 0.5);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    padding: 32px 24px;
+
+    &.featured {
+      padding-top: 52px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 32px 24px;
+
+    &.featured {
+      padding-top: 52px;
+    }
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Featured badge
+// ─────────────────────────────────────────────────────────────────────────────
+
+.featured-badge {
+  position: absolute;
+  top: -1px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: $color-success;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 7px 18px;
+  border-radius: 0 0 16px 16px;
+  white-space: nowrap;
+  box-shadow: 0 4px 16px rgba($color-success, 0.4);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Card content
+// ─────────────────────────────────────────────────────────────────────────────
+
+.tier-label {
+  display: block;
+  color: #A0A0A0;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.package-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  flex-shrink: 0;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.package-tagline {
+  color: $color-success;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin: 0 0 8px;
+}
+
+.package-name {
+  color: #FFFFFF;
+  font-size: 1.75rem;
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin: 0 0 12px;
+
+  @media (max-width: 1024px) {
+    font-size: 1.5rem;
+  }
+}
+
+.package-description {
+  color: #A0A0A0;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  margin: 0 0 24px;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Price block
+// ─────────────────────────────────────────────────────────────────────────────
+
+.price-block {
+  background: rgba($color-success, 0.05);
+  border: 1px solid rgba($color-success, 0.2);
+  border-radius: 12px;
+  padding: 18px 20px;
+  margin-bottom: 24px;
+}
+
+.price-label {
+  display: block;
+  color: #A0A0A0;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.price-value {
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+.price-currency {
+  color: #FFFFFF;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.price-number {
+  color: #FFFFFF;
+  font-size: 2.75rem;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.02em;
+
+  @media (max-width: 1024px) {
+    font-size: 2.25rem;
+  }
+}
+
+.price-note {
+  color: #A0A0A0;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  align-self: flex-end;
+  padding-bottom: 4px;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Features list
+// ─────────────────────────────────────────────────────────────────────────────
+
+.features-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1; // pushes CTA to bottom
+
+  li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: #E0E0E0;
+    font-size: 0.9375rem;
+    line-height: 1.5;
+  }
+
+  .check-icon {
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// CTA button
+// ─────────────────────────────────────────────────────────────────────────────
+
+.cta-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 16px 32px;
+  border-radius: $radius-pill;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition:
+    transform $transition-fast,
+    box-shadow $transition-fast,
+    background $transition-fast,
+    border-color $transition-fast;
+
+  // Default: outlined white
+  background: transparent;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  color: #fff;
+
+  &:hover {
+    border-color: $color-success;
+    color: $color-success;
+    background: rgba($color-success, 0.06);
+    transform: translateY(-2px);
+  }
+
+  // Featured variant: filled gradient
+  &.cta-featured {
+    background: linear-gradient(135deg, $color-success, $color-success-dark);
+    border-color: transparent;
+    box-shadow:
+      0 4px 20px rgba($color-success, 0.4),
+      0 0 0 1px rgba($color-success, 0.3);
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 6px 30px rgba($color-success, 0.6),
+        0 0 0 1px rgba($color-success, 0.5);
+      color: #fff;
+      background: linear-gradient(135deg, $color-success, $color-success-dark);
+    }
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-accent;
+    outline-offset: 3px;
+  }
+}
+
+.cta-note {
+  text-align: center;
+  color: #666;
+  font-size: 0.75rem;
+  margin: 10px 0 0;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Featured card pulse animation (desktop only)
+// ─────────────────────────────────────────────────────────────────────────────
+
+@keyframes featuredPulse {
+  0%, 100% {
+    box-shadow:
+      0 0 0 1px rgba(16, 185, 129, 0.2),
+      0 0 40px rgba(16, 185, 129, 0.2),
+      0 20px 60px rgba(0, 0, 0, 0.5);
+  }
+  50% {
+    box-shadow:
+      0 0 0 1px rgba(16, 185, 129, 0.35),
+      0 0 60px rgba(16, 185, 129, 0.35),
+      0 20px 60px rgba(0, 0, 0, 0.5);
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Reduced motion
+// ─────────────────────────────────────────────────────────────────────────────
+
+@media (prefers-reduced-motion: reduce) {
+  .pricing-card.featured {
+    animation: none !important;
+  }
+
+  .reveal-header,
+  .reveal-toggle {
+    transition: none !important;
+  }
+}
