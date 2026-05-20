@@ -1,35 +1,35 @@
-// ── Brand colours ─────────────────────────────────────────────────────────────
-$color-light-bg:       #E8E8E8;
-$color-dark-bg:        #0A0A0A;
-$color-accent:         #00D9FF;
-$color-text-dark:      #0A0A0A;
+// ── Brand colours (warm variants — never pure #000/#fff) ──────────────────────
+$color-light-bg:       #FAFAF9;  // warm off-white
+$color-dark-bg:        #0B0B0F;  // warm near-black
+$color-accent:         #10B981;  // single accent (unificado com success)
+$color-text-dark:      #0B0B0F;
 $color-text-secondary: #2A2A2A;
 $color-text-medium:    #4A4A4A;
-$color-text-light:     #FFFFFF;
+$color-text-light:     #FAFAF9;
 $color-text-muted:     #6B6B6B;
-$color-card-bg:        #1A1A1A;
+$color-card-bg:        #15151A;
 $color-success:        #10B981;
 $color-success-dark:   #059669;
-$color-star:           #FBBF24;
+$color-star:           #FBBF24; // mantido por compat — não usar mais
 
-// ── Social icon gradients ──────────────────────────────────────────────────────
+// ── Social icon gradients (mantidos só pros canais de contato) ─────────────────
 $gradient-email:     linear-gradient(135deg, #EA4335 0%, #FBBC04 100%);
 $gradient-github:    linear-gradient(135deg, #6E5494 0%, #4A2C7A 100%);
 $gradient-linkedin:  linear-gradient(135deg, #0077B5 0%, #00A0DC 100%);
 $gradient-whatsapp:  linear-gradient(135deg, #25D366 0%, #128C7E 100%);
 $gradient-instagram: linear-gradient(135deg, #F58529 0%, #DD2A7B 50%, #8134AF 100%);
 
-// ── Service icon colours ──────────────────────────────────────────────────────
-$service-blue:   #3B82F6;
-$service-purple: #8B5CF6;
-$service-pink:   #EC4899;
-$service-orange: #F97316;
-$service-red:    #EF4444;
+// ── Service icon colours (UNIFICADO em verde — paleta mono-accent) ────────────
+$service-blue:   #10B981;
+$service-purple: #10B981;
+$service-pink:   #10B981;
+$service-orange: #10B981;
+$service-red:    #10B981;
 
 // ── Card surfaces ─────────────────────────────────────────────────────────────
-$bg-card:       #1A1A1A;
-$bg-card-hover: #252525;
-$border-card:   #2A2A2A;
+$bg-card:       #15151A;
+$bg-card-hover: #1F1F25;
+$border-card:   #2A2A30;
 $text-muted:    #A0A0A0; // lighter muted for dark-bg sections
 
 // ── Layout ────────────────────────────────────────────────────────────────────

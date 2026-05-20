@@ -1,0 +1,13 @@
+<section class="logos-section" aria-label="Clientes atendidos">
+  <div class="logos-inner">
+    <p class="logos-label">Negócios já no ar com a Lumon</p>
+    <ul class="logos-list" role="list">
+      @for (client of clients; track client.name) {
+        <li class="logo-item">
+          <span class="logo-name">{{ client.name }}</span>
+          <span class="logo-cat">{{ client.category }}</span>
+        </li>
+      }
+    </ul>
+  </div>
+</section>

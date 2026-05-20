@@ -15,23 +15,23 @@
         [@fadeSlideUp]="{ value: '', params: { duration: 500, delay: 100 } }"
       >
         <span class="badge__dot" aria-hidden="true"></span>
-        ● Lumon — Soluções Digitais para Comércio Local
+        Lumon — Soluções Digitais para Comércio Local
       </div>
 
       <!-- Headline — 3 separate lines for stagger -->
-      <h1 class="headline" aria-label="Sites que vendem por você">
+      <h1 class="headline" aria-label="Sem agência, sem template, sem enrolação">
         <span
           class="headline__line"
           [@fadeSlideUp]="{ value: '', params: { duration: 650, delay: 200 } }"
-        >SITES QUE</span>
-        <span
-          class="headline__line headline__line--highlight"
-          [@fadeSlideUp]="{ value: '', params: { duration: 650, delay: 320 } }"
-        >VENDEM</span>
+        >SEM AGÊNCIA.</span>
         <span
           class="headline__line"
+          [@fadeSlideUp]="{ value: '', params: { duration: 650, delay: 320 } }"
+        >SEM TEMPLATE.</span>
+        <span
+          class="headline__line headline__line--highlight"
           [@fadeSlideUp]="{ value: '', params: { duration: 650, delay: 440 } }"
-        >POR VOCÊ</span>
+        >SEM ENROLAÇÃO.</span>
       </h1>
 
       <!-- Subtitle -->
@@ -39,28 +39,46 @@
         class="subtitle"
         [@fadeSlideUp]="{ value: '', params: { duration: 600, delay: 520 } }"
       >
-        Transformamos negócios locais em máquinas de vendas digitais.<br>
-        Do design à entrega, sem complicação.
+        Código próprio, entrega em até 7 dias e suporte direto comigo.<br>
+        Sem intermediários, sem terceirização.
       </p>
+
+      <!-- Primary CTA -->
+      <div
+        class="cta-row"
+        [@fadeSlideUp]="{ value: '', params: { duration: 600, delay: 600 } }"
+      >
+        <a
+          [href]="whatsappCta"
+          class="btn-primary"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Quero meu site agora — fale no WhatsApp"
+        >
+          Quero meu site agora
+        </a>
+        <a href="#projetos" class="btn-secondary">
+          Ver projetos <span aria-hidden="true">→</span>
+        </a>
+      </div>
 
       <!-- Trust indicators -->
       <div
         class="trust-row"
-        [@fadeSlideUp]="{ value: '', params: { duration: 600, delay: 600 } }"
-        aria-label="Avaliações e disponibilidade"
+        [@fadeSlideUp]="{ value: '', params: { duration: 600, delay: 700 } }"
+        aria-label="Compromissos e disponibilidade"
       >
-        <div class="stars" aria-label="5 estrelas">
-          @for (i of [1,2,3,4,5]; track i) {
-            <svg class="star" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-            </svg>
-          }
-          <span class="trust-text">+50 clientes satisfeitos</span>
+        <div class="trust-item" aria-label="Entrega no prazo">
+          <svg class="trust-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+            <polyline points="22 4 12 14.01 9 11.01"/>
+          </svg>
+          <span class="trust-text">Entrega em até 7 dias</span>
         </div>
         <span class="trust-divider" aria-hidden="true">·</span>
         <div class="availability" aria-label="Disponível agora">
           <span class="pulse-dot" aria-hidden="true"></span>
-          <span class="trust-text">Disponível agora</span>
+          <span class="trust-text">Aceitando novos projetos</span>
         </div>
       </div>
 
@@ -78,7 +96,7 @@
             [attr.target]="link.external ? '_blank' : null"
             [attr.rel]="link.external ? 'noopener noreferrer' : null"
             role="listitem"
-            [@fadeSlideUp]="{ value: '', params: { duration: 500, delay: link.delay } }"
+            [@fadeSlideUp]="{ value: '', params: { duration: 500, delay: link.delay + 200 } }"
           >
             <!-- WhatsApp icon -->
             @if (link.key === 'whatsapp') {

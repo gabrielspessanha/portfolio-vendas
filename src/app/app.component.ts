@@ -12,15 +12,25 @@ import { FooterComponent } from './components/footer/footer.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [HeaderComponent, HeroComponent, ServicesComponent, AboutComponent, HowItWorksComponent, ProjectsComponent, PricingComponent, ContactComponent, FooterComponent],
+  imports: [
+    HeaderComponent,
+    HeroComponent,
+    ProjectsComponent,
+    ServicesComponent,
+    HowItWorksComponent,
+    PricingComponent,
+    AboutComponent,
+    ContactComponent,
+    FooterComponent,
+  ],
   template: `
     <app-header />
     <app-hero />
-    <app-services />
-    <app-about />
-    <app-how-it-works />
     <app-projects />
+    <app-services />
+    <app-how-it-works />
     <app-pricing />
+    <app-about />
     <app-contact />
     <app-footer />
   `,

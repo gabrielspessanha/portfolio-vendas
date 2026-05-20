@@ -30,6 +30,7 @@ export interface Project {
   features: string[];
   challenge: string;
   result: string;
+  resultMetric?: string;
   color: string;
 }
 

@@ -8,6 +8,7 @@
   background: $color-dark-bg;
   padding: 160px 80px;
   position: relative;
+  overflow: hidden;
 
   @media (max-width: 768px) {
     padding: 100px 24px;
@@ -15,10 +16,75 @@
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// Ambient orbs — atmosfera (consistente com hero/services)
+// ─────────────────────────────────────────────────────────────────────────────
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(120px);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1500ms ease;
+  z-index: 0;
+}
+
+.orb-green {
+  width: 560px;
+  height: 560px;
+  top: -140px;
+  right: -120px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.18), transparent 70%);
+
+  @media (max-width: 768px) {
+    width: 360px;
+    height: 360px;
+    top: -100px;
+    right: -100px;
+  }
+}
+
+.orb-cyan {
+  width: 420px;
+  height: 420px;
+  bottom: -120px;
+  left: -100px;
+  background: radial-gradient(circle, rgba(0, 217, 255, 0.10), transparent 70%);
+
+  @media (max-width: 768px) {
+    width: 280px;
+    height: 280px;
+  }
+}
+
+.about-section.visible {
+  .orb-green {
+    opacity: 1;
+    animation: aboutOrbFloat1 14s ease-in-out infinite;
+  }
+  .orb-cyan {
+    opacity: 1;
+    animation: aboutOrbFloat2 18s ease-in-out infinite;
+  }
+}
+
+@keyframes aboutOrbFloat1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(-6%, 8%) scale(1.12); }
+}
+
+@keyframes aboutOrbFloat2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50%      { transform: translate(8%, -6%) scale(1.18); }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // Container — left-aligned editorial layout
 // ─────────────────────────────────────────────────────────────────────────────
 
 .about-container {
+  position: relative;
+  z-index: 1;
   max-width: 900px;
   margin-left: 120px;
 
@@ -78,10 +144,12 @@
     display: block;
   }
 
-  // Único acento verde na section: o ponto final
+  // Único acento verde na section: o ponto final, com glow
   .green-period {
     display: inline;
     color: $color-success;
+    text-shadow: 0 0 24px rgba(16, 185, 129, 0.55);
+    position: relative;
   }
 
   @media (max-width: 1024px) {
@@ -91,6 +159,10 @@
   @media (max-width: 768px) {
     font-size: 48px;
     margin-bottom: 48px;
+
+    .green-period {
+      text-shadow: 0 0 16px rgba(16, 185, 129, 0.5);
+    }
   }
 
   @media (max-width: 480px) {
@@ -121,11 +193,11 @@
   font-size: 20px;
   font-weight: 500;
   line-height: 1.5;
-  margin: 0 0 100px;
+  margin: 0 0 80px;
 
   @media (max-width: 768px) {
     font-size: 17px;
-    margin-bottom: 64px;
+    margin-bottom: 56px;
   }
 }
 
@@ -135,7 +207,7 @@
 
 .about-divider {
   width: 100%;
-  max-width: 640px;
+  max-width: 720px;
   height: 1px;
   background: $divider-subtle;
   margin-bottom: 60px;
@@ -147,40 +219,142 @@
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Stats — apenas texto, sem cards
+// Pilares de valor
+// ─────────────────────────────────────────────────────────────────────────────
+
+.about-pillars {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 32px 40px;
+  max-width: 720px;
+  margin: 0 0 80px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-bottom: 56px;
+  }
+}
+
+.pillar {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.pillar-icon {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.18);
+  color: $color-success;
+  transition: background $transition-fast, border-color $transition-fast,
+    box-shadow $transition-fast, transform $transition-fast;
+
+  svg {
+    display: block;
+  }
+}
+
+.pillar:hover .pillar-icon {
+  background: rgba(16, 185, 129, 0.14);
+  border-color: rgba(16, 185, 129, 0.4);
+  box-shadow: 0 0 24px rgba(16, 185, 129, 0.25);
+  transform: translateY(-2px);
+}
+
+.pillar-title {
+  color: $color-text-light;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 0 0 6px;
+}
+
+.pillar-desc {
+  color: $text-muted;
+  font-size: 14px;
+  line-height: 1.55;
+  margin: 0;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Stats — agora como cards com glow
 // ─────────────────────────────────────────────────────────────────────────────
 
 .about-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 48px;
-  max-width: 640px;
+  gap: 20px;
+  max-width: 720px;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
-    gap: 40px;
+    gap: 16px;
   }
 }
 
-.stat-item {
+.stat-card {
+  position: relative;
+  padding: 28px 24px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid $divider-subtle;
+  border-radius: 14px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
+  transition: transform $transition-fast, border-color $transition-fast,
+    background $transition-fast;
+
+  &:hover {
+    transform: translateY(-4px);
+    border-color: rgba(16, 185, 129, 0.35);
+    background: rgba(16, 185, 129, 0.04);
+
+    .stat-glow {
+      opacity: 1;
+    }
+  }
+}
+
+.stat-glow {
+  position: absolute;
+  top: -80px;
+  right: -80px;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.25), transparent 70%);
+  opacity: 0;
+  transition: opacity 400ms ease;
+  pointer-events: none;
 }
 
 .stat-number {
+  position: relative;
   color: $color-text-light;
   font-size: 56px;
   font-weight: 300;
   letter-spacing: -0.02em;
   line-height: 1;
+  font-variant-numeric: tabular-nums;
 
   @media (max-width: 768px) {
     font-size: 48px;
   }
 }
 
+.stat-suffix {
+  color: $color-success;
+  margin-left: 2px;
+}
+
 .stat-label {
+  position: relative;
   color: $text-white-muted;
   font-size: 11px;
   font-weight: 500;
@@ -200,7 +374,8 @@ $_dur: 800ms;
 .about-headline > span,
 .about-description,
 .about-emphasis,
-.about-stats .stat-item {
+.about-pillars .pillar,
+.about-stats .stat-card {
   opacity: 0;
   transform: translateY(20px);
   transition: opacity $_dur $_ease, transform $_dur $_ease;
@@ -253,26 +428,25 @@ $_dur: 800ms;
   .about-divider {
     opacity: 1;
     transform: scaleX(1);
-    transition-delay: 1200ms;
+    transition-delay: 1100ms;
   }
 
-  .about-stats .stat-item:nth-child(1) {
+  .about-pillars .pillar {
     opacity: 1;
     transform: none;
-    transition-delay: 1400ms;
   }
+  .about-pillars .pillar:nth-child(1) { transition-delay: 1200ms; }
+  .about-pillars .pillar:nth-child(2) { transition-delay: 1300ms; }
+  .about-pillars .pillar:nth-child(3) { transition-delay: 1400ms; }
+  .about-pillars .pillar:nth-child(4) { transition-delay: 1500ms; }
 
-  .about-stats .stat-item:nth-child(2) {
+  .about-stats .stat-card {
     opacity: 1;
     transform: none;
-    transition-delay: 1500ms;
   }
-
-  .about-stats .stat-item:nth-child(3) {
-    opacity: 1;
-    transform: none;
-    transition-delay: 1600ms;
-  }
+  .about-stats .stat-card:nth-child(1) { transition-delay: 1700ms; }
+  .about-stats .stat-card:nth-child(2) { transition-delay: 1800ms; }
+  .about-stats .stat-card:nth-child(3) { transition-delay: 1900ms; }
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -285,9 +459,22 @@ $_dur: 800ms;
   .about-description,
   .about-emphasis,
   .about-divider,
-  .about-stats .stat-item {
+  .about-pillars .pillar,
+  .about-stats .stat-card {
     opacity: 1 !important;
     transform: none !important;
     transition: none !important;
+  }
+
+  .about-section.visible {
+    .orb-green,
+    .orb-cyan {
+      animation: none !important;
+    }
+  }
+
+  .pillar:hover .pillar-icon,
+  .stat-card:hover {
+    transform: none !important;
   }
 }

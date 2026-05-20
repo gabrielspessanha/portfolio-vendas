@@ -15,7 +15,9 @@ import {
 })
 export class ContactComponent implements AfterViewInit, OnDestroy {
   isVisible = false;
+  submitState: 'idle' | 'success' | 'error' = 'idle';
   private observer: IntersectionObserver | null = null;
+  private resetTimeoutId: number | null = null;
 
   constructor(private el: ElementRef, private cd: ChangeDetectorRef) {}
 
@@ -35,6 +37,9 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.observer?.disconnect();
+    if (this.resetTimeoutId !== null) {
+      clearTimeout(this.resetTimeoutId);
+    }
   }
 
   onSubmit(event: Event): void {
@@ -42,6 +47,8 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
     const form = event.target as HTMLFormElement;
     if (!form.checkValidity()) {
       form.reportValidity();
+      this.submitState = 'error';
+      this.scheduleReset();
       return;
     }
     const data     = new FormData(form);
@@ -52,11 +59,26 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
 
     const text = encodeURIComponent(
       `Olá! Sou ${name} e quero falar sobre um projeto.\n\n` +
-      `📱 WhatsApp: ${phone}\n` +
-      `🏢 Negócio: ${business}` +
+      `WhatsApp: ${phone}\n` +
+      `Negócio: ${business}` +
       `${message ? `\n\nDetalhes: ${message}` : ''}`,
     );
 
     window.open(`https://wa.me/SEUNUMERO?text=${text}`, '_blank', 'noopener,noreferrer');
+
+    this.submitState = 'success';
+    form.reset();
+    this.cd.detectChanges();
+    this.scheduleReset(6000);
+  }
+
+  private scheduleReset(delay = 4000): void {
+    if (this.resetTimeoutId !== null) {
+      clearTimeout(this.resetTimeoutId);
+    }
+    this.resetTimeoutId = window.setTimeout(() => {
+      this.submitState = 'idle';
+      this.cd.detectChanges();
+    }, delay);
   }
 }

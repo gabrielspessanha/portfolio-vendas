@@ -27,6 +27,8 @@ interface Service {
   iconGradient: string;
   icon: 'browser' | 'settings' | 'robot' | 'palette' | 'video';
   ctaText: string;
+  mockupImage: string;
+  mockupAlt: string;
 }
 
 @Component({
@@ -47,11 +49,11 @@ interface Service {
       ),
     ]),
 
-    // Tab content: fades + slides from the right when active tab changes
+    // Tab content: cross-fade + scale when active tab changes (premium feel)
     trigger('contentSwitch', [
       transition('* => *', [
-        style({ opacity: 0, transform: 'translateX(20px)' }),
-        animate('300ms ease-out', style({ opacity: 1, transform: 'translateX(0)' })),
+        style({ opacity: 0, transform: 'scale(0.96)' }),
+        animate('350ms cubic-bezier(0.16, 1, 0.3, 1)', style({ opacity: 1, transform: 'scale(1)' })),
       ]),
     ]),
 
@@ -95,10 +97,12 @@ export class ServicesComponent implements AfterViewInit, OnDestroy {
         'Carregamento rápido',
         'Entrega em até 7 dias',
       ],
-      iconColor: '#3B82F6',
-      iconGradient: 'linear-gradient(135deg, #3B82F6, #1D4ED8)',
+      iconColor: '#10B981',
+      iconGradient: 'linear-gradient(135deg, #10B981, #059669)',
       icon: 'browser',
       ctaText: 'QUERO MEU SITE',
+      mockupImage: 'images/web_modaBeleza.jpeg',
+      mockupAlt: 'Exemplo de site profissional entregue para cliente',
     },
     {
       id: 'sistemas',
@@ -113,10 +117,12 @@ export class ServicesComponent implements AfterViewInit, OnDestroy {
         'Controle de estoque',
         'Soluções 100% personalizadas',
       ],
-      iconColor: '#8B5CF6',
-      iconGradient: 'linear-gradient(135deg, #8B5CF6, #6D28D9)',
+      iconColor: '#10B981',
+      iconGradient: 'linear-gradient(135deg, #10B981, #059669)',
       icon: 'settings',
       ctaText: 'QUERO UM SISTEMA',
+      mockupImage: 'images/web_barbearia.jpeg',
+      mockupAlt: 'Sistema de agendamento sob medida para barbearia',
     },
     {
       id: 'ia',
@@ -131,10 +137,12 @@ export class ServicesComponent implements AfterViewInit, OnDestroy {
         'Qualifica seus leads',
         'Integração com WhatsApp',
       ],
-      iconColor: '#EC4899',
-      iconGradient: 'linear-gradient(135deg, #EC4899, #BE185D)',
+      iconColor: '#10B981',
+      iconGradient: 'linear-gradient(135deg, #10B981, #059669)',
       icon: 'robot',
       ctaText: 'QUERO UM ATENDENTE IA',
+      mockupImage: 'images/mobile_petshop.png',
+      mockupAlt: 'Atendente virtual com IA respondendo via WhatsApp',
     },
     {
       id: 'design',
@@ -149,10 +157,12 @@ export class ServicesComponent implements AfterViewInit, OnDestroy {
         'Identidade visual completa',
         'Material para campanhas',
       ],
-      iconColor: '#F97316',
-      iconGradient: 'linear-gradient(135deg, #F97316, #C2410C)',
+      iconColor: '#10B981',
+      iconGradient: 'linear-gradient(135deg, #10B981, #059669)',
       icon: 'palette',
       ctaText: 'QUERO MEUS CRIATIVOS',
+      mockupImage: 'images/mockups.png',
+      mockupAlt: 'Grid de criativos e posts entregues para clientes',
     },
     {
       id: 'videos',
@@ -167,10 +177,12 @@ export class ServicesComponent implements AfterViewInit, OnDestroy {
         'Anúncios em vídeo',
         'Edição profissional',
       ],
-      iconColor: '#EF4444',
-      iconGradient: 'linear-gradient(135deg, #EF4444, #B91C1C)',
+      iconColor: '#10B981',
+      iconGradient: 'linear-gradient(135deg, #10B981, #059669)',
       icon: 'video',
       ctaText: 'QUERO MEUS VÍDEOS',
+      mockupImage: 'images/web_fitness.png',
+      mockupAlt: 'Vídeos profissionais para showcase de produtos',
     },
   ];
 

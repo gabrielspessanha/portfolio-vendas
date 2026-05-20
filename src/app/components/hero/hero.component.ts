@@ -43,6 +43,8 @@ const fadeScaleIn = trigger('fadeScaleIn', [
   animations: [fadeSlideUp, fadeScaleIn],
 })
 export class HeroComponent {
+  readonly whatsappCta = 'https://wa.me/5521999999999?text=Ol%C3%A1%2C%20quero%20um%20site%21';
+
   readonly socialLinks = [
     {
       key: 'whatsapp',

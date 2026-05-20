@@ -89,6 +89,7 @@ export class ProjectsComponent implements AfterViewInit, OnDestroy {
       ],
       challenge: 'Modernizar o atendimento e expandir as vendas digitais.',
       result: 'Aumento de 40% nos agendamentos e novo canal de vendas online.',
+      resultMetric: '+40% agendamentos',
       color: '#3B82F6',
     },
     {
@@ -125,6 +126,7 @@ export class ProjectsComponent implements AfterViewInit, OnDestroy {
       ],
       challenge: 'Engajar alunos durante a pandemia.',
       result: 'Retenção de alunos aumentou 65%.',
+      resultMetric: '+65% retenção',
       color: '#10B981',
     },
     {
@@ -170,6 +172,7 @@ export class ProjectsComponent implements AfterViewInit, OnDestroy {
       ],
       challenge: 'Substituir cardápio físico e agilizar pedidos.',
       result: 'Pedidos aumentaram 50% após implementação.',
+      resultMetric: '+50% pedidos',
       color: '#F97316',
     },
     {
@@ -210,6 +213,7 @@ export class ProjectsComponent implements AfterViewInit, OnDestroy {
       ],
       challenge: 'Digitalizar os pedidos e reduzir erros no atendimento.',
       result: 'Volume de pedidos online cresceu 70% no primeiro mês.',
+      resultMetric: '+70% pedidos online',
       color: '#EF4444',
     },
     {
@@ -250,6 +254,7 @@ export class ProjectsComponent implements AfterViewInit, OnDestroy {
       ],
       challenge: 'Aumentar a visibilidade local e facilitar reservas.',
       result: 'Taxa de ocupação subiu 45% com o sistema de reservas online.',
+      resultMetric: '+45% ocupação',
       color: '#F59E0B',
     },
     {
@@ -290,6 +295,7 @@ export class ProjectsComponent implements AfterViewInit, OnDestroy {
       ],
       challenge: 'Criar presença digital forte e reduzir agendamentos perdidos.',
       result: 'Agenda 100% preenchida com 2 semanas de antecedência.',
+      resultMetric: 'Agenda 100% lotada',
       color: '#EF4444',
     },
   ];

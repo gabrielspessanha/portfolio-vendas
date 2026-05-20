@@ -1,4 +1,9 @@
 <section id="servicos" class="services-section" aria-label="Serviços">
+
+  <!-- Ambient orbs (background) -->
+  <span class="orb orb--cyan" aria-hidden="true"></span>
+  <span class="orb orb--green" aria-hidden="true"></span>
+
   <div class="section-inner">
 
     <!-- ── Section header ──────────────────────────────────────────────────── -->
@@ -38,18 +43,19 @@
             (keydown)="onTabKeydown($event, i)"
             [@revealOnScroll]="{ value: isVisible ? 'visible' : 'hidden', params: { delay: 200 + i * 100 } }"
           >
-            <!-- Coloured icon -->
+            <!-- Compact icon -->
             <div
               class="tab-icon"
               [style.background]="service.iconGradient"
-              [innerHTML]="getIconSvg(service.icon, 22)"
+              [innerHTML]="getIconSvg(service.icon, 18)"
               aria-hidden="true"
             ></div>
 
-            <div class="tab-info">
+            <span class="tab-label">
               <span class="tab-number">{{ service.number }}</span>
+              <span class="tab-sep">—</span>
               <span class="tab-title">{{ service.title }}</span>
-            </div>
+            </span>
 
             <!-- Arrow right -->
             <svg class="tab-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
@@ -71,13 +77,17 @@
           [attr.aria-labelledby]="'tab-' + activeServiceId"
           [@contentSwitch]="activeServiceId"
         >
-          <!-- Large icon -->
-          <div
-            class="panel-icon"
-            [style.background]="activeService.iconGradient"
-            [innerHTML]="getIconSvg(activeService.icon, 36)"
-            aria-hidden="true"
-          ></div>
+          <!-- Mockup with floating animation + glow halo -->
+          <div class="mockup-wrapper" aria-hidden="true">
+            <span class="mockup-glow"></span>
+            <img
+              class="mockup-image"
+              [src]="activeService.mockupImage"
+              [alt]="activeService.mockupAlt"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
 
           <span class="panel-tagline">{{ activeService.tagline }}</span>
           <h3 class="panel-title">{{ activeService.title }}</h3>
@@ -101,9 +111,25 @@
               [attr.aria-label]="activeService.ctaText + ' via WhatsApp'"
             >{{ activeService.ctaText }}</a>
 
-            <button class="btn-secondary" type="button">
+            <a class="link-secondary" href="#projetos">
               Ver projetos similares
-            </button>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </a>
+          </div>
+
+          <!-- Compromisso (honesto, sem números fabricados) -->
+          <div class="social-proof" aria-label="Nosso compromisso">
+            <svg class="proof-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 12l2 2 4-4"/>
+              <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/>
+            </svg>
+            <span class="social-text">
+              <strong>Suporte direto</strong>
+              <span class="social-sep">·</span>
+              <span>Sem terceirização</span>
+            </span>
           </div>
         </div>
       </div>

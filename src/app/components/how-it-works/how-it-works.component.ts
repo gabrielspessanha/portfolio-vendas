@@ -9,8 +9,8 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 interface Step {
   number: string;
+  duration: string;
   title: string;
-  tagline: string;
   description: string;
   icon: 'chat' | 'target' | 'gear' | 'rocket';
 }
@@ -26,39 +26,39 @@ export class HowItWorksComponent implements AfterViewInit, OnDestroy {
   isVisible = false;
   private observer: IntersectionObserver | null = null;
 
-  readonly whatsappNumber = 'SEUNUMERO'; // ← replace with your number
+  readonly whatsappNumber = 'SEUNUMERO';
 
   readonly steps: Step[] = [
     {
-      number: '1',
-      title: 'Conversa Inicial',
-      tagline: 'Entendemos seu desafio',
+      number: '01',
+      duration: '30 min',
+      title: 'Conversa inicial',
       description:
-        'Bate-papo de 30 minutos sem compromisso pra entender seu negócio, dores e objetivos.',
+        'Bate-papo sem compromisso pra entender seu negócio, suas dores e onde você quer chegar.',
       icon: 'chat',
     },
     {
-      number: '2',
-      title: 'Estratégia Personalizada',
-      tagline: 'Planejamos a solução ideal',
+      number: '02',
+      duration: '1–2 dias',
+      title: 'Estratégia personalizada',
       description:
-        'Definimos juntos o melhor caminho — seja site, sistema, IA, design ou vídeo — pra atingir seu objetivo.',
+        'Definimos juntos o melhor caminho — site, sistema, IA, design ou vídeo — pra atingir seu objetivo.',
       icon: 'target',
     },
     {
-      number: '3',
-      title: 'Execução com Você',
-      tagline: 'Mãos à obra, sem mistério',
+      number: '03',
+      duration: '7 dias',
+      title: 'Execução com você',
       description:
-        'Tiramos a ideia do papel com você acompanhando cada etapa. Transparência total.',
+        'Tiramos a ideia do papel com você acompanhando cada etapa. Transparência total, sem mistério.',
       icon: 'gear',
     },
     {
-      number: '4',
-      title: 'Entrega + Acompanhamento',
-      tagline: 'Seu negócio em outro nível',
+      number: '04',
+      duration: 'contínuo',
+      title: 'Entrega + acompanhamento',
       description:
-        'Entregamos no prazo e seguimos com você. Suporte pós-entrega garantido.',
+        'Entregamos no prazo e seguimos com você. Suporte pós-entrega garantido pra evoluir o projeto.',
       icon: 'rocket',
     },
   ];
@@ -92,9 +92,8 @@ export class HowItWorksComponent implements AfterViewInit, OnDestroy {
     return `https://wa.me/${this.whatsappNumber}?text=${encodeURIComponent(msg)}`;
   }
 
-  // Returns sanitized inline SVG for a given icon name and pixel size
   getIconSvg(icon: string, size: number): SafeHtml {
-    const stroke = `width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"`;
+    const stroke = `width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"`;
 
     const svgs: Record<string, string> = {
       chat: `<svg ${stroke}>

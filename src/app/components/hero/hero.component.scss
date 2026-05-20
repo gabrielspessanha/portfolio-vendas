@@ -29,9 +29,39 @@
   width: 52%;
   height: 100%;
   background: $color-dark-bg;
-  // Diagonal invertida: corte vai do topo-esquerda para baixo-direita
   clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 13% 100%);
   pointer-events: none;
+  overflow: hidden;
+
+  // Orb cyan — topo
+  &::before {
+    content: '';
+    position: absolute;
+    width: 70%;
+    aspect-ratio: 1;
+    background: radial-gradient(circle, rgba($color-accent, 0.11) 0%, transparent 70%);
+    top: -15%;
+    left: 10%;
+    border-radius: 50%;
+    filter: blur(32px);
+    animation: orbFloat1 16s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
+
+  // Orb verde — base
+  &::after {
+    content: '';
+    position: absolute;
+    width: 55%;
+    aspect-ratio: 1;
+    background: radial-gradient(circle, rgba($color-success, 0.1) 0%, transparent 70%);
+    bottom: -10%;
+    right: 5%;
+    border-radius: 50%;
+    filter: blur(38px);
+    animation: orbFloat2 20s ease-in-out infinite alternate;
+    pointer-events: none;
+  }
 
   @media (max-width: 1024px) {
     width: 53%;
@@ -45,7 +75,18 @@
     width: 100%;
     height: 55%;
     clip-path: none;
+    overflow: hidden;
   }
+}
+
+@keyframes orbFloat1 {
+  from { transform: translate(0, 0) scale(1);    opacity: 0.7; }
+  to   { transform: translate(14%, 20%) scale(1.3); opacity: 1; }
+}
+
+@keyframes orbFloat2 {
+  from { transform: translate(0, 0) scale(1);     opacity: 0.6; }
+  to   { transform: translate(-10%, -14%) scale(1.2); opacity: 1; }
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -180,6 +221,64 @@
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// CTA row
+// ─────────────────────────────────────────────────────────────────────────────
+
+.cta-row {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.95rem 2rem;
+  background: $color-success;
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 0.01em;
+  border-radius: $radius-pill;
+  text-decoration: none;
+  transition: transform $transition-fast, box-shadow $transition-fast, background-color $transition-fast;
+  box-shadow: 0 4px 20px rgba($color-success, 0.3);
+  white-space: nowrap;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba($color-success, 0.55);
+    background-color: #0ea572;
+  }
+
+  &:active { transform: translateY(0); }
+
+  &:focus-visible {
+    outline: 2px solid $color-success;
+    outline-offset: 3px;
+  }
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: $color-text-medium;
+  text-decoration: none;
+  letter-spacing: 0.01em;
+  transition: color $transition-fast, gap $transition-fast;
+
+  &:hover {
+    color: $color-text-dark;
+    gap: 0.7rem;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // Trust row — stars + availability
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -190,14 +289,15 @@
   flex-wrap: wrap;
 }
 
-.stars {
+.trust-item {
   display: flex;
   align-items: center;
-  gap: 0.25rem;
+  gap: 0.4rem;
 }
 
-.star {
-  color: $color-star;
+.trust-icon {
+  color: $color-success;
+  flex-shrink: 0;
 }
 
 .trust-divider {
@@ -318,8 +418,8 @@
     height: 70%;
     background: radial-gradient(
       ellipse,
-      rgba(0, 217, 255, 0.25) 0%,
-      rgba(0, 217, 255, 0.1) 40%,
+      rgba(16, 185, 129, 0.22) 0%,
+      rgba(16, 185, 129, 0.08) 40%,
       transparent 70%
     );
     filter: blur(40px);
@@ -346,22 +446,23 @@
 }
 
 .mockups-img {
-  // Maior que o container para o efeito de "explosão" 3D (Ajuste 1)
   width: 115%;
   max-width: none;
   height: auto;
   object-fit: contain;
   display: block;
   filter: drop-shadow(0 20px 60px rgba(0, 0, 0, 0.5));
-  // Puxa para a esquerda, invadindo o lado claro
-  transform: translateX(-12%);
-  // Evita bloquear cliques nos elementos do lado esquerdo
   pointer-events: none;
+  transform: translateX(-12%);
 
   @media (max-width: 768px) {
-    // No mobile volta ao normal — contida no container
     width: 100%;
-    transform: none;
     pointer-events: auto;
+    transform: none;
   }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-dark-panel::before,
+  .bg-dark-panel::after { animation: none !important; }
 }

@@ -4,6 +4,10 @@
   id="sobre"
   aria-label="Sobre a Lumon"
 >
+  <!-- Ambient orbs -->
+  <div class="orb orb-green" aria-hidden="true"></div>
+  <div class="orb orb-cyan" aria-hidden="true"></div>
+
   <div class="about-container">
 
     <!-- Tag superior -->
@@ -32,20 +36,28 @@
     <!-- Divider sutil -->
     <div class="about-divider" aria-hidden="true"></div>
 
+    <!-- Pilares de valor -->
+    <div class="about-pillars" role="list">
+      @for (p of pillars; track p.title) {
+        <div class="pillar" role="listitem">
+          <div class="pillar-icon" [innerHTML]="getIconSvg(p.icon)" aria-hidden="true"></div>
+          <div class="pillar-text">
+            <h3 class="pillar-title">{{ p.title }}</h3>
+            <p class="pillar-desc">{{ p.desc }}</p>
+          </div>
+        </div>
+      }
+    </div>
+
     <!-- Stats -->
     <div class="about-stats">
-      <div class="stat-item">
-        <span class="stat-number">100%</span>
-        <span class="stat-label">Foco em comércio local</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-number">5</span>
-        <span class="stat-label">Áreas de especialização</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-number">7+</span>
-        <span class="stat-label">Dias de entrega rápida</span>
-      </div>
+      @for (s of stats; track s.label; let i = $index) {
+        <div class="stat-card">
+          <span class="stat-glow" aria-hidden="true"></span>
+          <span class="stat-number">{{ displayValues[i] }}<span class="stat-suffix">{{ s.suffix }}</span></span>
+          <span class="stat-label">{{ s.label }}</span>
+        </div>
+      }
     </div>
 
   </div>
