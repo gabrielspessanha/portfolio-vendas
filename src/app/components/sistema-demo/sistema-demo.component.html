@@ -21,8 +21,8 @@
     </h2>
 
     <p class="sis-subtitle">
-      Agendamento, controle e relatórios num painel feito pro seu negócio.
-      Veja um exemplo de painel de agenda funcionando e troque o tipo de negócio.
+      Agendamento, clientes, financeiro e relatórios num painel feito pro seu
+      negócio. Explore o exemplo abaixo e troque o tipo de negócio.
     </p>
   </header>
 
@@ -39,28 +39,49 @@
 
     <div class="app-content">
 
-      <!-- Sidebar (decorativa) -->
-      <nav class="app-sidebar" aria-hidden="true">
-        <span class="nav-icon active" title="Agenda">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-        </span>
-        <span class="nav-icon" title="Clientes">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </span>
-        <span class="nav-icon" title="Financeiro">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-        </span>
-        <span class="nav-icon" title="Relatórios">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18M18 17V9M13 17V5M8 17v-3"/></svg>
-        </span>
+      <!-- Sidebar (funcional) -->
+      <nav class="app-sidebar" aria-label="Navegação do painel">
+        @for (item of navItems; track item.id) {
+          <button
+            type="button"
+            class="nav-icon"
+            [class.active]="activeView === item.id"
+            [attr.aria-pressed]="activeView === item.id"
+            [attr.aria-label]="item.label"
+            [title]="item.label"
+            (click)="selectView(item.id)"
+          >
+            @switch (item.id) {
+              @case ('agenda') {
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              }
+              @case ('clientes') {
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              }
+              @case ('financeiro') {
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+              }
+              @case ('relatorios') {
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18M18 17V9M13 17V5M8 17v-3"/></svg>
+              }
+            }
+          </button>
+        }
       </nav>
 
       <!-- Main -->
       <div class="app-main">
 
-        <!-- Niche switcher + título -->
+        <!-- Cabeçalho: título da view + niche switcher -->
         <div class="main-head">
-          <h3 class="main-title">Agenda de hoje</h3>
+          <h3 class="main-title">
+            @switch (activeView) {
+              @case ('agenda')     { Agenda de hoje }
+              @case ('clientes')   { Clientes }
+              @case ('financeiro') { Financeiro }
+              @case ('relatorios') { Relatórios }
+            }
+          </h3>
           <div class="niche-picker" role="group" aria-label="Escolha o tipo de negócio">
             @for (s of scenarios; track s.id) {
               <button
@@ -76,52 +97,161 @@
           </div>
         </div>
 
-        <!-- Stat cards -->
-        <div class="stat-row">
-          <div class="stat-card">
-            <span class="stat-label">Agendamentos</span>
-            <span class="stat-value">{{ displayStats.agendamentos }}</span>
+        <!-- ════════ VIEW: AGENDA ════════ -->
+        @if (activeView === 'agenda') {
+          <!-- Stat cards -->
+          <div class="stat-row">
+            <div class="stat-card">
+              <span class="stat-label">Agendamentos</span>
+              <span class="stat-value">{{ displayStats.agendamentos }}</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Ocupação</span>
+              <span class="stat-value">{{ displayStats.ocupacao }}<span class="stat-unit">%</span></span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Faturamento previsto</span>
+              <span class="stat-value"><span class="stat-unit">R$ </span>{{ formatMoney(displayStats.faturamento) }}</span>
+            </div>
           </div>
-          <div class="stat-card">
-            <span class="stat-label">Ocupação</span>
-            <span class="stat-value">{{ displayStats.ocupacao }}<span class="stat-unit">%</span></span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-label">Faturamento previsto</span>
-            <span class="stat-value"><span class="stat-unit">R$ </span>{{ displayStats.faturamento }}</span>
-          </div>
-        </div>
 
-        <!-- Lista de agendamentos -->
-        <ul class="appt-list" aria-label="Lista de agendamentos">
-          @for (a of appts; track trackAppt($index); let i = $index) {
-            <li class="appt-row">
-              <span class="appt-time">{{ a.time }}</span>
-              <span class="appt-info">
-                <span class="appt-client">{{ a.client }}</span>
-                <span class="appt-service">{{ a.service }}</span>
-              </span>
-              <button
-                type="button"
-                class="status-badge status-badge--{{ a.status }}"
-                (click)="cycleStatus(a)"
-                [attr.aria-label]="'Status: ' + statusLabel[a.status] + '. Clique para alterar'"
-              >
-                <span class="status-dot" aria-hidden="true"></span>
-                {{ statusLabel[a.status] }}
-              </button>
-            </li>
+          <!-- Lista de agendamentos -->
+          <ul class="appt-list" aria-label="Lista de agendamentos">
+            @for (a of appts; track trackAppt($index)) {
+              <li class="appt-row">
+                <span class="appt-time">{{ a.time }}</span>
+                <span class="appt-info">
+                  <span class="appt-client">{{ a.client }}</span>
+                  <span class="appt-service">{{ a.service }}</span>
+                </span>
+                <button
+                  type="button"
+                  class="status-badge status-badge--{{ a.status }}"
+                  (click)="cycleStatus(a)"
+                  [attr.aria-label]="'Status: ' + statusLabel[a.status] + '. Clique para alterar'"
+                >
+                  <span class="status-dot" aria-hidden="true"></span>
+                  {{ statusLabel[a.status] }}
+                </button>
+              </li>
+            }
+          </ul>
+
+          <!-- Formulário inline -->
+          @if (showForm) {
+            <form class="appt-form" (ngSubmit)="submitForm()">
+              <div class="form-grid">
+                <label class="field field--time">
+                  <span class="field-label">Horário</span>
+                  <input type="time" [(ngModel)]="formTime" name="time" />
+                </label>
+                <label class="field field--client">
+                  <span class="field-label">Cliente</span>
+                  <input type="text" [(ngModel)]="formClient" name="client" placeholder="Nome do cliente" autocomplete="off" />
+                </label>
+                <label class="field field--service">
+                  <span class="field-label">Serviço</span>
+                  <select [(ngModel)]="formService" name="service">
+                    @for (svc of activeScenario.services; track svc) {
+                      <option [value]="svc">{{ svc }}</option>
+                    }
+                  </select>
+                </label>
+              </div>
+              @if (formError) {
+                <p class="form-error" role="alert">{{ formError }}</p>
+              }
+              <div class="form-actions">
+                <button type="submit" class="form-add">Adicionar</button>
+                <button type="button" class="form-cancel" (click)="closeForm()">Cancelar</button>
+              </div>
+            </form>
           }
-        </ul>
 
-        <!-- Ações -->
-        <div class="app-actions">
-          <button type="button" class="add-btn" (click)="addAppointment()">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-            Novo agendamento
-          </button>
-          <span class="actions-hint" aria-hidden="true">Clique num status pra mudar</span>
-        </div>
+          <!-- Ações -->
+          <div class="app-actions">
+            <button type="button" class="add-btn" (click)="toggleForm()" [class.open]="showForm">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
+              {{ showForm ? 'Fechar' : 'Novo agendamento' }}
+            </button>
+            <span class="actions-hint" aria-hidden="true">Clique num status pra mudar</span>
+          </div>
+        }
+
+        <!-- ════════ VIEW: CLIENTES ════════ -->
+        @if (activeView === 'clientes') {
+          <ul class="client-list" aria-label="Lista de clientes">
+            @for (c of activeScenario.clients; track c.phone) {
+              <li class="client-row">
+                <span class="client-avatar" aria-hidden="true">{{ c.name.charAt(0) }}</span>
+                <span class="client-info">
+                  <span class="client-name">{{ c.name }}</span>
+                  <span class="client-phone">{{ c.phone }}</span>
+                </span>
+                <span class="client-meta">
+                  <span class="client-visits">{{ c.visits }} visitas</span>
+                  <span class="client-last">Última: {{ c.last }}</span>
+                </span>
+              </li>
+            }
+          </ul>
+          <div class="view-foot">{{ activeScenario.clients.length }} clientes ativos · base completa no sistema real</div>
+        }
+
+        <!-- ════════ VIEW: FINANCEIRO ════════ -->
+        @if (activeView === 'financeiro') {
+          <div class="stat-row">
+            <div class="stat-card">
+              <span class="stat-label">Faturamento do mês</span>
+              <span class="stat-value"><span class="stat-unit">R$ </span>{{ formatMoney(activeScenario.monthRevenue) }}</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Ticket médio</span>
+              <span class="stat-value"><span class="stat-unit">R$ </span>{{ activeScenario.ticket }}</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-label">Agendamentos hoje</span>
+              <span class="stat-value">{{ activeScenario.stats.agendamentos }}</span>
+            </div>
+          </div>
+
+          <h4 class="block-title">Receita por serviço</h4>
+          <ul class="bar-list" aria-label="Receita por serviço">
+            @for (s of activeScenario.topServices; track s.name) {
+              <li class="bar-row">
+                <span class="bar-name">{{ s.name }}</span>
+                <span class="bar-track"><span class="bar-fill" [style.width.%]="s.pct"></span></span>
+                <span class="bar-pct">{{ s.pct }}%</span>
+              </li>
+            }
+          </ul>
+        }
+
+        <!-- ════════ VIEW: RELATÓRIOS ════════ -->
+        @if (activeView === 'relatorios') {
+          <h4 class="block-title">Agendamentos na semana</h4>
+          <div class="chart" role="img" aria-label="Gráfico de agendamentos por dia da semana">
+            @for (d of activeScenario.weekly; track d.label) {
+              <div class="chart-col">
+                <span class="chart-bar" [style.height.%]="(d.value / maxWeekly()) * 100">
+                  <span class="chart-val">{{ d.value }}</span>
+                </span>
+                <span class="chart-label">{{ d.label }}</span>
+              </div>
+            }
+          </div>
+
+          <h4 class="block-title">Serviços mais procurados</h4>
+          <ul class="bar-list" aria-label="Serviços mais procurados">
+            @for (s of activeScenario.topServices; track s.name) {
+              <li class="bar-row">
+                <span class="bar-name">{{ s.name }}</span>
+                <span class="bar-track"><span class="bar-fill" [style.width.%]="s.pct"></span></span>
+                <span class="bar-pct">{{ s.pct }}%</span>
+              </li>
+            }
+          </ul>
+        }
 
       </div>
     </div>

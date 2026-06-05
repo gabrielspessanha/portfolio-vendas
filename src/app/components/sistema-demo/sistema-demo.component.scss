@@ -1,8 +1,6 @@
 @use 'variables' as *;
 
-// ─────────────────────────────────────────────────────────────────────────────
 // Section wrapper
-// ─────────────────────────────────────────────────────────────────────────────
 
 .sis-section {
   position: relative;
@@ -65,9 +63,7 @@
   50%      { transform: translate(8%, -6%) scale(1.18); }
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
 // Section header
-// ─────────────────────────────────────────────────────────────────────────────
 
 .sis-header {
   text-align: center;
@@ -132,9 +128,7 @@
   line-height: 1.6;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
 // Faux app window
-// ─────────────────────────────────────────────────────────────────────────────
 
 .app-window {
   max-width: 980px;
@@ -334,7 +328,8 @@
   gap: 8px;
 }
 
-.appt-row {
+.appt-row,
+.client-row {
   display: flex;
   align-items: center;
   gap: 14px;
@@ -361,7 +356,8 @@
   font-variant-numeric: tabular-nums;
 }
 
-.appt-info {
+.appt-info,
+.client-info {
   flex: 1;
   min-width: 0;
   display: flex;
@@ -463,14 +459,291 @@
   &:focus-visible { outline: 2px solid $color-accent; outline-offset: 2px; }
 }
 
-.actions-hint {
+.actions-hint,
+.client-phone,
+.add-btn.open {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: $divider-subtle;
+  color: $text-white-secondary;
+}
+
+// Formulário inline de agendamento
+
+.appt-form {
+  margin: 0 0 16px;
+  padding: 16px;
+  background: rgba(7, 172, 222, 0.04);
+  border: 1px solid rgba(7, 172, 222, 0.25);
+  border-radius: 12px;
+  animation: apptIn 280ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 110px 1fr 1fr;
+  gap: 12px;
+
+  @media (max-width: 560px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  .field-label {
+    color: $text-white-muted;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  input,
+  select {
+    width: 100%;
+    padding: 9px 12px;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid $form-input-border;
+    border-radius: 8px;
+    color: $color-text-light;
+    font-size: 14px;
+    font-family: inherit;
+    transition: border-color $transition-fast, background $transition-fast;
+
+    &::placeholder { color: $text-white-muted; }
+
+    &:focus {
+      outline: none;
+      border-color: rgba(7, 172, 222, 0.5);
+      background: rgba(0, 0, 0, 0.35);
+    }
+  }
+
+  // estiliza o calendário/relógio do input time pro tema escuro
+  input[type='time']::-webkit-calendar-picker-indicator {
+    filter: invert(0.7);
+    cursor: pointer;
+  }
+
+  option {
+    background: $color-card-bg;
+    color: $color-text-light;
+  }
+}
+
+.form-error {
+  margin: 10px 0 0;
+  color: #F87171;
+  font-size: 12px;
+}
+
+.form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.form-add {
+  padding: 9px 20px;
+  background: $color-accent;
+  border: none;
+  border-radius: $radius-pill;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background $transition-fast, transform $transition-fast;
+
+  &:hover { background: $color-success-dark; transform: translateY(-1px); }
+  &:focus-visible { outline: 2px solid $color-accent; outline-offset: 2px; }
+}
+
+.form-cancel {
+  padding: 9px 18px;
+  background: transparent;
+  border: 1px solid $divider-subtle;
+  border-radius: $radius-pill;
+  color: $text-white-secondary;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: border-color $transition-fast, color $transition-fast;
+
+  &:hover { border-color: rgba(255, 255, 255, 0.25); color: $color-text-light; }
+  &:focus-visible { outline: 2px solid $color-accent; outline-offset: 2px; }
+}
+
+// View: Clientes
+
+.client-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.client-avatar {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  background: rgba(7, 172, 222, 0.12);
+  border: 1px solid rgba(7, 172, 222, 0.3);
+  color: $color-accent;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.client-name {
+  color: $color-text-light;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.client-meta {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+  text-align: right;
+}
+
+.client-visits {
+  color: $color-accent;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.client-last {
+  color: $text-white-muted;
+  font-size: 11px;
+}
+
+.view-foot {
+  color: $text-white-muted;
+  font-size: 12px;
+  padding-top: 4px;
+}
+
+// Views: Financeiro / Relatórios — bars + chart
+
+.block-title {
+  color: $color-text-light;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin: 4px 0 14px;
+}
+
+.bar-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.bar-row {
+  display: grid;
+  grid-template-columns: 130px 1fr 44px;
+  align-items: center;
+  gap: 12px;
+
+  @media (max-width: 480px) {
+    grid-template-columns: 92px 1fr 38px;
+    gap: 8px;
+  }
+}
+
+.bar-name {
+  color: $text-white-secondary;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bar-track {
+  height: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, rgba(7, 172, 222, 0.6), $color-accent);
+  border-radius: 999px;
+  transition: width 700ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bar-pct {
+  color: $color-text-light;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+// ── Chart (relatórios) ──────────────────────────────────────────────────────────
+
+.chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 12px;
+  height: 180px;
+  padding: 0 4px 0;
+  margin-bottom: 24px;
+}
+
+.chart-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  height: 100%;
+  justify-content: flex-end;
+}
+
+.chart-bar {
+  position: relative;
+  width: 100%;
+  max-width: 46px;
+  min-height: 4px;
+  background: linear-gradient(180deg, $color-accent, rgba(7, 172, 222, 0.35));
+  border-radius: 8px 8px 0 0;
+  transition: height 700ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.chart-val {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: $text-white-secondary;
+  font-size: 12px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.chart-label {
   color: $text-white-muted;
   font-size: 12px;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
 // CTA
-// ─────────────────────────────────────────────────────────────────────────────
 
 .sis-cta {
   text-align: center;
@@ -523,9 +796,7 @@
   letter-spacing: 0.2px;
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
 // Reduced motion
-// ─────────────────────────────────────────────────────────────────────────────
 
 @media (prefers-reduced-motion: reduce) {
   .sis-header,
