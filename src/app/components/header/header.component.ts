@@ -35,6 +35,7 @@ export class HeaderComponent {
   readonly navLinks = [
     { label: 'Sobre',         href: '#sobre'         },
     { label: 'Serviços',      href: '#servicos'      },
+    { label: 'IA',            href: '#atendente-ia'  },
     { label: 'Como funciona', href: '#como-funciona' },
     { label: 'Projetos',      href: '#projetos'      },
     { label: 'Preços',        href: '#precos'        },

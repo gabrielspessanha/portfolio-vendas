@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { HeaderComponent } from './components/header/header.component';
 import { HeroComponent } from './components/hero/hero.component';
 import { ServicesComponent } from './components/services/services.component';
+import { AtendenteIaComponent } from './components/atendente-ia/atendente-ia.component';
 import { AboutComponent } from './components/about/about.component';
 import { HowItWorksComponent } from './components/how-it-works/how-it-works.component';
 import { ProjectsComponent } from './components/projects/projects.component';
@@ -17,6 +18,7 @@ import { FooterComponent } from './components/footer/footer.component';
     HeroComponent,
     ProjectsComponent,
     ServicesComponent,
+    AtendenteIaComponent,
     HowItWorksComponent,
     PricingComponent,
     AboutComponent,
@@ -28,6 +30,7 @@ import { FooterComponent } from './components/footer/footer.component';
     <app-hero />
     <app-projects />
     <app-services />
+    <app-atendente-ia />
     <app-how-it-works />
     <app-pricing />
     <app-about />
