@@ -25,10 +25,55 @@ body {
   background-color: $color-light-bg;
   color: $color-text-dark;
   text-rendering: optimizeLegibility;
+  overflow-x: hidden; // barreira dupla — previne scroll horizontal acidental
 }
 
 // Custom branded selection
 ::selection {
   background: $color-success;
   color: #fff;
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Brand-mark composite: renderiza "Lumon" inline com o "L" + ponto âmbar
+// Uso: <span class="brand-mark"><span class="brand-mark__l"><span class="brand-mark__dot"></span></span><span class="brand-mark__rest">umon</span></span>
+// Cor do "L" e "umon" herda do contexto via currentColor.
+// ─────────────────────────────────────────────────────────────────────────────
+
+.brand-mark {
+  display: inline-flex;
+  align-items: baseline;
+  font-weight: inherit;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.brand-mark__l {
+  position: relative;
+  display: inline-block;
+  line-height: 1;
+
+  &::before {
+    content: 'L';
+    font-weight: inherit;
+    color: inherit;
+  }
+}
+
+.brand-mark__dot {
+  position: absolute;
+  top: -0.08em;
+  right: -0.22em;
+  width: 0.32em;
+  height: 0.32em;
+  border-radius: 50%;
+  background: $color-success;
+  box-shadow: 0 0 0.45em rgba($color-success, 0.6);
+}
+
+.brand-mark__rest {
+  display: inline-block;
+  line-height: 1;
+  font-weight: inherit;
+  color: inherit;
 }

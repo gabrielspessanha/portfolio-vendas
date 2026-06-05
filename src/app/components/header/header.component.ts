@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 import {
   trigger,
   state,
@@ -15,8 +15,8 @@ import {
   styleUrl: './header.component.scss',
   animations: [
     trigger('ctaHover', [
-      state('default', style({ boxShadow: '0 2px 8px rgba(16, 185, 129, 0.2)' })),
-      state('hovered', style({ boxShadow: '0 4px 22px rgba(16, 185, 129, 0.55)' })),
+      state('default', style({ boxShadow: '0 2px 8px rgba(245, 158, 11, 0.2)' })),
+      state('hovered', style({ boxShadow: '0 4px 22px rgba(245, 158, 11, 0.55)' })),
       transition('default <=> hovered', animate('200ms ease')),
     ]),
     trigger('slideDown', [
@@ -30,6 +30,7 @@ import {
 })
 export class HeaderComponent {
   ctaHovered = false;
+  isScrolled = false;
 
   readonly navLinks = [
     { label: 'Sobre',         href: '#sobre'         },
@@ -39,4 +40,9 @@ export class HeaderComponent {
     { label: 'Preços',        href: '#precos'        },
     { label: 'Contato',       href: '#contato'       },
   ];
+
+  @HostListener('window:scroll')
+  onScroll(): void {
+    this.isScrolled = window.scrollY > 80;
+  }
 }

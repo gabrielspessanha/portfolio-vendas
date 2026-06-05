@@ -143,7 +143,7 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.35rem 0.85rem;
+  padding: 0.4rem 0.9rem;
   background: rgba($color-success, 0.12);
   border: 1px solid rgba($color-success, 0.3);
   border-radius: $radius-pill;
@@ -152,6 +152,15 @@
   color: $color-success-dark;
   letter-spacing: 0.02em;
   width: fit-content;
+  max-width: 100%;
+  line-height: 1.3;
+
+  @media (max-width: 480px) {
+    font-size: 0.7rem;
+    padding: 0.35rem 0.75rem;
+    flex-wrap: wrap;
+    row-gap: 0.15rem;
+  }
 }
 
 .badge__dot {
@@ -175,35 +184,25 @@
 
 .headline__line {
   display: block;
-  font-size: clamp(3rem, 8vw, 8rem);
-  font-weight: 900;
-  line-height: 0.95;
+  font-size: clamp(1.75rem, 3.4vw, 3.4rem);
+  font-weight: 300;
+  line-height: 1.05;
   color: $color-text-dark;
-  letter-spacing: -0.03em;
-  // Sombra sutil para dar profundidade às letras grandes
-  text-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.08),
-    0 4px 12px rgba(0, 0, 0, 0.06);
+  letter-spacing: -0.025em;
+  text-shadow: none;
 
   &--highlight {
     color: $color-success;
-    // Sombra com tonalidade verde para a palavra de destaque
-    text-shadow:
-      0 2px 4px rgba(16, 185, 129, 0.15),
-      0 4px 12px rgba(16, 185, 129, 0.1);
+    font-weight: 400;
+    text-shadow: 0 0 24px rgba(245, 158, 11, 0.18);
   }
 
   @media (max-width: 768px) {
-    font-size: clamp(2.8rem, 12vw, 4rem);
-    // Intensidade reduzida pela metade no mobile
-    text-shadow:
-      0 1px 2px rgba(0, 0, 0, 0.05),
-      0 2px 6px rgba(0, 0, 0, 0.04);
+    font-size: clamp(1.6rem, 7.5vw, 2.4rem);
+    text-shadow: none;
 
     &--highlight {
-      text-shadow:
-        0 1px 2px rgba(16, 185, 129, 0.1),
-        0 2px 6px rgba(16, 185, 129, 0.06);
+      text-shadow: 0 0 18px rgba(245, 158, 11, 0.14);
     }
   }
 }
@@ -218,6 +217,12 @@
   color: $color-text-medium;
   letter-spacing: 0.01em;
   line-height: 1.6;
+  max-width: 46ch;
+
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+    line-height: 1.55;
+  }
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -229,6 +234,15 @@
   align-items: center;
   gap: 1.25rem;
   flex-wrap: wrap;
+
+  @media (max-width: 768px) {
+    gap: 1rem;
+
+    .btn-primary {
+      width: 100%;
+      justify-content: center;
+    }
+  }
 }
 
 .btn-primary {
@@ -250,7 +264,7 @@
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 32px rgba($color-success, 0.55);
-    background-color: #0ea572;
+    background-color: #D97706;
   }
 
   &:active { transform: translateY(0); }
@@ -279,7 +293,45 @@
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Trust row — stars + availability
+// Mini risk reversal abaixo do CTA
+// ─────────────────────────────────────────────────────────────────────────────
+
+.hero-risk {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  margin-top: -0.25rem;
+
+  .risk-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: $color-text-secondary;
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.005em;
+
+    svg {
+      color: $color-success;
+      flex-shrink: 0;
+    }
+
+    strong {
+      color: $color-text-dark;
+      font-weight: 600;
+    }
+  }
+
+  .risk-divider {
+    color: $color-text-muted;
+    font-size: 0.9rem;
+    line-height: 1;
+  }
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Trust row — disponibilidade + métricas
 // ─────────────────────────────────────────────────────────────────────────────
 
 .trust-row {
@@ -311,6 +363,11 @@
   font-weight: 500;
   color: $color-text-secondary;
   letter-spacing: 0.01em;
+
+  strong {
+    color: $color-text-dark;
+    font-weight: 700;
+  }
 }
 
 .availability {
@@ -351,18 +408,29 @@
   display: flex;
   gap: 1rem;
   margin-top: 0.25rem;
+
+  @media (max-width: 768px) {
+    gap: 0.75rem;
+  }
 }
 
 .social-icon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 60px;
-  height: 60px;
+  width: 56px;
+  height: 56px;
   border-radius: $radius-icon;
   text-decoration: none;
   flex-shrink: 0;
   transition: transform $transition-fast, box-shadow $transition-fast;
+
+  @media (max-width: 768px) {
+    width: 46px;
+    height: 46px;
+
+    svg { width: 22px; height: 22px; }
+  }
 
   &:hover {
     transform: scale(1.07);
@@ -418,8 +486,8 @@
     height: 70%;
     background: radial-gradient(
       ellipse,
-      rgba(16, 185, 129, 0.22) 0%,
-      rgba(16, 185, 129, 0.08) 40%,
+      rgba(245, 158, 11, 0.22) 0%,
+      rgba(245, 158, 11, 0.08) 40%,
       transparent 70%
     );
     filter: blur(40px);

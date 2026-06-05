@@ -109,11 +109,6 @@
             }
           </div>
 
-          <!-- Caption -->
-          @if (currentImage?.caption) {
-            <p class="image-caption">{{ currentImage!.caption }}</p>
-          }
-
           <!-- Dot indicators -->
           @if (hasMultipleImages) {
             <div class="carousel-dots" role="tablist" aria-label="Navegação de imagens">
@@ -156,23 +151,13 @@
 
           <p class="modal-description">{{ project.description }}</p>
 
-          <!-- Technologies -->
-          <div class="modal-section">
-            <h3>Tecnologias</h3>
-            <div class="tech-tags">
-              @for (tech of project.technologies; track tech) {
-                <span>{{ tech }}</span>
-              }
-            </div>
-          </div>
-
           <!-- Delivered features -->
           <div class="modal-section">
             <h3>O que foi entregue</h3>
             <ul class="features-list">
               @for (feature of project.features; track feature) {
                 <li>
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10B981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <polyline points="20 6 9 17 4 12"/>
                   </svg>
                   {{ feature }}

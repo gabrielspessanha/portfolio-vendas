@@ -1,198 +1,89 @@
-<section id="servicos" class="services-section" aria-label="Serviços">
+<section
+  class="services-section"
+  [class.visible]="isVisible"
+  id="servicos"
+  aria-labelledby="services-heading"
+>
+  <!-- Ambient orbs -->
+  <div class="orb orb-green" aria-hidden="true"></div>
+  <div class="orb orb-cyan" aria-hidden="true"></div>
 
-  <!-- Ambient orbs (background) -->
-  <span class="orb orb--cyan" aria-hidden="true"></span>
-  <span class="orb orb--green" aria-hidden="true"></span>
+  <!-- ── Section header ──────────────────────────────────────────────────── -->
+  <header class="section-header reveal-header">
+    <p class="section-tag" aria-hidden="true">
+      <span class="tag-dot"></span>
+      Serviços
+    </p>
 
-  <div class="section-inner">
+    <h2 class="section-headline" id="services-heading">
+      Tudo que seu negócio precisa<br>
+      pra vender mais<span class="headline-dot">.</span>
+    </h2>
 
-    <!-- ── Section header ──────────────────────────────────────────────────── -->
-    <header
-      class="section-header"
-      [@revealOnScroll]="{ value: isVisible ? 'visible' : 'hidden', params: { delay: 0 } }"
-    >
-      <div class="section-tag" aria-hidden="true">
-        <span class="tag-dot">●</span>&nbsp;O QUE EU FAÇO
-      </div>
+    <p class="section-subtitle">
+      Cinco serviços que se conectam pra colocar seu comércio local à altura das grandes marcas no digital.
+    </p>
+  </header>
 
-      <h2 class="section-headline">
-        SOLUÇÕES DIGITAIS <span class="highlight">COMPLETAS</span>
-      </h2>
+  <!-- ── Grid de 5 cards ─────────────────────────────────────────────────── -->
+  @if (isVisible) {
+    <div class="services-grid" @gridReveal>
+      @for (service of services; track service.id) {
+        <article class="service-card">
+          <div class="card-glow" aria-hidden="true"></div>
 
-      <p class="section-subtitle">
-        Tudo que seu negócio precisa para vender mais no digital — em um só lugar
-      </p>
-    </header>
+          <div class="service-icon" [innerHTML]="getIconSvg(service.icon)" aria-hidden="true"></div>
 
-    <!-- ── Desktop: tabs + panel ──────────────────────────────────────────── -->
-    <div class="tabs-layout">
+          <p class="service-tagline">{{ service.tagline }}</p>
+          <h3 class="service-title">{{ service.title }}</h3>
+          <p class="service-description">{{ service.description }}</p>
 
-      <!-- Left: tab list -->
-      <div class="tab-list" role="tablist" aria-label="Selecione um serviço">
-        @for (service of services; track service.id; let i = $index) {
-          <button
-            #tabBtn
-            class="tab-item"
-            [class.tab-item--active]="activeServiceId === service.id"
-            role="tab"
-            [id]="'tab-' + service.id"
-            [attr.aria-selected]="activeServiceId === service.id"
-            [attr.aria-controls]="'panel-' + service.id"
-            [attr.tabindex]="activeServiceId === service.id ? 0 : -1"
-            (click)="setActive(service.id)"
-            (keydown)="onTabKeydown($event, i)"
-            [@revealOnScroll]="{ value: isVisible ? 'visible' : 'hidden', params: { delay: 200 + i * 100 } }"
-          >
-            <!-- Compact icon -->
-            <div
-              class="tab-icon"
-              [style.background]="service.iconGradient"
-              [innerHTML]="getIconSvg(service.icon, 18)"
-              aria-hidden="true"
-            ></div>
-
-            <span class="tab-label">
-              <span class="tab-number">{{ service.number }}</span>
-              <span class="tab-sep">—</span>
-              <span class="tab-title">{{ service.title }}</span>
-            </span>
-
-            <!-- Arrow right -->
-            <svg class="tab-arrow" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </button>
-        }
-      </div>
-
-      <!-- Right: content panel — outer div handles scroll-reveal, inner handles tab switch -->
-      <div
-        class="tab-panel-reveal"
-        [@revealOnScroll]="{ value: isVisible ? 'visible' : 'hidden', params: { delay: 400 } }"
-      >
-        <div
-          class="tab-panel"
-          role="tabpanel"
-          [id]="'panel-' + activeServiceId"
-          [attr.aria-labelledby]="'tab-' + activeServiceId"
-          [@contentSwitch]="activeServiceId"
-        >
-          <!-- Mockup with floating animation + glow halo -->
-          <div class="mockup-wrapper" aria-hidden="true">
-            <span class="mockup-glow"></span>
-            <img
-              class="mockup-image"
-              [src]="activeService.mockupImage"
-              [alt]="activeService.mockupAlt"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-
-          <span class="panel-tagline">{{ activeService.tagline }}</span>
-          <h3 class="panel-title">{{ activeService.title }}</h3>
-          <p class="panel-description">{{ activeService.description }}</p>
-
-          <ul class="panel-features" aria-label="Funcionalidades incluídas">
-            @for (feature of activeService.features; track feature) {
-              <li class="panel-feature">
-                <span class="check" aria-hidden="true">✓</span>
-                {{ feature }}
+          <ul class="service-features" aria-label="Resultados deste serviço">
+            @for (f of service.features; track f) {
+              <li>
+                <svg class="feature-check" width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M20 6L9 17L4 12" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                {{ f }}
               </li>
             }
           </ul>
 
-          <div class="panel-actions">
-            <a
-              class="btn-primary"
-              [href]="getWhatsAppUrl(activeService)"
-              target="_blank"
-              rel="noopener noreferrer"
-              [attr.aria-label]="activeService.ctaText + ' via WhatsApp'"
-            >{{ activeService.ctaText }}</a>
-
-            <a class="link-secondary" href="#projetos">
-              Ver projetos similares
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-                <path d="M5 12h14M13 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </a>
-          </div>
-
-          <!-- Compromisso (honesto, sem números fabricados) -->
-          <div class="social-proof" aria-label="Nosso compromisso">
-            <svg class="proof-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <path d="M9 12l2 2 4-4"/>
-              <path d="M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z"/>
-            </svg>
-            <span class="social-text">
-              <strong>Suporte direto</strong>
-              <span class="social-sep">·</span>
-              <span>Sem terceirização</span>
-            </span>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- /tabs-layout -->
-
-    <!-- ── Mobile: accordion ──────────────────────────────────────────────── -->
-    <div class="accordion-layout" aria-label="Serviços disponíveis">
-      @for (service of services; track service.id) {
-        <div
-          class="accordion-item"
-          [style.--service-color]="service.iconColor"
-        >
-          <button
-            class="accordion-header"
-            type="button"
-            [attr.aria-expanded]="activeServiceId === service.id"
-            [attr.aria-controls]="'acc-' + service.id"
-            (click)="toggleAccordion(service.id)"
+          <a
+            [href]="service.pricingAnchor"
+            class="service-link"
+            [attr.aria-label]="'Ver pacotes de ' + service.title"
           >
-            <span class="acc-number">{{ service.number }}</span>
-            <span class="acc-title">{{ service.title }}</span>
-            <svg
-              class="acc-chevron"
-              width="20" height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              aria-hidden="true"
-              [@chevronRotate]="activeServiceId === service.id ? 'open' : 'closed'"
-            >
-              <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2"
-                    stroke-linecap="round" stroke-linejoin="round"/>
+            Ver pacotes
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
-          </button>
-
-          <div
-            class="accordion-content"
-            [id]="'acc-' + service.id"
-            [@accordionContent]="activeServiceId === service.id ? 'open' : 'closed'"
-          >
-            <div class="acc-body">
-              <span class="acc-tagline">{{ service.tagline }}</span>
-              <p class="acc-description">{{ service.description }}</p>
-
-              <ul class="acc-features" aria-label="Funcionalidades incluídas">
-                @for (feature of service.features; track feature) {
-                  <li>{{ feature }}</li>
-                }
-              </ul>
-
-              <a
-                class="btn-primary btn-full"
-                [href]="getWhatsAppUrl(service)"
-                target="_blank"
-                rel="noopener noreferrer"
-                [attr.aria-label]="service.ctaText + ' via WhatsApp'"
-              >{{ service.ctaText }}</a>
-            </div>
-          </div>
-
-        </div>
+          </a>
+        </article>
       }
-    </div><!-- /accordion-layout -->
+    </div>
+  }
 
-  </div><!-- /section-inner -->
+  <!-- ── CTA bottom: "não sei por onde começar" ──────────────────────────── -->
+  <div class="services-cta reveal-cta">
+    <p class="cta-headline">Não sabe se precisa de site, sistema ou IA?</p>
+    <p class="cta-sub">15 minutos no WhatsApp e a gente indica o caminho. Se não fizer sentido, a gente fala. Sem empurrar nada.</p>
+    <a
+      [href]="getWhatsAppUrl()"
+      class="cta-btn"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Conversar 15 minutos no WhatsApp para receber indicação personalizada"
+    >
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+      </svg>
+      Conversar 15 minutos
+    </a>
+    <ul class="cta-trust" aria-hidden="true">
+      <li><span class="trust-dot"></span>Resposta em até 1h</li>
+      <li><span class="trust-dot"></span>Sem orçamento empurrado</li>
+      <li><span class="trust-dot"></span>Indicação honesta</li>
+    </ul>
+  </div>
 </section>

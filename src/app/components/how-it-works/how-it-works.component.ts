@@ -26,7 +26,7 @@ export class HowItWorksComponent implements AfterViewInit, OnDestroy {
   isVisible = false;
   private observer: IntersectionObserver | null = null;
 
-  readonly whatsappNumber = 'SEUNUMERO';
+  readonly whatsappNumber = '5521974767624';
 
   readonly steps: Step[] = [
     {
@@ -42,12 +42,12 @@ export class HowItWorksComponent implements AfterViewInit, OnDestroy {
       duration: '1–2 dias',
       title: 'Estratégia personalizada',
       description:
-        'Definimos juntos o melhor caminho — site, sistema, IA, design ou vídeo — pra atingir seu objetivo.',
+        'Definimos juntos o melhor caminho (site, sistema, IA, design ou vídeo) pra atingir seu objetivo.',
       icon: 'target',
     },
     {
       number: '03',
-      duration: '7 dias',
+      duration: 'execução',
       title: 'Execução com você',
       description:
         'Tiramos a ideia do papel com você acompanhando cada etapa. Transparência total, sem mistério.',

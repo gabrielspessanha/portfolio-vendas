@@ -64,7 +64,7 @@ export class ContactComponent implements AfterViewInit, OnDestroy {
       `${message ? `\n\nDetalhes: ${message}` : ''}`,
     );
 
-    window.open(`https://wa.me/SEUNUMERO?text=${text}`, '_blank', 'noopener,noreferrer');
+    window.open(`https://wa.me/5521974767624?text=${text}`, '_blank', 'noopener,noreferrer');
 
     this.submitState = 'success';
     form.reset();

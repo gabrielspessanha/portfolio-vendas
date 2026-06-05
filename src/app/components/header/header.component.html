@@ -1,32 +1,30 @@
-<header class="header" role="banner">
+<header class="header" [class.scrolled]="isScrolled" role="banner">
   <!-- Cyan accent line ─ absolute top of page -->
   <div class="accent-line" aria-hidden="true"></div>
 
   <div class="header-inner" [@slideDown]>
-    <!-- Logo TG -->
-    <a href="#" class="logo" aria-label="TG – Início">
+    <!-- Logo Lumon (L + ponto) -->
+    <a href="#" class="logo" aria-label="Lumon – Início">
       <svg
-        width="46"
+        width="32"
         height="46"
-        viewBox="0 0 46 46"
+        viewBox="0 0 72 105"
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden="true"
         focusable="false"
       >
-        <polygon
-          points="23,3 43,13 43,33 23,43 3,33 3,13"
-          fill="#0A0A0A"
-        />
-        <text
-          x="23"
-          y="28"
-          text-anchor="middle"
-          fill="white"
-          font-family="Inter, sans-serif"
-          font-weight="900"
-          font-size="13"
-          letter-spacing="1.5"
-        >TG</text>
+        <defs>
+          <filter id="lumonDotGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur"/>
+            <feMerge>
+              <feMergeNode in="blur"/>
+              <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+          </filter>
+        </defs>
+        <rect x="0" y="22" width="22" height="61" fill="currentColor"/>
+        <rect x="0" y="83" width="72" height="22" fill="currentColor"/>
+        <circle cx="11" cy="11" r="11" fill="#F59E0B" filter="url(#lumonDotGlow)"/>
       </svg>
     </a>
 

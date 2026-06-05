@@ -93,7 +93,7 @@ export class ProjectModalComponent implements OnChanges, AfterViewChecked {
   animTrigger = 0;
   imageLoaded = true;
 
-  readonly whatsappNumber = 'SEUNUMERO';
+  readonly whatsappNumber = '5521974767624';
 
   get currentImage(): ProjectImage | null {
     return this.project?.images?.[this.currentIndex] ?? null;

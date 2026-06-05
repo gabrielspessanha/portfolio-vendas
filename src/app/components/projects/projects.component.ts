@@ -127,7 +127,7 @@ export class ProjectsComponent implements AfterViewInit, OnDestroy {
       challenge: 'Engajar alunos durante a pandemia.',
       result: 'Retenção de alunos aumentou 65%.',
       resultMetric: '+65% retenção',
-      color: '#10B981',
+      color: '#F59E0B',
     },
     {
       id: 'brasa-bacon',
@@ -356,6 +356,6 @@ export class ProjectsComponent implements AfterViewInit, OnDestroy {
 
   get whatsappCtaLink(): string {
     const text = encodeURIComponent('Olá! Quero conversar sobre um projeto.');
-    return `https://wa.me/SEUNUMERO?text=${text}`;
+    return `https://wa.me/5521974767624?text=${text}`;
   }
 }

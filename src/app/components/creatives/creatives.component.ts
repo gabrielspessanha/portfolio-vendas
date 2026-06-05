@@ -266,6 +266,6 @@ export class CreativesComponent implements AfterViewInit, OnDestroy {
   // ── CTA WhatsApp ───────────────────────────────────────────────────────────
   get whatsappLink(): string {
     const text = encodeURIComponent('Olá! Vi seus criativos e quero criar conteúdo profissional pro meu negócio também.');
-    return `https://wa.me/SEUNUMERO?text=${text}`;
+    return `https://wa.me/5521974767624?text=${text}`;
   }
 }

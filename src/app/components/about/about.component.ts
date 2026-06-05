@@ -45,8 +45,8 @@ export class AboutComponent implements AfterViewInit, OnDestroy {
     },
     {
       icon: 'rocket',
-      title: 'Entrega em dias',
-      desc: 'Processo enxuto: do briefing ao site no ar em 7 dias.',
+      title: 'Entrega ágil',
+      desc: 'Processo enxuto: do briefing ao go-live sem etapas desnecessárias.',
     },
     {
       icon: 'support',
