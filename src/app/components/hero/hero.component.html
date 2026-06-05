@@ -148,19 +148,24 @@
       </div>
     </div>
 
-    <!-- ── Right: mockups image ───────────────────────────────────────── -->
+    <!-- ── Right: mosaico de projetos ─────────────────────────────────── -->
     <div
       class="hero-right"
       [@fadeScaleIn]="{ value: '', params: { duration: 900, delay: 350 } }"
+      aria-label="Projetos desenvolvidos"
     >
-      <!-- Place public/images/mockups.png with your project screenshots -->
-      <img
-        src="/images/mockups.png"
-        alt="Projetos web e mobile desenvolvidos"
-        class="mockups-img"
-        loading="eager"
-        decoding="async"
-      />
+      <div class="mosaic" aria-hidden="true">
+        @for (img of mosaicImages; track img.src; let i = $index) {
+          <div class="mosaic-tile" [style.--tile-delay]="(i * 80) + 'ms'">
+            <img
+              [src]="img.src"
+              [alt]="img.alt"
+              loading="eager"
+              decoding="async"
+            />
+          </div>
+        }
+      </div>
     </div>
 
   </div>

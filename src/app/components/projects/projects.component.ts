@@ -302,6 +302,67 @@ export class ProjectsComponent implements AfterViewInit, OnDestroy {
 
   filteredProjects: Project[] = [...this.projects];
 
+  // Galeria de Designs — intercalada por categoria pra masonry variar visualmente
+  readonly designGallery: { src: string; alt: string }[] = [
+    { src: 'images/Barbearia/Barbearia%20-%20Social%20Media.jpg', alt: 'Design barbearia' },
+    { src: 'images/informatica/Black_Friday_Tech_Sale_Promotion%E2%80%A6_202606011754.jpeg', alt: 'Design informática' },
+    { src: 'images/moda/Brazilian_model_in_fashion_ad_202606011809.jpeg', alt: 'Design moda' },
+    { src: 'images/restaurantes/Artisanal_cocktails_on_bar_table_202606011823.jpeg', alt: 'Design restaurante' },
+    { src: 'images/Barbearia/Man\'s_hand_holding_iPhone_202606011751.jpeg', alt: 'Design barbearia' },
+    { src: 'images/informatica/Gaming_console_promotional_poster_202606011759.jpeg', alt: 'Design informática' },
+    { src: 'images/moda/Cardigan_on_hanger_with_sculpture_202606011812.jpeg', alt: 'Design moda' },
+    { src: 'images/restaurantes/Beer_and_fried_chicken_wings_202606011832.jpeg', alt: 'Design restaurante' },
+    { src: 'images/Barbearia/Social%20Media%20-%20Barbearia.jpg', alt: 'Design barbearia' },
+    { src: 'images/informatica/Gaming_controller_in_red_finish_202606011800.jpeg', alt: 'Design informática' },
+    { src: 'images/moda/Hoodie_ad_ethereal_atmosphere_202606011812.jpeg', alt: 'Design moda' },
+    { src: 'images/restaurantes/Beer_and_fries_happy_hour_202606011833.jpeg', alt: 'Design restaurante' },
+    { src: 'images/informatica/Gaming_mouse_with__Sua_mira_202606011758.jpeg', alt: 'Design informática' },
+    { src: 'images/moda/Male_model_wearing_resort_shirt_202606011807.jpeg', alt: 'Design moda' },
+    { src: 'images/restaurantes/Beer_and_fries_happy_hour_202606011834.jpeg', alt: 'Design restaurante' },
+    { src: 'images/informatica/Gaming_PC_setup_promotional_ad_202606011756.jpeg', alt: 'Design informática' },
+    { src: 'images/moda/Models_in_streetwear_collection_202606011809.jpeg', alt: 'Design moda' },
+    { src: 'images/restaurantes/Beer_promotional_ad_dynamic_splash_202606011834.jpeg', alt: 'Design restaurante' },
+    { src: 'images/informatica/Gaming_setup_with_dual_monitors_202606011753.jpeg', alt: 'Design informática' },
+    { src: 'images/moda/Model_holding_camera_Black_Friday_202606011808.jpeg', alt: 'Design moda' },
+    { src: 'images/restaurantes/Brunch_cafe_promotional_ad_202606011827.jpeg', alt: 'Design restaurante' },
+    { src: 'images/informatica/Laptop_promotional_ad_202606011756.jpeg', alt: 'Design informática' },
+    { src: 'images/moda/Model_in_fashion_collection_look%E2%80%A6_202606011812.jpeg', alt: 'Design moda' },
+    { src: 'images/restaurantes/Chef_slicing_grilled_beef_rib_202606011834%20(1).jpeg', alt: 'Design restaurante' },
+    { src: 'images/informatica/Premium_tech_product_ad_202606011758.jpeg', alt: 'Design informática' },
+    { src: 'images/moda/Model_in_fashion_lookbook_editorial_202606011814.jpeg', alt: 'Design moda' },
+    { src: 'images/restaurantes/Chef_slicing_grilled_beef_rib_202606011834.jpeg', alt: 'Design restaurante' },
+    { src: 'images/informatica/Smartphone_and_accessories_promo%E2%80%A6_202606011753.jpeg', alt: 'Design informática' },
+    { src: 'images/moda/Model_posing_in_fashion_promotion_202606011808%20(1).jpeg', alt: 'Design moda' },
+    { src: 'images/restaurantes/Chocolate_dessert_with_raspberry%E2%80%A6_202606011827.jpeg', alt: 'Design restaurante' },
+    { src: 'images/informatica/Smartphone_and_earbuds_ad_202606011801.jpeg', alt: 'Design informática' },
+    { src: 'images/moda/Model_posing_in_fashion_promotion_202606011808.jpeg', alt: 'Design moda' },
+    { src: 'images/restaurantes/Cocktail_ad_with_hand_202606011824.jpeg', alt: 'Design restaurante' },
+    { src: 'images/moda/Model_seated_in_fashion_ad_202606011811.jpeg', alt: 'Design moda' },
+    { src: 'images/restaurantes/Cocktail_on_banana_leaf_202606011830.jpeg', alt: 'Design restaurante' },
+    { src: 'images/moda/Model_wearing_premium_denim_pants_202606011807.jpeg', alt: 'Design moda' },
+    { src: 'images/restaurantes/Cocktail_on_dark_wood_table_202606011828.jpeg', alt: 'Design restaurante' },
+    { src: 'images/moda/Oversized_shirt_with_necklaces_202606011815.jpeg', alt: 'Design moda' },
+    { src: 'images/restaurantes/Design%20Poster.jpg', alt: 'Design restaurante' },
+    { src: 'images/restaurantes/Gourmet_burger_promotional_ad_202606011826.jpeg', alt: 'Design restaurante' },
+    { src: 'images/restaurantes/Grilled_picanha_steaks_fire_atmo%E2%80%A6_202606011833.jpeg', alt: 'Design restaurante' },
+    { src: 'images/restaurantes/Hands_clinking_beer_glasses_202606011825.jpeg', alt: 'Design restaurante' },
+    { src: 'images/restaurantes/Hands_clinking_cocktail_cups_cheers_202606011839.jpeg', alt: 'Design restaurante' },
+    { src: 'images/restaurantes/Hands_clinking_drinks_and_food_202606011826.jpeg', alt: 'Design restaurante' },
+    { src: 'images/restaurantes/Happy_Hour_Flyer_Lumon_Lounge_202606011830.jpeg', alt: 'Design restaurante' },
+    { src: 'images/restaurantes/Pizza_promotional_ad_rustic_atmo%E2%80%A6_202606011825.jpeg', alt: 'Design restaurante' },
+    { src: 'images/restaurantes/Premium_cocktails_on_marble_table_202606011828.jpeg', alt: 'Design restaurante' },
+    { src: 'images/restaurantes/Shrimp_with_aioli_and_beer_202606011824.jpeg', alt: 'Design restaurante' },
+    { src: 'images/restaurantes/Sports_bar_football_match_beer_202606011837.jpeg', alt: 'Design restaurante' },
+    { src: 'images/restaurantes/Sushi_restaurant_ad_202606011825(1).jpeg', alt: 'Design restaurante' },
+    { src: 'images/restaurantes/Sushi_restaurant_ad_202606011825.jpeg', alt: 'Design restaurante' },
+    { src: 'images/restaurantes/Waiter_holding_cocktails_on_tray_202606011837.jpeg', alt: 'Design restaurante' },
+    { src: 'images/restaurantes/Wine_and_cheese_night_event_202606011830.jpeg', alt: 'Design restaurante' },
+  ];
+
+  get isDesignActive(): boolean {
+    return this.activeCategory === 'design';
+  }
+
   constructor(private el: ElementRef, private cd: ChangeDetectorRef) {}
 
   ngAfterViewInit(): void {

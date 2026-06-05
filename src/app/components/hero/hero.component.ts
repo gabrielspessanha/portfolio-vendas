@@ -49,6 +49,18 @@ export class HeroComponent {
       'Olá Lumon! Cheguei pelo site e quero conversar sem compromisso sobre site, sistema ou IA pro meu negócio.',
     );
 
+  readonly mosaicImages = [
+    { src: 'assets/images/projects/petshop1.jpeg',       alt: 'Site para petshop' },
+    { src: 'assets/images/projects/barbearia1.jpeg',     alt: 'Site para barbearia' },
+    { src: 'assets/images/projects/academia_hero.jpeg',  alt: 'Site para academia' },
+    { src: 'assets/images/projects/hamburgueria5.jpeg',  alt: 'Site para hamburgueria' },
+    { src: 'assets/images/projects/pizzaria1.jpeg',      alt: 'Site para pizzaria' },
+    { src: 'assets/images/projects/restaurante1.jpeg',   alt: 'Site para restaurante' },
+    { src: 'assets/images/projects/mobile_petshop.jpeg', alt: 'App mobile petshop' },
+    { src: 'assets/images/projects/academia_precos.jpeg',alt: 'Página de preços academia' },
+    { src: 'assets/images/projects/hamburgueria2.jpeg',  alt: 'Cardápio hamburgueria' },
+  ];
+
   readonly socialLinks = [
     {
       key: 'whatsapp',

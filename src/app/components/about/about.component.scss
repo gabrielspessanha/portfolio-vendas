@@ -135,10 +135,11 @@
 .about-headline {
   margin: 0 0 80px;
   color: $color-text-light;
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
   font-size: 96px;
-  font-weight: 300;
-  line-height: 1.0;
-  letter-spacing: -0.03em;
+  font-weight: 600;
+  line-height: 0.98;
+  letter-spacing: -0.04em;
 
   > span {
     display: block;
