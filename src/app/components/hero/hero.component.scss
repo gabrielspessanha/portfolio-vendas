@@ -194,7 +194,7 @@
   &--highlight {
     color: $color-success;
     font-weight: 400;
-    text-shadow: 0 0 24px rgba(245, 158, 11, 0.18);
+    text-shadow: 0 0 24px rgba(7, 172, 222, 0.18);
   }
 
   @media (max-width: 768px) {
@@ -202,7 +202,7 @@
     text-shadow: none;
 
     &--highlight {
-      text-shadow: 0 0 18px rgba(245, 158, 11, 0.14);
+      text-shadow: 0 0 18px rgba(7, 172, 222, 0.14);
     }
   }
 }
@@ -264,7 +264,7 @@
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 32px rgba($color-success, 0.55);
-    background-color: #D97706;
+    background-color: #0590BC;
   }
 
   &:active { transform: translateY(0); }
@@ -486,8 +486,8 @@
     height: 70%;
     background: radial-gradient(
       ellipse,
-      rgba(245, 158, 11, 0.22) 0%,
-      rgba(245, 158, 11, 0.08) 40%,
+      rgba(7, 172, 222, 0.22) 0%,
+      rgba(7, 172, 222, 0.08) 40%,
       transparent 70%
     );
     filter: blur(40px);
