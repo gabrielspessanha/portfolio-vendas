@@ -20,6 +20,7 @@ import type { Project } from '../project-modal/project-modal.component';
 interface Category {
   id: string;
   label: string;
+  shortcut?: string; // se definido, o chip rola até esta seção em vez de filtrar
 }
 
 @Component({
@@ -59,8 +60,8 @@ export class ProjectsComponent implements AfterViewInit, OnDestroy {
   readonly categories: Category[] = [
     { id: 'all',      label: 'Todos'    },
     { id: 'sites',    label: 'Sites'    },
-    { id: 'sistemas', label: 'Sistemas' },
-    { id: 'ia',       label: 'IA'       },
+    { id: 'sistemas', label: 'Sistemas', shortcut: 'sistema-demo'  },
+    { id: 'ia',       label: 'IA',       shortcut: 'atendente-ia'  },
     { id: 'design',   label: 'Design'   },
     { id: 'videos',   label: 'Vídeos'   },
   ];
@@ -381,6 +382,16 @@ export class ProjectsComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.observer?.disconnect();
+  }
+
+  onCategoryClick(cat: Category): void {
+    if (cat.shortcut) {
+      document
+        .getElementById(cat.shortcut)
+        ?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
+    }
+    this.filterProjects(cat.id);
   }
 
   filterProjects(categoryId: string): void {

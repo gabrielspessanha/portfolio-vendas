@@ -35,10 +35,14 @@
       <button
         role="tab"
         [class.active]="activeCategory === cat.id"
+        [class.shortcut]="cat.shortcut"
         [attr.aria-selected]="activeCategory === cat.id"
-        (click)="filterProjects(cat.id)"
+        (click)="onCategoryClick(cat)"
       >
         {{ cat.label }}
+        @if (cat.shortcut) {
+          <span class="shortcut-arrow" aria-hidden="true">↓</span>
+        }
       </button>
     }
   </div>
