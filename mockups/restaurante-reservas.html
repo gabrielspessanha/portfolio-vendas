@@ -1,0 +1,281 @@
+<!doctype html>
+<!--
+  Mockup do sistema de reservas — Cantina Bella (Lumon)
+  Como usar: abra no navegador, deixe a janela em ~1440px (ou ajuste o zoom com Ctrl/Cmd +/-)
+  e tire um print da área do painel. Texto real, sem distorção.
+-->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cantina Bella · Reservas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0B0F; --panel:rgba(255,255,255,.02); --panel2:rgba(255,255,255,.04);
+    --border:rgba(255,255,255,.08); --border2:rgba(255,255,255,.12);
+    --txt:#FAFAF9; --muted:#A0A0A0; --faint:rgba(255,255,255,.45);
+    --accent:#07ACDE; --accent-d:#0590BC;
+    --amber:#F59E0B; --green:#10B981;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#050507;font-family:'Inter',system-ui,sans-serif;color:var(--txt);display:flex;justify-content:center;align-items:flex-start;padding:40px 20px;min-height:100vh}
+
+  .app{
+    width:1360px;height:840px;background:var(--bg);border:1px solid var(--border);border-radius:20px;overflow:hidden;
+    display:grid;grid-template-columns:236px 1fr 308px;
+    box-shadow:0 40px 120px rgba(0,0,0,.6),0 0 60px rgba(7,172,222,.06);position:relative;
+  }
+  .app::before{content:'';position:absolute;top:-120px;right:120px;width:480px;height:480px;background:radial-gradient(circle,rgba(7,172,222,.12),transparent 70%);filter:blur(40px);pointer-events:none}
+
+  /* Sidebar */
+  .sidebar{border-right:1px solid var(--border);padding:22px 16px;display:flex;flex-direction:column;gap:6px;background:rgba(255,255,255,.01);position:relative;z-index:1}
+  .brand{display:flex;align-items:center;gap:11px;padding:6px 8px 22px}
+  .brand .logo{width:38px;height:38px;border-radius:11px;display:grid;place-items:center;flex-shrink:0;background:linear-gradient(135deg,var(--accent),var(--accent-d));box-shadow:0 6px 18px rgba(7,172,222,.35)}
+  .brand .name{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;letter-spacing:-.01em}
+  .brand .sub{font-size:11px;color:var(--faint);margin-top:1px}
+  .nav-label{font-size:10px;letter-spacing:1.5px;text-transform:uppercase;color:var(--faint);padding:14px 10px 6px}
+  .nav-item{display:flex;align-items:center;gap:11px;padding:10px 11px;border-radius:10px;color:var(--muted);font-size:13.5px;font-weight:500;cursor:default}
+  .nav-item svg{width:18px;height:18px;flex-shrink:0}
+  .nav-item.active{background:rgba(7,172,222,.12);border:1px solid rgba(7,172,222,.28);color:var(--txt)}
+  .nav-item.active svg{color:var(--accent)}
+  .sidebar .spacer{flex:1}
+  .upgrade{margin-top:8px;padding:14px;border-radius:12px;border:1px solid var(--border);background:rgba(7,172,222,.05)}
+  .upgrade b{font-size:12.5px;display:block;margin-bottom:3px}
+  .upgrade p{font-size:11px;color:var(--muted);line-height:1.4;margin-bottom:10px}
+  .upgrade a{display:block;text-align:center;font-size:12px;font-weight:600;color:#fff;background:var(--accent);padding:8px;border-radius:8px;text-decoration:none}
+
+  /* Main */
+  .main{display:flex;flex-direction:column;min-width:0;position:relative;z-index:1}
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid var(--border)}
+  .topbar h1{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;letter-spacing:-.02em}
+  .topbar .date{font-size:12.5px;color:var(--muted);margin-top:2px}
+  .top-actions{display:flex;align-items:center;gap:12px}
+  .weeknav{display:flex;align-items:center;gap:4px;background:var(--panel);border:1px solid var(--border);border-radius:999px;padding:4px}
+  .weeknav button{background:none;border:none;color:var(--muted);width:28px;height:28px;border-radius:50%;cursor:pointer;font-size:14px}
+  .weeknav span{font-size:12.5px;font-weight:600;padding:0 6px}
+  .icon-btn{width:36px;height:36px;border-radius:10px;border:1px solid var(--border);background:var(--panel);display:grid;place-items:center;color:var(--muted)}
+  .icon-btn svg{width:17px;height:17px}
+  .btn-primary{display:inline-flex;align-items:center;gap:7px;background:var(--accent);color:#fff;border:none;padding:10px 16px;border-radius:999px;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 8px 22px rgba(7,172,222,.35)}
+  .btn-primary svg{width:15px;height:15px}
+  .avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,#3a3a44,#22222a);display:grid;place-items:center;font-size:13px;font-weight:700;border:1px solid var(--border2)}
+
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;padding:18px 24px 6px}
+  .stat{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:14px 16px}
+  .stat .l{font-size:10.5px;letter-spacing:.8px;text-transform:uppercase;color:var(--faint)}
+  .stat .v{font-size:26px;font-weight:300;letter-spacing:-.02em;margin-top:7px;font-family:'Space Grotesk',sans-serif}
+  .stat .v u{color:var(--accent);text-decoration:none;font-size:16px}
+  .stat .trend{font-size:11px;color:var(--green);margin-top:4px}
+
+  .cal-wrap{flex:1;padding:12px 24px 22px;overflow:hidden}
+  .cal-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+  .cal-head h2{font-size:14px;font-weight:600}
+  .legend{display:flex;gap:14px;font-size:11px;color:var(--muted)}
+  .legend i{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;vertical-align:middle}
+  .calendar{display:grid;grid-template-columns:58px repeat(6,1fr);grid-auto-rows:62px;gap:6px;background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:12px;height:100%}
+  .day-h{display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:12px;color:var(--muted);font-weight:600}
+  .day-h small{font-size:16px;color:var(--txt);font-weight:700;margin-top:1px}
+  .day-h.today small{color:var(--accent)}
+  .day-h.today{position:relative}
+  .day-h.today::after{content:'Hoje';position:absolute;top:-2px;right:50%;transform:translateX(50%);font-size:8px;background:rgba(7,172,222,.15);color:var(--accent);padding:1px 6px;border-radius:999px;border:1px solid rgba(7,172,222,.3)}
+  .time-l{font-size:11px;color:var(--faint);display:flex;align-items:flex-start;justify-content:flex-end;padding-right:6px;padding-top:2px}
+
+  .appt{border-radius:9px;padding:7px 9px;font-size:11px;overflow:hidden;border:1px solid var(--border);background:var(--panel2);border-left:3px solid var(--accent);display:flex;flex-direction:column;gap:2px;justify-content:center}
+  .appt .svc{font-weight:600;color:var(--txt);font-size:11.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .appt .cli{color:var(--muted);font-size:10.5px}
+  .appt.cf{border-left-color:var(--accent)}
+  .appt.at{border-left-color:var(--amber);background:rgba(245,158,11,.06)}
+  .appt.dn{border-left-color:var(--green);opacity:.75}
+  .appt .tag{font-size:9px;font-weight:700;letter-spacing:.3px;margin-top:1px}
+  .appt.cf .tag{color:var(--accent)} .appt.at .tag{color:var(--amber)} .appt.dn .tag{color:var(--green)}
+
+  /* Right rail */
+  .rail{border-left:1px solid var(--border);padding:20px 18px;display:flex;flex-direction:column;gap:18px;background:rgba(255,255,255,.01);position:relative;z-index:1}
+  .rail h3{font-size:13px;font-weight:600;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
+  .rail h3 a{font-size:11px;color:var(--accent);text-decoration:none;font-weight:500}
+  .next{display:flex;flex-direction:column;gap:9px}
+  .next-item{display:flex;align-items:center;gap:11px;padding:10px;border:1px solid var(--border);border-radius:11px;background:var(--panel)}
+  .next-item .av{width:34px;height:34px;border-radius:9px;background:rgba(7,172,222,.12);border:1px solid rgba(7,172,222,.25);color:var(--accent);display:grid;place-items:center;font-weight:700;font-size:13px;flex-shrink:0}
+  .next-item .info{flex:1;min-width:0}
+  .next-item .info b{font-size:12.5px;font-weight:600;display:block}
+  .next-item .info span{font-size:11px;color:var(--muted)}
+  .next-item .t{font-size:12px;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums}
+  .mini{background:var(--panel);border:1px solid var(--border);border-radius:13px;padding:16px}
+  .mini .row{display:flex;justify-content:space-between;align-items:center;font-size:12px;margin-bottom:11px}
+  .mini .row:last-child{margin-bottom:0}
+  .mini .row span{color:var(--muted)} .mini .row b{font-weight:700}
+  .bar{height:7px;border-radius:999px;background:rgba(255,255,255,.06);overflow:hidden;margin-top:5px}
+  .bar i{display:block;height:100%;background:linear-gradient(90deg,rgba(7,172,222,.6),var(--accent));border-radius:999px}
+</style>
+</head>
+<body>
+  <div class="app">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="brand">
+        <div class="logo">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h0a2 2 0 0 0 2-2V2M5 2v20M11 2v6a3 3 0 0 0 3 3v11M21 2c-1.66 0-3 2-3 5s1.34 5 3 5"/></svg>
+        </div>
+        <div>
+          <div class="name">Cantina Bella</div>
+          <div class="sub">Painel de reservas</div>
+        </div>
+      </div>
+
+      <div class="nav-label">Principal</div>
+      <div class="nav-item active">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        Reservas
+      </div>
+      <div class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg>
+        Mesas
+      </div>
+      <div class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5a2 2 0 0 1 2-2h10l4 4v12a0 0 0 0 1 0 0H6a2 2 0 0 1-2-2zM8 7h6M8 11h8M8 15h8"/></svg>
+        Cardápio
+      </div>
+      <div class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Clientes
+      </div>
+      <div class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        Financeiro
+      </div>
+      <div class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18M18 17V9M13 17V5M8 17v-3"/></svg>
+        Relatórios
+      </div>
+
+      <div class="nav-label">Conta</div>
+      <div class="nav-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+        Configurações
+      </div>
+
+      <div class="spacer"></div>
+      <div class="upgrade">
+        <b>Confirmação automática</b>
+        <p>Lembre o cliente da reserva no WhatsApp e reduza o no-show.</p>
+        <a href="#">Ativar agora</a>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <section class="main">
+      <header class="topbar">
+        <div>
+          <h1>Reservas</h1>
+          <div class="date">Quarta, 8 de junho · 32 reservas</div>
+        </div>
+        <div class="top-actions">
+          <div class="weeknav"><button>‹</button><span>Esta semana</span><button>›</button></div>
+          <div class="icon-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg></div>
+          <button class="btn-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12h14"/></svg>Nova reserva</button>
+          <div class="avatar">G</div>
+        </div>
+      </header>
+
+      <div class="stats">
+        <div class="stat"><div class="l">Reservas hoje</div><div class="v">32</div><div class="trend">▲ 15% vs. semana passada</div></div>
+        <div class="stat"><div class="l">Ocupação das mesas</div><div class="v">84<u>%</u></div><div class="trend">▲ 9 pontos</div></div>
+        <div class="stat"><div class="l">Faturamento previsto</div><div class="v"><u>R$ </u>4.200</div><div class="trend">▲ R$ 620 hoje</div></div>
+        <div class="stat"><div class="l">Cobertos hoje</div><div class="v">78</div><div class="trend">pessoas atendidas</div></div>
+      </div>
+
+      <div class="cal-wrap">
+        <div class="cal-head">
+          <h2>Reservas da semana</h2>
+          <div class="legend">
+            <span><i style="background:#07ACDE"></i>Reservado</span>
+            <span><i style="background:#F59E0B"></i>Ocupada</span>
+            <span><i style="background:#10B981"></i>Encerrada</span>
+          </div>
+        </div>
+
+        <div class="calendar">
+          <div></div>
+          <div class="day-h">Seg<small>6</small></div>
+          <div class="day-h">Ter<small>7</small></div>
+          <div class="day-h today">Qua<small>8</small></div>
+          <div class="day-h">Qui<small>9</small></div>
+          <div class="day-h">Sex<small>10</small></div>
+          <div class="day-h">Sáb<small>11</small></div>
+
+          <div class="time-l" style="grid-column:1;grid-row:2">17:00</div>
+          <div class="time-l" style="grid-column:1;grid-row:3">18:00</div>
+          <div class="time-l" style="grid-column:1;grid-row:4">19:00</div>
+          <div class="time-l" style="grid-column:1;grid-row:5">20:00</div>
+          <div class="time-l" style="grid-column:1;grid-row:6">21:00</div>
+          <div class="time-l" style="grid-column:1;grid-row:7">22:00</div>
+
+          <!-- Seg -->
+          <div class="appt cf" style="grid-column:2;grid-row:4"><span class="svc">Mesa 8 · 5 pessoas</span><span class="cli">Família Souza</span><span class="tag">RESERVADO</span></div>
+          <div class="appt cf" style="grid-column:2;grid-row:6"><span class="svc">Mesa 3 · 2 pessoas</span><span class="cli">Casal Lima</span><span class="tag">RESERVADO</span></div>
+
+          <!-- Ter -->
+          <div class="appt cf" style="grid-column:3;grid-row:5/span 2"><span class="svc">Mesa 12 · 8 pessoas</span><span class="cli">Aniversário Ana</span><span class="tag">RESERVADO</span></div>
+
+          <!-- Qua / hoje -->
+          <div class="appt dn" style="grid-column:4;grid-row:3"><span class="svc">Mesa 4 · 2 pessoas</span><span class="cli">Sr. Andrade</span><span class="tag">ENCERRADA</span></div>
+          <div class="appt at" style="grid-column:4;grid-row:4/span 2"><span class="svc">Mesa 10 · 6 pessoas</span><span class="cli">Grupo Helena</span><span class="tag">OCUPADA</span></div>
+          <div class="appt cf" style="grid-column:4;grid-row:6"><span class="svc">Mesa 7 · 4 pessoas</span><span class="cli">Marina C.</span><span class="tag">RESERVADO</span></div>
+
+          <!-- Qui -->
+          <div class="appt cf" style="grid-column:5;grid-row:5"><span class="svc">Mesa 5 · 3 pessoas</span><span class="cli">Pedro M.</span><span class="tag">RESERVADO</span></div>
+
+          <!-- Sex -->
+          <div class="appt cf" style="grid-column:6;grid-row:4"><span class="svc">Mesa 9 · 4 pessoas</span><span class="cli">Carla R.</span><span class="tag">RESERVADO</span></div>
+          <div class="appt cf" style="grid-column:6;grid-row:5/span 2"><span class="svc">Mesa 14 · 10 pessoas</span><span class="cli">Confraternização</span><span class="tag">RESERVADO</span></div>
+
+          <!-- Sáb -->
+          <div class="appt cf" style="grid-column:7;grid-row:3"><span class="svc">Mesa 2 · 2 pessoas</span><span class="cli">Bruno T.</span><span class="tag">RESERVADO</span></div>
+          <div class="appt cf" style="grid-column:7;grid-row:4/span 2"><span class="svc">Mesa 11 · 6 pessoas</span><span class="cli">Jantar Oliveira</span><span class="tag">RESERVADO</span></div>
+          <div class="appt cf" style="grid-column:7;grid-row:6"><span class="svc">Mesa 6 · 4 pessoas</span><span class="cli">Letícia F.</span><span class="tag">RESERVADO</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right rail -->
+    <aside class="rail">
+      <div>
+        <h3>Próximas reservas <a href="#">Ver tudo</a></h3>
+        <div class="next">
+          <div class="next-item"><div class="av">H</div><div class="info"><b>Grupo Helena</b><span>Mesa 10 · 6 pessoas</span></div><div class="t">agora</div></div>
+          <div class="next-item"><div class="av">M</div><div class="info"><b>Marina C.</b><span>Mesa 7 · 4 pessoas</span></div><div class="t">21:00</div></div>
+          <div class="next-item"><div class="av">R</div><div class="info"><b>Rafael Dias</b><span>Mesa 1 · 2 pessoas</span></div><div class="t">21:30</div></div>
+          <div class="next-item"><div class="av">T</div><div class="info"><b>Thiago Nunes</b><span>Mesa 13 · 5 pessoas</span></div><div class="t">22:00</div></div>
+        </div>
+      </div>
+
+      <div>
+        <h3>Resumo de hoje</h3>
+        <div class="mini">
+          <div class="row"><span>Encerradas</span><b>14</b></div>
+          <div class="row"><span>Ocupadas agora</span><b>6</b></div>
+          <div class="row"><span>Reservadas</span><b>12</b></div>
+          <div class="row" style="margin-top:14px"><span>Ocupação das mesas</span><b>84%</b></div>
+          <div class="bar"><i style="width:84%"></i></div>
+        </div>
+      </div>
+
+      <div>
+        <h3>Pratos mais pedidos</h3>
+        <div class="mini">
+          <div class="row"><span>Picanha na brasa</span><b>38%</b></div>
+          <div class="bar" style="margin-bottom:12px"><i style="width:38%"></i></div>
+          <div class="row"><span>Risoto de funghi</span><b>27%</b></div>
+          <div class="bar" style="margin-bottom:12px"><i style="width:27%"></i></div>
+          <div class="row"><span>Massa ao molho</span><b>21%</b></div>
+          <div class="bar"><i style="width:21%"></i></div>
+        </div>
+      </div>
+    </aside>
+
+  </div>
+</body>
+</html>
