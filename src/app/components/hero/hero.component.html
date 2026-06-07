@@ -1,7 +1,16 @@
 <section class="hero-section" aria-label="Seção principal">
 
-  <!-- Dark background panel — diagonal cut via clip-path -->
-  <div class="bg-dark-panel" aria-hidden="true"></div>
+  <!-- Dark background panel — diagonal cut via clip-path + mosaico de fundo -->
+  <div class="bg-dark-panel" aria-hidden="true">
+    <div class="mosaic">
+      @for (img of mosaicImages; track img.src; let i = $index) {
+        <div class="mosaic-tile" [style.--tile-delay]="(i * 70) + 'ms'">
+          <img [src]="img.src" [alt]="img.alt" loading="eager" decoding="async" />
+        </div>
+      }
+    </div>
+    <div class="panel-overlay"></div>
+  </div>
 
   <!-- Content layer -->
   <div class="hero-inner">
@@ -144,26 +153,6 @@
               </svg>
             }
           </a>
-        }
-      </div>
-    </div>
-
-    <!-- ── Right: mosaico de projetos ─────────────────────────────────── -->
-    <div
-      class="hero-right"
-      [@fadeScaleIn]="{ value: '', params: { duration: 900, delay: 350 } }"
-      aria-label="Projetos desenvolvidos"
-    >
-      <div class="mosaic" aria-hidden="true">
-        @for (img of mosaicImages; track img.src; let i = $index) {
-          <div class="mosaic-tile" [style.--tile-delay]="(i * 80) + 'ms'">
-            <img
-              [src]="img.src"
-              [alt]="img.alt"
-              loading="eager"
-              decoding="async"
-            />
-          </div>
         }
       </div>
     </div>

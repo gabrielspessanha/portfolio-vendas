@@ -15,6 +15,7 @@
 
   @media (max-width: 768px) {
     padding-top: $header-height-mobile;
+    min-height: auto;
   }
 }
 
@@ -33,44 +34,19 @@
   pointer-events: none;
   overflow: hidden;
 
-  // Orb cyan — topo
-  &::before {
-    content: '';
-    position: absolute;
-    width: 70%;
-    aspect-ratio: 1;
-    background: radial-gradient(circle, rgba($color-accent, 0.11) 0%, transparent 70%);
-    top: -15%;
-    left: 10%;
-    border-radius: 50%;
-    filter: blur(32px);
-    animation: orbFloat1 16s ease-in-out infinite alternate;
-    pointer-events: none;
-  }
-
-  // Orb verde — base
-  &::after {
-    content: '';
-    position: absolute;
-    width: 55%;
-    aspect-ratio: 1;
-    background: radial-gradient(circle, rgba($color-success, 0.1) 0%, transparent 70%);
-    bottom: -10%;
-    right: 5%;
-    border-radius: 50%;
-    filter: blur(38px);
-    animation: orbFloat2 20s ease-in-out infinite alternate;
-    pointer-events: none;
-  }
-
   @media (max-width: 1024px) {
     width: 53%;
     clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 10% 100%);
   }
 
+  // Mobile: painel vira bloco estático empilhado abaixo do texto
   @media (max-width: 768px) {
-    // No mobile: o dark vai pro .hero-right diretamente (fluxo natural).
-    display: none;
+    position: static;
+    order: 2;
+    width: 100%;
+    height: auto;
+    clip-path: none;
+    padding: 1.25rem 1.5rem 1.75rem;
   }
 }
 
@@ -102,6 +78,8 @@
   }
 
   @media (max-width: 768px) {
+    order: 1;
+    flex: 0 0 auto;
     flex-direction: column;
     align-items: flex-start;
     padding: 2.5rem 1.5rem 1.5rem;
@@ -460,107 +438,38 @@
 // Right — mockups image
 // ─────────────────────────────────────────────────────────────────────────────
 
-.hero-right {
-  flex: 1;
-  min-width: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 1.5rem 1.5rem 1.5rem 2rem;
-  position: relative;
-  overflow: hidden;
-
-  // Glow ciano radial atrás dos mockups (Ajuste 4)
-  &::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%;
-    height: 70%;
-    background: radial-gradient(
-      ellipse,
-      rgba(7, 172, 222, 0.22) 0%,
-      rgba(7, 172, 222, 0.08) 40%,
-      transparent 70%
-    );
-    filter: blur(40px);
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  // Garante que a imagem fique acima do glow
-  > * {
-    position: relative;
-    z-index: 1;
-  }
-
-  @media (max-width: 768px) {
-    width: calc(100% + 3rem);
-    margin: 0 -1.5rem -1.5rem;
-    padding: 2.5rem 1.5rem;
-    background: $color-dark-bg;
-    overflow: hidden;
-
-    &::before {
-      opacity: 0.5;
-    }
-  }
-}
-
-// ── Mosaic de projetos (substitui mockups.png) ───────────────────────────
+// ── Mosaico de fundo — preenche o painel escuro diagonal ─────────────────────
 .mosaic {
-  position: relative;
-  z-index: 1;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-auto-rows: 1fr;
-  gap: 10px;
-  width: 100%;
-  max-width: 560px;
-  aspect-ratio: 1 / 1.05;
-  max-height: 75vh;
-  perspective: 1200px;
-
-  @media (max-width: 1280px) {
-    max-width: 480px;
-    gap: 8px;
-  }
+  gap: 6px;
 
   @media (max-width: 1024px) {
-    max-width: 100%;
-    aspect-ratio: 1 / 0.9;
+    gap: 5px;
   }
 
-  // Tablet & mobile: 3 colunas, 2 fileiras (6 tiles)
+  // Mobile: painel é bloco estático → grade compacta de fundo
   @media (max-width: 768px) {
-    max-width: 420px;
-    margin: 0 auto;
-    aspect-ratio: 3 / 2;
-    gap: 8px;
+    position: static;
+    grid-auto-rows: auto;
+    gap: 6px;
   }
 
-  // Phone: 2 colunas, 2 fileiras (4 tiles)
   @media (max-width: 480px) {
     grid-template-columns: repeat(2, 1fr);
-    max-width: 320px;
-    aspect-ratio: 1 / 1;
-    gap: 8px;
   }
 }
 
 .mosaic-tile {
   position: relative;
   overflow: hidden;
-  border-radius: 14px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(255, 255, 255, 0.03);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-  transition: transform $transition-fast, box-shadow $transition-fast,
-    border-color $transition-fast;
   opacity: 0;
-  transform: translateY(16px) scale(0.96);
+  transform: translateY(10px);
   animation: mosaicReveal 700ms var(--tile-delay, 0ms) cubic-bezier(0.16, 1, 0.3, 1) forwards;
 
   img {
@@ -568,46 +477,51 @@
     height: 100%;
     object-fit: cover;
     display: block;
-    transition: transform 0.6s ease;
   }
 
-  &:hover {
-    transform: translateY(-3px) scale(1.01);
-    border-color: rgba($color-accent, 0.45);
-    box-shadow: 0 14px 36px rgba(0, 0, 0, 0.55), 0 0 24px rgba($color-accent, 0.18);
-    z-index: 2;
-
-    img { transform: scale(1.06); }
-  }
-
-  // 5º card central — leve destaque
-  &:nth-child(5) {
-    border-color: rgba($color-accent, 0.25);
-  }
-
+  // Mobile: tiles quadrados num grid estático; mostra 6 (3x2)
   @media (max-width: 768px) {
-    border-radius: 10px;
-
-    // No tablet/mobile mostra 6 (3x2)
+    aspect-ratio: 1 / 1;
+    border-radius: 8px;
     &:nth-child(n + 7) { display: none; }
-
-    &:hover {
-      transform: none;
-      img { transform: none; }
-    }
   }
 
+  // Phone: mostra 4 (2x2)
   @media (max-width: 480px) {
-    // No phone mostra só 4 (2x2)
     &:nth-child(n + 5) { display: none; }
   }
 }
 
+// Overlay: profundidade + escurece a borda diagonal pra legibilidade
+.panel-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      105deg,
+      rgba(11, 11, 15, 0.92) 0%,
+      rgba(11, 11, 15, 0.35) 22%,
+      rgba(11, 11, 15, 0.12) 52%,
+      rgba(11, 11, 15, 0.32) 100%
+    ),
+    radial-gradient(ellipse at 72% 38%, rgba(7, 172, 222, 0.10), transparent 60%);
+
+  @media (max-width: 768px) {
+    // Sem diagonal no mobile: só um leve tint, sem escurecer demais
+    background: radial-gradient(ellipse at 50% 30%, rgba(7, 172, 222, 0.10), transparent 65%);
+  }
+}
+
 @keyframes mosaicReveal {
-  to { opacity: 1; transform: translateY(0) scale(1); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .bg-dark-panel::before,
-  .bg-dark-panel::after { animation: none !important; }
+  .mosaic-tile {
+    opacity: 1 !important;
+    transform: none !important;
+    animation: none !important;
+  }
 }

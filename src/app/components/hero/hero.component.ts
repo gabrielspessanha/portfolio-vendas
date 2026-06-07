@@ -49,16 +49,21 @@ export class HeroComponent {
       'Olá Lumon! Cheguei pelo site e quero conversar sem compromisso sobre site, sistema ou IA pro meu negócio.',
     );
 
+  // Mistura projetos reais + designs (intercalado pra variar visualmente).
+  // Preenche o painel escuro do hero como grade de fundo (decorativo).
   readonly mosaicImages = [
-    { src: 'assets/images/projects/petshop1.jpeg',       alt: 'Site para petshop' },
-    { src: 'assets/images/projects/barbearia1.jpeg',     alt: 'Site para barbearia' },
-    { src: 'assets/images/projects/academia_hero.jpeg',  alt: 'Site para academia' },
-    { src: 'assets/images/projects/hamburgueria5.jpeg',  alt: 'Site para hamburgueria' },
-    { src: 'assets/images/projects/pizzaria1.jpeg',      alt: 'Site para pizzaria' },
-    { src: 'assets/images/projects/restaurante1.jpeg',   alt: 'Site para restaurante' },
-    { src: 'assets/images/projects/mobile_petshop.jpeg', alt: 'App mobile petshop' },
-    { src: 'assets/images/projects/academia_precos.jpeg',alt: 'Página de preços academia' },
-    { src: 'assets/images/projects/hamburgueria2.jpeg',  alt: 'Cardápio hamburgueria' },
+    { src: 'assets/images/projects/petshop1.jpeg',                                           alt: 'Site para petshop' },
+    { src: 'images/restaurantes/Gourmet_burger_promotional_ad_202606011826.jpeg',            alt: 'Design hamburgueria' },
+    { src: 'assets/images/projects/barbearia1.jpeg',                                         alt: 'Site para barbearia' },
+    { src: 'images/moda/Model_in_fashion_lookbook_editorial_202606011814.jpeg',              alt: 'Design moda' },
+    { src: 'assets/images/projects/academia_hero.jpeg',                                      alt: 'Site para academia' },
+    { src: 'images/informatica/Gaming_setup_with_dual_monitors_202606011753.jpeg',           alt: 'Design informática' },
+    { src: 'assets/images/projects/pizzaria1.jpeg',                                          alt: 'Site para pizzaria' },
+    { src: 'images/restaurantes/Sushi_restaurant_ad_202606011825.jpeg',                      alt: 'Design restaurante' },
+    { src: 'assets/images/projects/restaurante1.jpeg',                                       alt: 'Site para restaurante' },
+    { src: 'images/moda/Models_in_streetwear_collection_202606011809.jpeg',                  alt: 'Design moda streetwear' },
+    { src: 'assets/images/projects/hamburgueria5.jpeg',                                      alt: 'Site para hamburgueria' },
+    { src: 'images/informatica/Gaming_PC_setup_promotional_ad_202606011756.jpeg',            alt: 'Design informática gamer' },
   ];
 
   readonly socialLinks = [
