@@ -81,7 +81,7 @@ export class HeroComponent {
     },
     {
       key: 'instagram',
-      href: 'https://instagram.com',
+      href: 'https://instagram.com/lumon_projetos',
       label: 'Instagram',
       modifier: 'instagram',
       external: true,
@@ -89,7 +89,7 @@ export class HeroComponent {
     },
     {
       key: 'email',
-      href: 'mailto:gabrielpessanha2g@gmail.com',
+      href: 'mailto:lumon.projetos@gmail.com',
       label: 'Enviar e-mail',
       modifier: 'email',
       delay: 840,
