@@ -15,6 +15,7 @@ interface Testimonial {
   initials: string;
   featured?: boolean;
   link?: string;
+  image?: string;
 }
 
 @Component({
@@ -41,6 +42,7 @@ export class TestimonialsComponent implements AfterViewInit, OnDestroy {
       initials: 'JR',
       featured: true,
       link: 'https://pianice.vercel.app',
+      image: 'images/cases/pianice-home.jpg',
     },
     {
       name: 'Marina Costa',
