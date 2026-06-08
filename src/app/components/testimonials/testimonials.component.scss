@@ -1,0 +1,181 @@
+@use 'variables' as *;
+
+.testimonials-section {
+  position: relative;
+  background: $color-dark-bg;
+  padding: 6rem 1.5rem;
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    padding: 4rem 1.25rem;
+  }
+}
+
+.t-container {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+// ── Tag ─────────────────────────────────────────────────────────────────────────
+.t-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: $color-accent;
+  margin-bottom: 1.25rem;
+
+  .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: $color-accent;
+    box-shadow: 0 0 10px rgba(7, 172, 222, 0.7);
+  }
+}
+
+// ── Headline ────────────────────────────────────────────────────────────────────
+.t-headline {
+  font-family: 'Space Grotesk', 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.1;
+  color: $color-text-light;
+  margin-bottom: 0.85rem;
+
+  .hl { color: $color-accent; }
+}
+
+.t-subtitle {
+  font-size: 1.05rem;
+  color: $text-muted;
+  max-width: 38ch;
+  margin-bottom: 3rem;
+
+  @media (max-width: 768px) {
+    font-size: 0.95rem;
+    margin-bottom: 2.25rem;
+  }
+}
+
+// ── Grid ────────────────────────────────────────────────────────────────────────
+.t-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+
+  @media (max-width: 760px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ── Card ────────────────────────────────────────────────────────────────────────
+.t-card {
+  position: relative;
+  background: $bg-card;
+  border: 1px solid $border-card-default;
+  border-radius: 18px;
+  padding: 2rem 1.85rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+
+  // reveal
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 600ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 600ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color $transition-fast;
+
+  &:hover {
+    border-color: $border-card-hover;
+  }
+
+  &:nth-child(2) { transition-delay: 120ms; }
+}
+
+.testimonials-section.visible .t-card {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+// quote mark
+.t-mark {
+  color: rgba(7, 172, 222, 0.25);
+  margin-bottom: 0.5rem;
+}
+
+// stars
+.t-stars {
+  display: flex;
+  gap: 3px;
+  margin-bottom: 1rem;
+
+  .star {
+    color: $color-star;
+    font-size: 1.05rem;
+    line-height: 1;
+  }
+}
+
+.t-quote {
+  font-size: 1.02rem;
+  line-height: 1.7;
+  color: $text-white-secondary;
+  margin: 0 0 1.75rem;
+  flex-grow: 1;
+
+  @media (max-width: 768px) {
+    font-size: 0.97rem;
+  }
+}
+
+// author
+.t-author {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid $divider-subtle;
+}
+
+.t-avatar {
+  flex-shrink: 0;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: $color-text-light;
+  background: linear-gradient(135deg, $color-accent, $color-success-dark);
+  letter-spacing: 0.02em;
+}
+
+.t-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.t-name {
+  font-weight: 600;
+  font-size: 0.98rem;
+  color: $color-text-light;
+}
+
+.t-business {
+  font-size: 0.85rem;
+  color: $text-muted;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .t-card {
+    transition: border-color $transition-fast;
+    opacity: 1;
+    transform: none;
+  }
+}

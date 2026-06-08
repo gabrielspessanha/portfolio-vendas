@@ -1,0 +1,53 @@
+<section
+  class="testimonials-section"
+  [class.visible]="isVisible"
+  id="depoimentos"
+  aria-labelledby="testimonials-heading"
+>
+  <div class="t-container">
+
+    <!-- Tag -->
+    <div class="t-tag">
+      <span class="dot" aria-hidden="true"></span>
+      <span>Depoimentos</span>
+    </div>
+
+    <!-- Headline -->
+    <h2 class="t-headline" id="testimonials-heading">
+      Quem confiou, <span class="hl">recomenda.</span>
+    </h2>
+
+    <!-- Subtitle -->
+    <p class="t-subtitle">
+      Negócios reais que a gente ajudou a vender mais no digital.
+    </p>
+
+    <!-- Cards -->
+    <div class="t-grid" role="list">
+      @for (t of testimonials; track t.name) {
+        <article class="t-card" role="listitem">
+          <svg class="t-mark" width="34" height="34" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M9.5 6C6.5 6 4 8.5 4 11.5V18h6v-6H7c0-1.7 1.3-3 2.5-3V6zm10 0c-3 0-5.5 2.5-5.5 5.5V18h6v-6h-3c0-1.7 1.3-3 2.5-3V6z"/>
+          </svg>
+
+          <div class="t-stars" [attr.aria-label]="t.rating + ' de 5 estrelas'">
+            @for (s of range(t.rating); track $index) {
+              <span class="star" aria-hidden="true">★</span>
+            }
+          </div>
+
+          <blockquote class="t-quote">{{ t.quote }}</blockquote>
+
+          <div class="t-author">
+            <span class="t-avatar" aria-hidden="true">{{ t.initials }}</span>
+            <span class="t-meta">
+              <span class="t-name">{{ t.name }}</span>
+              <span class="t-business">{{ t.business }} · {{ t.segment }}</span>
+            </span>
+          </div>
+        </article>
+      }
+    </div>
+
+  </div>
+</section>

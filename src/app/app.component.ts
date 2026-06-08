@@ -7,6 +7,7 @@ import { SistemaDemoComponent } from './components/sistema-demo/sistema-demo.com
 import { AboutComponent } from './components/about/about.component';
 import { HowItWorksComponent } from './components/how-it-works/how-it-works.component';
 import { ProjectsComponent } from './components/projects/projects.component';
+import { TestimonialsComponent } from './components/testimonials/testimonials.component';
 import { PricingComponent } from './components/pricing/pricing.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -22,6 +23,7 @@ import { FooterComponent } from './components/footer/footer.component';
     AtendenteIaComponent,
     SistemaDemoComponent,
     HowItWorksComponent,
+    TestimonialsComponent,
     PricingComponent,
     AboutComponent,
     ContactComponent,
@@ -35,6 +37,7 @@ import { FooterComponent } from './components/footer/footer.component';
     <app-atendente-ia />
     <app-sistema-demo />
     <app-how-it-works />
+    <app-testimonials />
     <app-pricing />
     <app-about />
     <app-contact />
