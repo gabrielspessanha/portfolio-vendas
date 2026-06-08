@@ -25,7 +25,11 @@
     <!-- Cards -->
     <div class="t-grid" role="list">
       @for (t of testimonials; track t.name) {
-        <article class="t-card" role="listitem">
+        <article class="t-card" [class.t-card--featured]="t.featured" role="listitem">
+          @if (t.featured) {
+            <span class="t-badge">Projeto em destaque</span>
+          }
+
           <svg class="t-mark" width="34" height="34" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <path d="M9.5 6C6.5 6 4 8.5 4 11.5V18h6v-6H7c0-1.7 1.3-3 2.5-3V6zm10 0c-3 0-5.5 2.5-5.5 5.5V18h6v-6h-3c0-1.7 1.3-3 2.5-3V6z"/>
           </svg>
@@ -38,12 +42,29 @@
 
           <blockquote class="t-quote">{{ t.quote }}</blockquote>
 
-          <div class="t-author">
-            <span class="t-avatar" aria-hidden="true">{{ t.initials }}</span>
-            <span class="t-meta">
-              <span class="t-name">{{ t.name }}</span>
-              <span class="t-business">{{ t.business }} · {{ t.segment }}</span>
-            </span>
+          <div class="t-footer">
+            <div class="t-author">
+              <span class="t-avatar" aria-hidden="true">{{ t.initials }}</span>
+              <span class="t-meta">
+                <span class="t-name">{{ t.name }}</span>
+                <span class="t-business">{{ t.business }} · {{ t.segment }}</span>
+              </span>
+            </div>
+
+            @if (t.link) {
+              <a
+                class="t-link"
+                [href]="t.link"
+                target="_blank"
+                rel="noopener noreferrer"
+                [attr.aria-label]="'Ver o site da ' + t.business + ' ao vivo'"
+              >
+                Ver site ao vivo
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M7 17 17 7"/><path d="M7 7h10v10"/>
+                </svg>
+              </a>
+            }
           </div>
         </article>
       }

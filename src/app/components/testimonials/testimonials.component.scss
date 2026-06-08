@@ -127,19 +127,74 @@
   color: $text-white-secondary;
   margin: 0 0 1.75rem;
   flex-grow: 1;
+  white-space: pre-line; // preserva os parágrafos do depoimento
 
   @media (max-width: 768px) {
     font-size: 0.97rem;
   }
 }
 
-// author
+// footer (autor + link)
+.t-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid $divider-subtle;
+}
+
 .t-author {
   display: flex;
   align-items: center;
   gap: 0.85rem;
-  padding-top: 1.25rem;
-  border-top: 1px solid $divider-subtle;
+}
+
+.t-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: $color-accent;
+  text-decoration: none;
+  padding: 0.5rem 0.9rem;
+  border: 1px solid $border-card-hover;
+  border-radius: $radius-pill;
+  transition: background $transition-fast, color $transition-fast;
+
+  &:hover {
+    background: $color-accent;
+    color: $color-dark-bg;
+  }
+}
+
+// ── Featured card (case real, span total) ──────────────────────────────────────
+.t-card--featured {
+  grid-column: 1 / -1;
+  border-color: $border-card-hover;
+  background:
+    radial-gradient(120% 140% at 0% 0%, rgba(7, 172, 222, 0.08), transparent 55%),
+    $bg-card;
+
+  .t-mark { color: rgba(7, 172, 222, 0.35); }
+}
+
+.t-badge {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: $color-accent;
+  background: rgba(7, 172, 222, 0.12);
+  border: 1px solid rgba(7, 172, 222, 0.3);
+  border-radius: $radius-pill;
+  padding: 0.3rem 0.8rem;
+  margin-bottom: 1.1rem;
 }
 
 .t-avatar {

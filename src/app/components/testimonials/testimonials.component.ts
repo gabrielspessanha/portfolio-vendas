@@ -13,6 +13,8 @@ interface Testimonial {
   rating: number;
   quote: string;
   initials: string;
+  featured?: boolean;
+  link?: string;
 }
 
 @Component({
@@ -27,6 +29,19 @@ export class TestimonialsComponent implements AfterViewInit, OnDestroy {
   private observer: IntersectionObserver | null = null;
 
   readonly testimonials: Testimonial[] = [
+    {
+      name: 'João Ricardo',
+      business: 'Pianice',
+      segment: 'Escola de música',
+      rating: 5,
+      quote:
+        'Fechei com a Lumon para fazer um site personalizado da minha escola de música Pianice e o resultado foi incrivelmente melhor do que eu esperava.\n\n' +
+        'Entenderam o que eu queria, entregaram rápido e o site ficou com a cara da escola, profissional e sofisticada. O que mais gostei foi falar direto com quem tava fazendo, sem enrolação. Diferente de muitos.\n\n' +
+        'Recomendo demais para todos aqueles que querem escalar o seu negócio para outro nível de profissionalidade e aumentar as vendas!',
+      initials: 'JR',
+      featured: true,
+      link: 'https://pianice.vercel.app',
+    },
     {
       name: 'Marina Costa',
       business: 'Bella Massa',
