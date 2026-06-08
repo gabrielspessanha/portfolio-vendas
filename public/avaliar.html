@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Deixe sua avaliação · Lumon</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    :root {
+      --accent: #07ACDE;
+      --accent-dark: #0590BC;
+      --dark-bg: #0B0B0F;
+      --surface: #15151B;
+      --surface-2: #1E1E26;
+      --border: rgba(255, 255, 255, 0.10);
+      --text: #FAFAF9;
+      --text-muted: #A0A0AB;
+      --star: #FFC542;
+      --error: #FF5A5A;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background:
+        radial-gradient(1200px 600px at 50% -10%, rgba(7, 172, 222, 0.12), transparent 60%),
+        var(--dark-bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 40px 20px 64px;
+      line-height: 1.6;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 520px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 36px 30px 32px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.45);
+    }
+
+    /* ── Brand mark (L + dot) ── */
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .brand svg { display: block; }
+    .brand span {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.25rem;
+      letter-spacing: 0.01em;
+    }
+
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.6rem;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    h1 .hl { color: var(--accent); }
+
+    .lead {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 28px;
+    }
+
+    form { display: flex; flex-direction: column; gap: 20px; }
+
+    .field { display: flex; flex-direction: column; gap: 7px; }
+    label {
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+    label .opt { color: var(--text-muted); font-weight: 400; }
+
+    input[type="text"], textarea, select {
+      width: 100%;
+      background: var(--surface-2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      font: inherit;
+      font-size: 0.95rem;
+      padding: 12px 14px;
+      transition: border-color 160ms ease, box-shadow 160ms ease;
+    }
+    textarea { resize: vertical; min-height: 120px; }
+    input::placeholder, textarea::placeholder { color: #6B6B76; }
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(7, 172, 222, 0.18);
+    }
+    select { appearance: none; cursor: pointer; }
+
+    /* ── Star rating ── */
+    fieldset { border: 0; }
+    legend {
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      margin-bottom: 8px;
+      padding: 0;
+    }
+    .stars {
+      display: inline-flex;
+      gap: 6px;
+    }
+    .stars input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+    .stars label {
+      cursor: pointer;
+      font-size: 2rem;
+      line-height: 1;
+      color: #3A3A44;
+      transition: color 140ms ease, transform 140ms ease;
+    }
+    .stars label:hover { transform: scale(1.12); }
+    .stars label.filled { color: var(--star); }
+    .stars input:focus-visible + label {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+    .rating-text {
+      margin-top: 8px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      min-height: 1.2em;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      margin-top: 4px;
+      background: var(--accent);
+      color: #04222C;
+      font-weight: 700;
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+      border: 0;
+      border-radius: 12px;
+      padding: 15px 20px;
+      cursor: pointer;
+      transition: background 160ms ease, transform 120ms ease;
+    }
+    .btn:hover { background: var(--accent-dark); }
+    .btn:active { transform: translateY(1px); }
+
+    .error-msg {
+      color: var(--error);
+      font-size: 0.82rem;
+      display: none;
+    }
+    .error-msg.show { display: block; }
+
+    .privacy {
+      margin-top: 6px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    .foot {
+      margin-top: 22px;
+      text-align: center;
+      font-size: 0.75rem;
+      color: #5A5A64;
+    }
+    .foot a { color: var(--accent); text-decoration: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; }
+      .stars label:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="brand">
+      <svg width="26" height="38" viewBox="0 0 72 105" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect x="0" y="22" width="22" height="61" fill="#FAFAF9" />
+        <rect x="0" y="83" width="72" height="22" fill="#FAFAF9" />
+        <circle cx="11" cy="11" r="11" fill="#07ACDE" />
+      </svg>
+      <span>Lumon</span>
+    </div>
+
+    <h1>Conta como foi trabalhar com a <span class="hl">Lumon</span>.</h1>
+    <p class="lead">
+      Sua opinião ajuda outros donos de negócio a confiar na gente. Leva menos de um minuto.
+    </p>
+
+    <form id="reviewForm" novalidate>
+      <div class="field">
+        <label for="name">Seu nome</label>
+        <input type="text" id="name" name="name" placeholder="Como você se chama?" autocomplete="name" />
+        <span class="error-msg" id="err-name">Preenche seu nome, por favor.</span>
+      </div>
+
+      <div class="field">
+        <label for="business">Seu negócio <span class="opt">(nome da empresa)</span></label>
+        <input type="text" id="business" name="business" placeholder="Ex: Pianice" />
+      </div>
+
+      <div class="field">
+        <label for="segment">Segmento <span class="opt">(opcional)</span></label>
+        <select id="segment" name="segment">
+          <option value="">Selecione</option>
+          <option>Petshop</option>
+          <option>Barbearia</option>
+          <option>Clínica / Estética</option>
+          <option>Restaurante / Alimentação</option>
+          <option>Academia</option>
+          <option>Comércio / Loja</option>
+          <option>Serviços</option>
+          <option>Outro</option>
+        </select>
+      </div>
+
+      <fieldset>
+        <legend>Sua nota</legend>
+        <div class="stars" id="stars" role="radiogroup" aria-label="Nota de 1 a 5 estrelas">
+          <input type="radio" name="rating" id="star1" value="1" />
+          <label for="star1" data-value="1" aria-label="1 estrela">★</label>
+          <input type="radio" name="rating" id="star2" value="2" />
+          <label for="star2" data-value="2" aria-label="2 estrelas">★</label>
+          <input type="radio" name="rating" id="star3" value="3" />
+          <label for="star3" data-value="3" aria-label="3 estrelas">★</label>
+          <input type="radio" name="rating" id="star4" value="4" />
+          <label for="star4" data-value="4" aria-label="4 estrelas">★</label>
+          <input type="radio" name="rating" id="star5" value="5" />
+          <label for="star5" data-value="5" aria-label="5 estrelas">★</label>
+        </div>
+        <div class="rating-text" id="ratingText" aria-live="polite"></div>
+        <span class="error-msg" id="err-rating">Escolhe de 1 a 5 estrelas.</span>
+      </fieldset>
+
+      <div class="field">
+        <label for="message">Seu depoimento</label>
+        <textarea id="message" name="message" placeholder="O que você achou do site/sistema, do atendimento, do resultado..."></textarea>
+        <span class="error-msg" id="err-message">Escreve algumas palavras, por favor.</span>
+      </div>
+
+      <button type="submit" class="btn">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884" />
+        </svg>
+        Enviar avaliação pelo WhatsApp
+      </button>
+      <p class="privacy">Abre o WhatsApp com sua avaliação pronta. Você só confere e envia.</p>
+    </form>
+
+    <p class="foot">
+      Avaliação para a <a href="https://lumondigital.vercel.app">Lumon</a> · Tecnologia sob medida pra comércio local
+    </p>
+  </main>
+
+  <script>
+    (function () {
+      var WHATSAPP = '5521974767624';
+      var labels = {
+        1: 'Não foi bom · 1 de 5',
+        2: 'Deu pra melhorar · 2 de 5',
+        3: 'Foi ok · 3 de 5',
+        4: 'Muito bom · 4 de 5',
+        5: 'Excelente! · 5 de 5'
+      };
+
+      var starInputs = Array.prototype.slice.call(document.querySelectorAll('.stars input'));
+      var starLabels = Array.prototype.slice.call(document.querySelectorAll('.stars label'));
+      var ratingText = document.getElementById('ratingText');
+
+      function paint(n) {
+        starLabels.forEach(function (lab) {
+          lab.classList.toggle('filled', Number(lab.dataset.value) <= n);
+        });
+      }
+      function currentRating() {
+        var checked = document.querySelector('.stars input:checked');
+        return checked ? Number(checked.value) : 0;
+      }
+      starLabels.forEach(function (lab) {
+        lab.addEventListener('mouseenter', function () { paint(Number(lab.dataset.value)); });
+      });
+      document.getElementById('stars').addEventListener('mouseleave', function () {
+        paint(currentRating());
+      });
+      starInputs.forEach(function (inp) {
+        inp.addEventListener('change', function () {
+          paint(Number(inp.value));
+          ratingText.textContent = labels[inp.value] || '';
+        });
+      });
+
+      function showErr(id, on) {
+        document.getElementById('err-' + id).classList.toggle('show', on);
+      }
+
+      document.getElementById('reviewForm').addEventListener('submit', function (e) {
+        e.preventDefault();
+        var name = document.getElementById('name').value.trim();
+        var business = document.getElementById('business').value.trim();
+        var segment = document.getElementById('segment').value.trim();
+        var rating = currentRating();
+        var message = document.getElementById('message').value.trim();
+
+        var ok = true;
+        showErr('name', !name); if (!name) ok = false;
+        showErr('rating', rating === 0); if (rating === 0) ok = false;
+        showErr('message', !message); if (!message) ok = false;
+        if (!ok) return;
+
+        var stars = '★★★★★☆☆☆☆☆'.slice(5 - rating, 10 - rating);
+        var lines = [];
+        lines.push('⭐ Avaliação para a Lumon');
+        lines.push('');
+        lines.push('Nome: ' + name);
+        if (business) lines.push('Negócio: ' + business);
+        if (segment) lines.push('Segmento: ' + segment);
+        lines.push('Nota: ' + stars + ' (' + rating + '/5)');
+        lines.push('');
+        lines.push('Depoimento:');
+        lines.push('"' + message + '"');
+        lines.push('');
+        lines.push('(Autorizo a Lumon a publicar esta avaliação no site e nas redes.)');
+
+        var url = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(lines.join('\n'));
+        window.open(url, '_blank', 'noopener,noreferrer');
+      });
+    })();
+  </script>
+</body>
+</html>

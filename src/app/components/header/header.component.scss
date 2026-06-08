@@ -156,3 +156,120 @@
     letter-spacing: 0.08em;
   }
 }
+
+// ── Hamburger toggle (mobile only) ──────────────────────────────────────────────
+
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  margin-left: 0.75rem;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+
+  .bar {
+    display: block;
+    width: 24px;
+    height: 2px;
+    margin: 0 auto;
+    background: #FFFFFF;
+    border-radius: 2px;
+    transition: transform 250ms ease, opacity 200ms ease;
+  }
+
+  &.open .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  &.open .bar:nth-child(2) { opacity: 0; }
+  &.open .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  @media (max-width: 768px) {
+    display: flex;
+  }
+}
+
+// ── Mobile menu panel ───────────────────────────────────────────────────────────
+
+.mobile-menu {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-menu {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: $header-height-mobile;
+    left: 0;
+    right: 0;
+    background: rgba(10, 10, 10, 0.97);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.35);
+    padding: 0.25rem 1.5rem 1.25rem;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-12px);
+    pointer-events: none;
+    transition:
+      opacity 250ms ease,
+      transform 250ms ease,
+      visibility 0s linear 250ms;
+
+    &.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+      pointer-events: auto;
+      transition:
+        opacity 250ms ease,
+        transform 250ms ease,
+        visibility 0s;
+    }
+  }
+
+  .mobile-link {
+    color: $color-text-light;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0.85rem 0.25rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    transition: color $transition-fast;
+
+    &:hover,
+    &:active {
+      color: $color-accent;
+    }
+  }
+
+  .mobile-cta {
+    margin-top: 1.1rem;
+    text-align: center;
+    background: $color-success;
+    color: $color-text-light;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 0.85rem 1rem;
+    border-radius: $radius-pill;
+    text-decoration: none;
+    transition: background $transition-fast;
+
+    &:hover {
+      background: $color-success-dark;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menu-toggle .bar,
+  .mobile-menu {
+    transition: none;
+  }
+}

@@ -43,6 +43,34 @@
         (mouseenter)="ctaHovered = true"
         (mouseleave)="ctaHovered = false"
       >ORÇAMENTO GRÁTIS</a>
+
+      <!-- Hamburger (mobile only) -->
+      <button
+        type="button"
+        class="menu-toggle"
+        [class.open]="menuOpen"
+        (click)="toggleMenu()"
+        [attr.aria-expanded]="menuOpen"
+        aria-controls="mobile-menu"
+        [attr.aria-label]="menuOpen ? 'Fechar menu' : 'Abrir menu'"
+      >
+        <span class="bar" aria-hidden="true"></span>
+        <span class="bar" aria-hidden="true"></span>
+        <span class="bar" aria-hidden="true"></span>
+      </button>
     </nav>
   </div>
+
+  <!-- Mobile menu panel -->
+  <nav
+    class="mobile-menu"
+    id="mobile-menu"
+    [class.open]="menuOpen"
+    aria-label="Navegação mobile"
+  >
+    @for (link of navLinks; track link.label) {
+      <a [href]="link.href" class="mobile-link" (click)="closeMenu()">{{ link.label }}</a>
+    }
+    <a href="#contato" class="mobile-cta" (click)="closeMenu()">ORÇAMENTO GRÁTIS</a>
+  </nav>
 </header>

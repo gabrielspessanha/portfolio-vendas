@@ -31,6 +31,7 @@ import {
 export class HeaderComponent {
   ctaHovered = false;
   isScrolled = false;
+  menuOpen = false;
 
   readonly navLinks = [
     { label: 'Sobre',         href: '#sobre'         },
@@ -45,5 +46,18 @@ export class HeaderComponent {
   @HostListener('window:scroll')
   onScroll(): void {
     this.isScrolled = window.scrollY > 80;
+  }
+
+  toggleMenu(): void {
+    this.menuOpen = !this.menuOpen;
+  }
+
+  closeMenu(): void {
+    this.menuOpen = false;
+  }
+
+  @HostListener('document:keydown.escape')
+  onEscape(): void {
+    this.closeMenu();
   }
 }
