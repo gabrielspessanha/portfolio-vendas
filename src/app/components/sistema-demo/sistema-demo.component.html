@@ -61,7 +61,7 @@
               @case ('financeiro') { <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> }
               @case ('relatorios') { <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18M18 17V9M13 17V5M8 17v-3"/></svg> }
             }
-            <span>{{ item.label }}</span>
+            <span>{{ item.id === 'agenda' ? vocab.agenda : item.label }}</span>
           </button>
         }
       </nav>
@@ -73,14 +73,14 @@
           <div>
             <h3 class="main-title">
               @switch (activeView) {
-                @case ('agenda')     { Agenda }
+                @case ('agenda')     { {{ vocab.agenda }} }
                 @case ('clientes')   { Clientes }
                 @case ('financeiro') { Financeiro }
                 @case ('relatorios') { Relatórios }
               }
             </h3>
             @if (activeView === 'agenda') {
-              <span class="main-sub">Quarta, 8 de junho · {{ activeScenario.stats.agendamentos }} agendamentos</span>
+              <span class="main-sub">Quarta, 8 de junho · {{ activeScenario.stats.agendamentos }} {{ vocab.unit }}</span>
             }
           </div>
           <div class="head-right">
@@ -92,7 +92,7 @@
             @if (activeView === 'agenda') {
               <button type="button" class="add-btn" (click)="toggleForm()" [class.open]="showForm">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
-                {{ showForm ? 'Fechar' : 'Novo' }}
+                {{ showForm ? 'Fechar' : vocab.newLabel }}
               </button>
             }
           </div>
@@ -103,7 +103,7 @@
           <!-- Stats -->
           <div class="stat-row">
             <div class="stat-card">
-              <span class="stat-label">Agendamentos</span>
+              <span class="stat-label">{{ vocab.unit }}</span>
               <span class="stat-value">{{ displayStats.agendamentos }}</span>
             </div>
             <div class="stat-card">
@@ -122,7 +122,7 @@
               <div class="form-grid">
                 <label class="field"><span class="field-label">Horário</span><input type="time" [(ngModel)]="formTime" name="time" /></label>
                 <label class="field"><span class="field-label">Cliente</span><input type="text" [(ngModel)]="formClient" name="client" placeholder="Nome do cliente" autocomplete="off" /></label>
-                <label class="field"><span class="field-label">Serviço</span>
+                <label class="field"><span class="field-label">{{ vocab.serviceLabel }}</span>
                   <select [(ngModel)]="formService" name="service">
                     @for (svc of activeScenario.services; track svc) { <option [value]="svc">{{ svc }}</option> }
                   </select>
@@ -138,10 +138,10 @@
 
           <!-- Legenda -->
           <div class="cal-legend">
-            <span><i class="lg lg--cf"></i>Confirmado</span>
-            <span><i class="lg lg--at"></i>Em atendimento</span>
-            <span><i class="lg lg--dn"></i>Concluído</span>
-            <span class="cal-hint">Clique num agendamento pra mudar o status</span>
+            <span><i class="lg lg--cf"></i>{{ vocab.statusLabel['confirmado'] }}</span>
+            <span><i class="lg lg--at"></i>{{ vocab.statusLabel['atendimento'] }}</span>
+            <span><i class="lg lg--dn"></i>{{ vocab.statusLabel['concluido'] }}</span>
+            <span class="cal-hint">Clique num item pra mudar o status</span>
           </div>
 
           <!-- Calendário semanal -->
@@ -160,11 +160,11 @@
                 [style.grid-column]="gridCol(a)"
                 [style.grid-row]="gridRow(a)"
                 (click)="cycleStatus(a)"
-                [attr.aria-label]="a.service + ' · ' + a.client + ' · ' + statusLabel[a.status] + '. Clique para mudar o status'"
+                [attr.aria-label]="a.service + ' · ' + a.client + ' · ' + vocab.statusLabel[a.status] + '. Clique para mudar o status'"
               >
                 <span class="svc">{{ a.service }}</span>
                 <span class="cli">{{ a.client }}</span>
-                <span class="tag">{{ statusShort[a.status] }}</span>
+                <span class="tag">{{ vocab.statusShort[a.status] }}</span>
               </button>
             }
           </div>
@@ -220,7 +220,7 @@
       @if (activeView === 'agenda') {
         <aside class="app-rail">
           <div class="rail-block">
-            <h4 class="rail-title">Próximos clientes</h4>
+            <h4 class="rail-title">{{ vocab.railNext }}</h4>
             <div class="next">
               @for (a of nextClients; track $index) {
                 <div class="next-item">
@@ -238,16 +238,16 @@
           <div class="rail-block">
             <h4 class="rail-title">Resumo de hoje</h4>
             <div class="mini">
-              <div class="mini-row"><span>Concluídos</span><b>{{ countToday('concluido') }}</b></div>
-              <div class="mini-row"><span>Em atendimento</span><b>{{ countToday('atendimento') }}</b></div>
-              <div class="mini-row"><span>Confirmados</span><b>{{ countToday('confirmado') }}</b></div>
+              <div class="mini-row"><span>{{ vocab.statusLabel['concluido'] }}</span><b>{{ countToday('concluido') }}</b></div>
+              <div class="mini-row"><span>{{ vocab.statusLabel['atendimento'] }}</span><b>{{ countToday('atendimento') }}</b></div>
+              <div class="mini-row"><span>{{ vocab.statusLabel['confirmado'] }}</span><b>{{ countToday('confirmado') }}</b></div>
               <div class="mini-row mini-row--gap"><span>Ocupação</span><b>{{ displayStats.ocupacao }}%</b></div>
               <div class="bar-track"><span class="bar-fill" [style.width.%]="displayStats.ocupacao"></span></div>
             </div>
           </div>
 
           <div class="rail-block">
-            <h4 class="rail-title">Serviços do dia</h4>
+            <h4 class="rail-title">{{ vocab.railServices }}</h4>
             <div class="mini">
               @for (s of activeScenario.topServices; track s.name; let last = $last) {
                 <div class="mini-row"><span>{{ s.name }}</span><b>{{ s.pct }}%</b></div>

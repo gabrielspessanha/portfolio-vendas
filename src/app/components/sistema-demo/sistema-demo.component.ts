@@ -44,8 +44,19 @@ interface SysStats {
   faturamento: number; // R$
 }
 
+interface Vocab {
+  agenda: string; // título/nav da view principal
+  unit: string; // substantivo: 'agendamentos' / 'reservas'
+  newLabel: string; // botão: 'Novo' / 'Nova'
+  serviceLabel: string; // rótulo do campo no form
+  railNext: string; // título do painel lateral
+  railServices: string; // título "serviços/pratos do dia"
+  statusLabel: Record<ApptStatus, string>;
+  statusShort: Record<ApptStatus, string>;
+}
+
 interface SysScenario {
-  id: 'petshop' | 'barbearia' | 'clinica';
+  id: 'petshop' | 'barbearia' | 'clinica' | 'restaurante';
   label: string;
   business: string;
   stats: SysStats;
@@ -56,6 +67,7 @@ interface SysScenario {
   topServices: TopService[];
   ticket: number; // ticket médio R$
   monthRevenue: number; // faturamento do mês R$
+  vocab: Vocab;
 }
 
 interface NavItem {
@@ -85,6 +97,28 @@ const STATUS_SHORT: Record<ApptStatus, string> = {
   confirmado: 'CONFIRMADO',
   atendimento: 'EM ATENDIMENTO',
   concluido: 'CONCLUÍDO',
+};
+
+// Vocabulário por tipo de negócio (agendamento vs reserva)
+const VOCAB_APPT: Vocab = {
+  agenda: 'Agenda',
+  unit: 'agendamentos',
+  newLabel: 'Novo',
+  serviceLabel: 'Serviço',
+  railNext: 'Próximos clientes',
+  railServices: 'Serviços do dia',
+  statusLabel: STATUS_LABEL,
+  statusShort: STATUS_SHORT,
+};
+const VOCAB_REST: Vocab = {
+  agenda: 'Reservas',
+  unit: 'reservas',
+  newLabel: 'Nova',
+  serviceLabel: 'Mesa',
+  railNext: 'Próximas reservas',
+  railServices: 'Pratos do dia',
+  statusLabel: { confirmado: 'Reservado', atendimento: 'Ocupada', concluido: 'Encerrada' },
+  statusShort: { confirmado: 'RESERVADO', atendimento: 'OCUPADA', concluido: 'ENCERRADA' },
 };
 
 // ── Cenários (dados de exemplo editáveis) ──────────────────────────────────────
@@ -130,6 +164,7 @@ const SCENARIOS: SysScenario[] = [
     ],
     ticket: 52,
     monthRevenue: 19600,
+    vocab: VOCAB_APPT,
   },
   {
     id: 'petshop',
@@ -169,6 +204,7 @@ const SCENARIOS: SysScenario[] = [
     ],
     ticket: 78,
     monthRevenue: 24800,
+    vocab: VOCAB_APPT,
   },
   {
     id: 'clinica',
@@ -206,6 +242,46 @@ const SCENARIOS: SysScenario[] = [
     ],
     ticket: 286,
     monthRevenue: 63200,
+    vocab: VOCAB_APPT,
+  },
+  {
+    id: 'restaurante',
+    label: 'Restaurante',
+    business: 'Cantina Bella',
+    stats: { agendamentos: 32, ocupacao: 84, faturamento: 4200 },
+    services: ['Mesa 2 pessoas', 'Mesa 4 pessoas', 'Mesa 6 pessoas', 'Mesa 8 pessoas'],
+    week: [
+      { day: 0, hour: 12, span: 1, client: 'Casal Lima', service: 'Mesa 3 · 2 pessoas', status: 'confirmado' },
+      { day: 0, hour: 14, span: 1, client: 'Família Souza', service: 'Mesa 8 · 5 pessoas', status: 'concluido' },
+      { day: 1, hour: 13, span: 2, client: 'Aniversário Ana', service: 'Mesa 12 · 8 pessoas', status: 'confirmado' },
+      { day: 2, hour: 12, span: 1, client: 'Sr. Andrade', service: 'Mesa 4 · 2 pessoas', status: 'concluido' },
+      { day: 2, hour: 13, span: 2, client: 'Grupo Helena', service: 'Mesa 10 · 6 pessoas', status: 'atendimento' },
+      { day: 2, hour: 17, span: 1, client: 'Marina C.', service: 'Mesa 7 · 4 pessoas', status: 'confirmado' },
+      { day: 3, hour: 18, span: 1, client: 'Pedro M.', service: 'Mesa 5 · 3 pessoas', status: 'confirmado' },
+      { day: 4, hour: 12, span: 1, client: 'Carla R.', service: 'Mesa 9 · 4 pessoas', status: 'confirmado' },
+      { day: 4, hour: 17, span: 2, client: 'Confraternização', service: 'Mesa 14 · 10 pessoas', status: 'confirmado' },
+      { day: 5, hour: 12, span: 1, client: 'Bruno T.', service: 'Mesa 2 · 2 pessoas', status: 'confirmado' },
+      { day: 5, hour: 13, span: 2, client: 'Jantar Oliveira', service: 'Mesa 11 · 6 pessoas', status: 'confirmado' },
+      { day: 5, hour: 16, span: 1, client: 'Letícia F.', service: 'Mesa 6 · 4 pessoas', status: 'confirmado' },
+    ],
+    clients: [
+      { name: 'Família Souza', phone: '(21) 99812-3344', visits: 9, last: 'Hoje' },
+      { name: 'Marina Castro', phone: '(21) 98123-7788', visits: 4, last: 'Hoje' },
+      { name: 'Grupo Helena', phone: '(21) 99744-1020', visits: 6, last: '2 dias' },
+      { name: 'Bruno Teixeira', phone: '(21) 99655-4521', visits: 12, last: '1 semana' },
+    ],
+    weekly: [
+      { label: 'Seg', value: 22 }, { label: 'Ter', value: 26 }, { label: 'Qua', value: 32 },
+      { label: 'Qui', value: 28 }, { label: 'Sex', value: 41 }, { label: 'Sáb', value: 48 },
+    ],
+    topServices: [
+      { name: 'Picanha na brasa', pct: 38 },
+      { name: 'Risoto de funghi', pct: 27 },
+      { name: 'Massa ao molho', pct: 21 },
+    ],
+    ticket: 105,
+    monthRevenue: 78000,
+    vocab: VOCAB_REST,
   },
 ];
 
@@ -277,6 +353,10 @@ export class SistemaDemoComponent implements AfterViewInit, OnDestroy {
 
   get activeScenario(): SysScenario {
     return this.scenarios.find((s) => s.id === this.activeScenarioId)!;
+  }
+
+  get vocab(): Vocab {
+    return this.activeScenario.vocab;
   }
 
   // ── Controles ────────────────────────────────────────────────────────────────
