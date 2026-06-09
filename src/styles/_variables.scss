@@ -1,17 +1,25 @@
 // ── Brand colours ─────────────────────────────────────────────────────────────
-$color-light-bg:       #F3EEE4;  // warm ivory / bege-carvão
+$color-light-bg:       #FAFAF9;  // off-white neutro
 $color-dark-bg:        #0B0B0F;  // warm near-black
-$color-accent:         #CDA349;  // champagne gold — single accent
-$color-accent-deep:    #8C6D2F;  // deep gold — para texto/links em fundo claro (AA)
+$color-accent:         #2EC6DE;  // aqua cyan — cor principal (glow da lâmpada)
+$color-accent-dark:    #1AA6C2;  // aqua escuro — hover
+$color-accent-deep:    #0C6E80;  // teal profundo — texto/links em fundo claro (AA)
+
+// ── Dourado — acento secundário (detalhes: estrelas, métricas, bordas, ícones-chave) ──
+$color-gold:           #D9B45A;  // champagne gold
+$color-gold-bright:    #E9CE86;  // gold claro (highlights/filamento)
+$color-gold-deep:      #9C7A2E;  // gold profundo — p/ fundo claro (AA)
+$color-gold-soft:      rgba(217, 180, 90, 0.5); // borda dourada hover dos cards
+
 $color-text-dark:      #0B0B0F;
 $color-text-secondary: #2A2A2A;
 $color-text-medium:    #4A4A4A;
 $color-text-light:     #FAFAF9;
 $color-text-muted:     #6B6B6B;
 $color-card-bg:        #15151A;
-$color-success:        #CDA349;
-$color-success-dark:   #A8863A;
-$color-star:           #CDA349;
+$color-success:        #2EC6DE;
+$color-success-dark:   #1AA6C2;
+$color-star:           #D9B45A;  // estrelas em dourado
 
 // ── Social icon gradients (mantidos só pros canais de contato) ─────────────────
 $gradient-email:     linear-gradient(135deg, #EA4335 0%, #FBBC04 100%);
@@ -21,11 +29,11 @@ $gradient-whatsapp:  linear-gradient(135deg, #25D366 0%, #128C7E 100%);
 $gradient-instagram: linear-gradient(135deg, #F58529 0%, #DD2A7B 50%, #8134AF 100%);
 
 // ── Service icon colours (UNIFICADO em ciano — paleta mono-accent) ────────────
-$service-blue:   #CDA349;
-$service-purple: #CDA349;
-$service-pink:   #CDA349;
-$service-orange: #CDA349;
-$service-red:    #CDA349;
+$service-blue:   #2EC6DE;
+$service-purple: #2EC6DE;
+$service-pink:   #2EC6DE;
+$service-orange: #2EC6DE;
+$service-red:    #2EC6DE;
 
 // ── Card surfaces ─────────────────────────────────────────────────────────────
 $bg-card:       #15151A;
@@ -47,10 +55,10 @@ $transition-fast:   200ms ease;
 $transition-smooth: 400ms cubic-bezier(0.16, 1, 0.3, 1);
 
 // ── Projects section glows ────────────────────────────────────────────────────
-$border-card-default: rgba(205, 163, 73, 0.15);
-$border-card-hover:   rgba(205, 163, 73, 0.5);
-$glow-green-card:     rgba(205, 163, 73, 0.3);
-$glow-cyan-soft:      rgba(205, 163, 73, 0.18);
+$border-card-default: rgba(46, 198, 222, 0.15);
+$border-card-hover:   rgba(46, 198, 222, 0.5);
+$glow-green-card:     rgba(46, 198, 222, 0.3);
+$glow-cyan-soft:      rgba(46, 198, 222, 0.18);
 
 // ── About section tints ───────────────────────────────────────────────────────
 $text-white-secondary: rgba(255, 255, 255, 0.7);

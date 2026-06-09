@@ -168,7 +168,7 @@
   &--highlight {
     color: $color-accent-deep; // dourado profundo p/ contraste AA em fundo ivory
     font-weight: 700;
-    text-shadow: 0 0 24px rgba(205, 163, 73, 0.18);
+    text-shadow: 0 0 24px rgba(46, 198, 222, 0.18);
   }
 
   @media (max-width: 768px) {
@@ -176,7 +176,7 @@
     text-shadow: none;
 
     &--highlight {
-      text-shadow: 0 0 18px rgba(205, 163, 73, 0.14);
+      text-shadow: 0 0 18px rgba(46, 198, 222, 0.14);
     }
   }
 }
@@ -238,7 +238,7 @@
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 32px rgba($color-success, 0.55);
-    background-color: #A8863A;
+    background-color: #1AA6C2;
   }
 
   &:active { transform: translateY(0); }
@@ -506,11 +506,11 @@
       rgba(11, 11, 15, 0.12) 52%,
       rgba(11, 11, 15, 0.32) 100%
     ),
-    radial-gradient(ellipse at 72% 38%, rgba(205, 163, 73, 0.10), transparent 60%);
+    radial-gradient(ellipse at 72% 38%, rgba(46, 198, 222, 0.10), transparent 60%);
 
   @media (max-width: 768px) {
     // Sem diagonal no mobile: só um leve tint, sem escurecer demais
-    background: radial-gradient(ellipse at 50% 30%, rgba(205, 163, 73, 0.10), transparent 65%);
+    background: radial-gradient(ellipse at 50% 30%, rgba(46, 198, 222, 0.10), transparent 65%);
   }
 }
 

@@ -15,33 +15,40 @@
             focusable="false"
           >
             <defs>
-              <linearGradient id="lumonGoldF" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0" stop-color="#E7CB85"/>
-                <stop offset="0.55" stop-color="#CDA349"/>
-                <stop offset="1" stop-color="#A8863A"/>
+              <linearGradient id="lumonGlassF" x1="0.1" y1="0" x2="0.9" y2="1">
+                <stop offset="0" stop-color="#9DECF7"/>
+                <stop offset="0.5" stop-color="#2EC6DE"/>
+                <stop offset="1" stop-color="#15A0BC"/>
               </linearGradient>
-              <radialGradient id="lumonCoreF" cx="0.5" cy="0.45" r="0.6">
-                <stop offset="0" stop-color="#FBE6B8"/>
-                <stop offset="1" stop-color="#CDA349" stop-opacity="0"/>
+              <linearGradient id="lumonFilF" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#F4E2AC"/>
+                <stop offset="0.5" stop-color="#E9CE86"/>
+                <stop offset="1" stop-color="#C99B3F"/>
+              </linearGradient>
+              <radialGradient id="lumonCoreF" cx="0.5" cy="0.42" r="0.62">
+                <stop offset="0" stop-color="#C6F4FB" stop-opacity="0.95"/>
+                <stop offset="0.55" stop-color="#2EC6DE" stop-opacity="0.28"/>
+                <stop offset="1" stop-color="#2EC6DE" stop-opacity="0"/>
               </radialGradient>
-              <filter id="lumonGlowF" x="-70%" y="-70%" width="240%" height="240%">
-                <feGaussianBlur in="SourceGraphic" stdDeviation="1.8" result="b"/>
+              <filter id="lumonGlowF" x="-80%" y="-80%" width="260%" height="260%">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="1.7" result="b"/>
                 <feMerge>
                   <feMergeNode in="b"/>
                   <feMergeNode in="SourceGraphic"/>
                 </feMerge>
               </filter>
             </defs>
-            <circle cx="32" cy="32" r="20" fill="url(#lumonCoreF)"/>
+            <circle cx="32" cy="30" r="22" fill="url(#lumonCoreF)"/>
             <path
               d="M22 62 C22 56 18 53 14 48 C9 42 7 37 7 30 C7 17 18 7 32 7 C46 7 57 17 57 30 C57 37 55 42 50 48 C46 53 42 56 42 62 Z"
-              fill="none" stroke="url(#lumonGoldF)" stroke-width="3.6"/>
+              fill="none" stroke="url(#lumonGlassF)" stroke-width="3.4"
+              stroke-linejoin="round" filter="url(#lumonGlowF)"/>
             <path d="M23 67 H41 M24 73 H40 M25 79 H39"
-              stroke="url(#lumonGoldF)" stroke-width="3.4" stroke-linecap="round"/>
-            <path d="M27 84 H37 L34 91 H30 Z" fill="url(#lumonGoldF)"/>
+              stroke="url(#lumonGlassF)" stroke-width="3.2" stroke-linecap="round"/>
+            <path d="M27 84 H37 L34 91 H30 Z" fill="url(#lumonGlassF)"/>
             <path
               d="M39 21 C31 22 26 30 29 39 C31 45 28 49 24 47 M27 45 C33 51 41 50 44 43"
-              fill="none" stroke="#FBEBBE" stroke-width="2.6"
+              fill="none" stroke="url(#lumonFilF)" stroke-width="2.6"
               stroke-linecap="round" stroke-linejoin="round" filter="url(#lumonGlowF)"/>
           </svg>
           <span class="brand-name">Lumon</span>

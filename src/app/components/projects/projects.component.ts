@@ -128,7 +128,7 @@ export class ProjectsComponent implements AfterViewInit, OnDestroy {
       challenge: 'Engajar alunos durante a pandemia.',
       result: 'Retenção de alunos aumentou 65%.',
       resultMetric: '+65% retenção',
-      color: '#CDA349',
+      color: '#2EC6DE',
     },
     {
       id: 'brasa-bacon',
@@ -256,7 +256,7 @@ export class ProjectsComponent implements AfterViewInit, OnDestroy {
       challenge: 'Aumentar a visibilidade local e facilitar reservas.',
       result: 'Taxa de ocupação subiu 45% com o sistema de reservas online.',
       resultMetric: '+45% ocupação',
-      color: '#CDA349',
+      color: '#2EC6DE',
     },
     {
       id: 'barbearia-sete',
