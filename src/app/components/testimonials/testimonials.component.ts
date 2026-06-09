@@ -42,7 +42,7 @@ export class TestimonialsComponent implements AfterViewInit, OnDestroy {
       initials: 'JR',
       featured: true,
       link: 'https://pianice.vercel.app',
-      image: 'images/cases/pianice-home.jpg',
+      image: 'images/cases/pianice-sobre.jpg',
     },
     {
       name: 'Marina Costa',
