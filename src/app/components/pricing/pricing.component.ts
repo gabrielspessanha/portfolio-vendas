@@ -28,6 +28,8 @@ interface Package {
   extras: string[];
   ctaText: string;
   isFeatured: boolean;
+  /** Link de pagamento Mercado Pago (https://mpago.la/XXXXXXX). Deixe '' até ter a URL real. */
+  paymentUrl?: string;
 }
 
 interface PackageCategory {
@@ -96,6 +98,7 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
           ],
           ctaText: 'Quero o Essencial',
           isFeatured: false,
+          paymentUrl: '', // TODO: cole aqui o link do MP → https://mpago.la/XXXXXXX
         },
         {
           id: 'site-profissional',
@@ -120,6 +123,7 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
           ],
           ctaText: 'Quero o Profissional',
           isFeatured: true,
+          paymentUrl: '', // TODO: cole aqui o link do MP → https://mpago.la/XXXXXXX
         },
         {
           id: 'site-premium',
@@ -143,6 +147,7 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
           ],
           ctaText: 'Quero o Premium',
           isFeatured: false,
+          paymentUrl: '', // TODO: cole aqui o link do MP → https://mpago.la/XXXXXXX
         },
       ],
     },
@@ -172,6 +177,7 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
           ],
           ctaText: 'Quero o Essencial',
           isFeatured: false,
+          paymentUrl: '', // TODO: cole aqui o link do MP → https://mpago.la/XXXXXXX
         },
         {
           id: 'sistema-profissional',
@@ -195,6 +201,7 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
           ],
           ctaText: 'Quero o Profissional',
           isFeatured: true,
+          paymentUrl: '', // TODO: cole aqui o link do MP → https://mpago.la/XXXXXXX
         },
         {
           id: 'sistema-premium',
@@ -218,6 +225,7 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
           ],
           ctaText: 'Quero o Premium',
           isFeatured: false,
+          paymentUrl: '', // TODO: cole aqui o link do MP → https://mpago.la/XXXXXXX
         },
       ],
     },
@@ -246,6 +254,7 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
           ],
           ctaText: 'Quero o Essencial',
           isFeatured: false,
+          paymentUrl: '', // TODO: cole aqui o link do MP → https://mpago.la/XXXXXXX
         },
         {
           id: 'ia-profissional',
@@ -268,6 +277,7 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
           ],
           ctaText: 'Quero a Profissional',
           isFeatured: true,
+          paymentUrl: '', // TODO: cole aqui o link do MP → https://mpago.la/XXXXXXX
         },
         {
           id: 'ia-premium',
@@ -290,6 +300,7 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
           ],
           ctaText: 'Quero a Premium',
           isFeatured: false,
+          paymentUrl: '', // TODO: cole aqui o link do MP → https://mpago.la/XXXXXXX
         },
       ],
     },
@@ -318,6 +329,7 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
           ],
           ctaText: 'Quero o Essencial',
           isFeatured: false,
+          paymentUrl: '', // TODO: cole aqui o link do MP → https://mpago.la/XXXXXXX
         },
         {
           id: 'design-profissional',
@@ -339,6 +351,7 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
           ],
           ctaText: 'Quero o Profissional',
           isFeatured: true,
+          paymentUrl: '', // TODO: cole aqui o link do MP → https://mpago.la/XXXXXXX
         },
         {
           id: 'design-premium',
@@ -361,6 +374,7 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
           ],
           ctaText: 'Quero o Premium',
           isFeatured: false,
+          paymentUrl: '', // TODO: cole aqui o link do MP → https://mpago.la/XXXXXXX
         },
       ],
     },
@@ -389,6 +403,7 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
           ],
           ctaText: 'Quero o Essencial',
           isFeatured: false,
+          paymentUrl: '', // TODO: cole aqui o link do MP → https://mpago.la/XXXXXXX
         },
         {
           id: 'video-profissional',
@@ -410,6 +425,7 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
           ],
           ctaText: 'Quero o Profissional',
           isFeatured: true,
+          paymentUrl: '', // TODO: cole aqui o link do MP → https://mpago.la/XXXXXXX
         },
         {
           id: 'video-premium',
@@ -432,6 +448,7 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
           ],
           ctaText: 'Quero o Premium',
           isFeatured: false,
+          paymentUrl: '', // TODO: cole aqui o link do MP → https://mpago.la/XXXXXXX
         },
       ],
     },
@@ -479,6 +496,12 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
       `Olá! Tenho interesse no pacote ${pkg.name}. Pode me passar mais detalhes?`,
     );
     window.open(`https://wa.me/5521974767624?text=${text}`, '_blank', 'noopener,noreferrer');
+  }
+
+  openPayment(pkg: Package): void {
+    if (pkg.paymentUrl) {
+      window.open(pkg.paymentUrl, '_blank', 'noopener,noreferrer');
+    }
   }
 
   @HostListener('keydown', ['$event'])

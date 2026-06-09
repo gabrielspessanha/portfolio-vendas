@@ -582,6 +582,45 @@
 // Trust signals abaixo do CTA
 // ─────────────────────────────────────────────────────────────────────────────
 
+// ── Botão "Pagar agora" (Mercado Pago) ────────────────────────────────────────
+.pay-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  width: 100%;
+  padding: 10px 20px;
+  margin-top: 10px;
+  border: 1.5px solid rgba($color-accent, 0.45);
+  border-radius: $radius-pill;
+  color: $color-accent;
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-decoration: none;
+  transition:
+    border-color $transition-fast,
+    color $transition-fast,
+    background $transition-fast,
+    box-shadow $transition-fast;
+
+  &:hover {
+    border-color: $color-gold;
+    color: $color-gold;
+    background: rgba($color-gold, 0.06);
+    box-shadow: 0 0 18px rgba($color-gold, 0.20);
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-accent;
+    outline-offset: 3px;
+  }
+
+  svg {
+    flex-shrink: 0;
+  }
+}
+
 .cta-trust {
   list-style: none;
   padding: 0;

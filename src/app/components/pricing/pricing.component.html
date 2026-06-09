@@ -116,6 +116,24 @@
           {{ pkg.ctaText }}
         </button>
 
+        <!-- Pagamento Mercado Pago (aparece somente quando paymentUrl estiver preenchido) -->
+        @if (pkg.paymentUrl) {
+          <a
+            class="pay-btn"
+            [href]="pkg.paymentUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            [attr.aria-label]="'Pagar pelo pacote ' + pkg.name + ' via Mercado Pago'"
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+              <line x1="1" y1="10" x2="23" y2="10"/>
+            </svg>
+            Pagar agora
+          </a>
+        }
+
         <!-- Trust signals per card -->
         <ul class="cta-trust" aria-hidden="true">
           <li><span class="trust-dot"></span>Resposta em até 1h</li>
