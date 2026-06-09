@@ -17,10 +17,10 @@
   &::before {
     content: '';
     position: absolute;
-    left: 16%;
+    left: 9%;
     top: 50%;
     transform: translateY(-50%);
-    width: min(720px, 64%);
+    width: min(540px, 46%);
     aspect-ratio: 1000 / 747;
     background: url('/images/logo-lumon-glow.jpg') center / contain no-repeat;
     opacity: 0.55;
