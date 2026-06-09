@@ -7,15 +7,42 @@
       <div class="footer-brand">
         <a href="#" class="brand-logo" aria-label="Lumon – Voltar ao início">
           <svg
-            width="40"
-            height="40"
-            viewBox="0 0 46 46"
+            width="30"
+            height="44"
+            viewBox="0 0 64 96"
             xmlns="http://www.w3.org/2000/svg"
             aria-hidden="true"
             focusable="false"
           >
-            <polygon points="23,3 43,13 43,33 23,43 3,33 3,13" fill="#0A0A0A" stroke="rgba(7, 172, 222,0.4)" stroke-width="1"/>
-            <text x="23" y="29" text-anchor="middle" fill="white" font-family="Inter, sans-serif" font-weight="900" font-size="18">L</text>
+            <defs>
+              <linearGradient id="lumonGoldF" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#E7CB85"/>
+                <stop offset="0.55" stop-color="#CDA349"/>
+                <stop offset="1" stop-color="#A8863A"/>
+              </linearGradient>
+              <radialGradient id="lumonCoreF" cx="0.5" cy="0.45" r="0.6">
+                <stop offset="0" stop-color="#FBE6B8"/>
+                <stop offset="1" stop-color="#CDA349" stop-opacity="0"/>
+              </radialGradient>
+              <filter id="lumonGlowF" x="-70%" y="-70%" width="240%" height="240%">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="1.8" result="b"/>
+                <feMerge>
+                  <feMergeNode in="b"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+            </defs>
+            <circle cx="32" cy="32" r="20" fill="url(#lumonCoreF)"/>
+            <path
+              d="M22 62 C22 56 18 53 14 48 C9 42 7 37 7 30 C7 17 18 7 32 7 C46 7 57 17 57 30 C57 37 55 42 50 48 C46 53 42 56 42 62 Z"
+              fill="none" stroke="url(#lumonGoldF)" stroke-width="3.6"/>
+            <path d="M23 67 H41 M24 73 H40 M25 79 H39"
+              stroke="url(#lumonGoldF)" stroke-width="3.4" stroke-linecap="round"/>
+            <path d="M27 84 H37 L34 91 H30 Z" fill="url(#lumonGoldF)"/>
+            <path
+              d="M39 21 C31 22 26 30 29 39 C31 45 28 49 24 47 M27 45 C33 51 41 50 44 43"
+              fill="none" stroke="#FBEBBE" stroke-width="2.6"
+              stroke-linecap="round" stroke-linejoin="round" filter="url(#lumonGlowF)"/>
           </svg>
           <span class="brand-name">Lumon</span>
         </a>

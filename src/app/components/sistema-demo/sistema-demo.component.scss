@@ -16,7 +16,7 @@
 
 // Orbs
 .orb { position: absolute; border-radius: 50%; filter: blur(120px); pointer-events: none; opacity: 0; transition: opacity 1500ms ease; z-index: 0; }
-.orb-green { width: 520px; height: 520px; top: -140px; right: -120px; background: radial-gradient(circle, rgba(7,172,222,.16), transparent 70%); }
+.orb-green { width: 520px; height: 520px; top: -140px; right: -120px; background: radial-gradient(circle, rgba(205, 163, 73,.16), transparent 70%); }
 .orb-cyan  { width: 460px; height: 460px; bottom: -120px; left: -100px; background: radial-gradient(circle, rgba(0,217,255,.10), transparent 70%); }
 .sis-section.visible {
   .orb-green { opacity: 1; animation: sisOrb1 16s ease-in-out infinite; }
@@ -42,7 +42,7 @@
   margin: 0 0 22px; color: $color-text-light; font-size: clamp(34px, 4.6vw, 60px);
   font-weight: 300; line-height: 1.04; letter-spacing: -.03em;
   > span { display: block; }
-  .headline-dot { color: $color-accent; text-shadow: 0 0 24px rgba(7,172,222,.55); }
+  .headline-dot { color: $color-accent; text-shadow: 0 0 24px rgba(205, 163, 73,.55); }
 }
 .sis-subtitle { font-size: 16px; color: $text-muted; max-width: 560px; margin: 0 auto; line-height: 1.6; }
 
@@ -50,7 +50,7 @@
 .app-window {
   max-width: 1120px; margin: 0 auto;
   background: rgba(255,255,255,.02); border: 1px solid $divider-subtle; border-radius: 16px;
-  overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,.5), 0 0 50px rgba(7,172,222,.08);
+  overflow: hidden; box-shadow: 0 30px 80px rgba(0,0,0,.5), 0 0 50px rgba(205, 163, 73,.08);
   opacity: 0; transform: translateY(28px) scale(.98);
   transition: opacity 800ms cubic-bezier(0.16,1,0.3,1) 150ms, transform 800ms cubic-bezier(0.16,1,0.3,1) 150ms;
 }
@@ -73,7 +73,7 @@
 .brand { display: flex; align-items: center; gap: 10px; padding: 4px 6px 18px; }
 .brand-logo {
   width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; flex-shrink: 0;
-  background: linear-gradient(135deg, $color-accent, $color-success-dark); box-shadow: 0 6px 16px rgba(7,172,222,.35);
+  background: linear-gradient(135deg, $color-accent, $color-success-dark); box-shadow: 0 6px 16px rgba(205, 163, 73,.35);
 }
 .brand-txt { display: flex; flex-direction: column; min-width: 0; }
 .brand-name { font-size: 13.5px; font-weight: 700; letter-spacing: -.01em; color: $color-text-light; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -85,7 +85,7 @@
   transition: background $transition-fast, color $transition-fast, border-color $transition-fast;
   svg { width: 17px; height: 17px; flex-shrink: 0; }
   &:hover:not(.active) { background: rgba(255,255,255,.03); color: $color-text-light; }
-  &.active { background: rgba(7,172,222,.12); border-color: rgba(7,172,222,.28); color: $color-text-light; svg { color: $color-accent; } }
+  &.active { background: rgba(205, 163, 73,.12); border-color: rgba(205, 163, 73,.28); color: $color-text-light; svg { color: $color-accent; } }
   &:focus-visible { outline: 2px solid $color-accent; outline-offset: 2px; }
 }
 
@@ -101,15 +101,15 @@
   padding: 7px 13px; background: rgba(255,255,255,.02); border: 1px solid $divider-subtle; border-radius: $radius-pill;
   color: $text-white-secondary; font-size: 12.5px; font-weight: 500; cursor: pointer;
   transition: background $transition-fast, border-color $transition-fast, color $transition-fast;
-  &:hover:not(.active) { border-color: rgba(7,172,222,.3); background: rgba(7,172,222,.04); color: $color-text-light; }
-  &.active { background: rgba(7,172,222,.12); border-color: rgba(7,172,222,.45); color: $color-text-light; }
+  &:hover:not(.active) { border-color: rgba(205, 163, 73,.3); background: rgba(205, 163, 73,.04); color: $color-text-light; }
+  &.active { background: rgba(205, 163, 73,.12); border-color: rgba(205, 163, 73,.45); color: $color-text-light; }
   &:focus-visible { outline: 2px solid $color-accent; outline-offset: 2px; }
 }
 
 .add-btn {
   display: inline-flex; align-items: center; gap: 6px; padding: 8px 15px;
   background: $color-accent; border: none; border-radius: $radius-pill; color: #fff;
-  font-size: 12.5px; font-weight: 600; cursor: pointer; box-shadow: 0 6px 18px rgba(7,172,222,.32);
+  font-size: 12.5px; font-weight: 600; cursor: pointer; box-shadow: 0 6px 18px rgba(205, 163, 73,.32);
   transition: background $transition-fast, transform $transition-fast;
   &:hover { background: $color-success-dark; transform: translateY(-1px); }
   &.open { background: rgba(255,255,255,.06); color: $text-white-secondary; box-shadow: none; }
@@ -124,13 +124,13 @@
 .stat-unit { color: $color-accent; font-size: 16px; }
 
 // Form
-.appt-form { margin: 0 0 16px; padding: 14px; background: rgba(7,172,222,.04); border: 1px solid rgba(7,172,222,.25); border-radius: 12px; animation: apptIn 280ms cubic-bezier(0.16,1,0.3,1); }
+.appt-form { margin: 0 0 16px; padding: 14px; background: rgba(205, 163, 73,.04); border: 1px solid rgba(205, 163, 73,.25); border-radius: 12px; animation: apptIn 280ms cubic-bezier(0.16,1,0.3,1); }
 .form-grid { display: grid; grid-template-columns: 110px 1fr 1fr; gap: 10px; @media (max-width: 560px){ grid-template-columns: 1fr; } }
 .field { display: flex; flex-direction: column; gap: 5px;
   .field-label { color: $text-white-muted; font-size: 10.5px; letter-spacing: .5px; text-transform: uppercase; }
   input, select { width: 100%; padding: 8px 11px; background: rgba(0,0,0,.25); border: 1px solid $form-input-border; border-radius: 8px; color: $color-text-light; font-size: 13px; font-family: inherit;
     &::placeholder { color: $text-white-muted; }
-    &:focus { outline: none; border-color: rgba(7,172,222,.5); background: rgba(0,0,0,.35); } }
+    &:focus { outline: none; border-color: rgba(205, 163, 73,.5); background: rgba(0,0,0,.35); } }
   input[type='time']::-webkit-calendar-picker-indicator { filter: invert(.7); cursor: pointer; }
   option { background: $color-card-bg; color: $color-text-light; }
 }
@@ -155,7 +155,7 @@
 .day-h { display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 11.5px; color: $text-muted; font-weight: 600;
   small { font-size: 15px; color: $color-text-light; font-weight: 700; margin-top: 1px; }
   &.today { position: relative; small { color: $color-accent; }
-    &::after { content: 'Hoje'; position: absolute; top: -3px; left: 50%; transform: translateX(-50%); font-size: 8px; background: rgba(7,172,222,.15); color: $color-accent; padding: 1px 6px; border-radius: 999px; border: 1px solid rgba(7,172,222,.3); } }
+    &::after { content: 'Hoje'; position: absolute; top: -3px; left: 50%; transform: translateX(-50%); font-size: 8px; background: rgba(205, 163, 73,.15); color: $color-accent; padding: 1px 6px; border-radius: 999px; border: 1px solid rgba(205, 163, 73,.3); } }
 }
 .time-l { font-size: 10.5px; color: $text-white-muted; display: flex; align-items: flex-start; justify-content: flex-end; padding: 2px 6px 0 0; }
 .appt {
@@ -178,7 +178,7 @@
 .rail-title { font-size: 12.5px; font-weight: 600; color: $color-text-light; margin: 0 0 11px; }
 .next { display: flex; flex-direction: column; gap: 8px; }
 .next-item { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border: 1px solid $divider-subtle; border-radius: 10px; background: rgba(255,255,255,.02); }
-.next-av { width: 32px; height: 32px; border-radius: 9px; background: rgba(7,172,222,.12); border: 1px solid rgba(7,172,222,.25); color: $color-accent; display: grid; place-items: center; font-weight: 700; font-size: 12px; flex-shrink: 0; }
+.next-av { width: 32px; height: 32px; border-radius: 9px; background: rgba(205, 163, 73,.12); border: 1px solid rgba(205, 163, 73,.25); color: $color-accent; display: grid; place-items: center; font-weight: 700; font-size: 12px; flex-shrink: 0; }
 .next-info { flex: 1; min-width: 0; display: flex; flex-direction: column;
   b { font-size: 12px; font-weight: 600; color: $color-text-light; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   span { font-size: 10.5px; color: $text-muted; }
@@ -197,20 +197,20 @@
 .bar-row { display: grid; grid-template-columns: 130px 1fr 44px; align-items: center; gap: 12px; @media (max-width: 480px){ grid-template-columns: 92px 1fr 38px; gap: 8px; } }
 .bar-name { color: $text-white-secondary; font-size: 13px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .bar-track { height: 8px; background: rgba(255,255,255,.06); border-radius: 999px; overflow: hidden; &--gap { margin-bottom: 12px; } }
-.bar-fill { display: block; height: 100%; width: 0; background: linear-gradient(90deg, rgba(7,172,222,.6), $color-accent); border-radius: 999px; transition: width 700ms cubic-bezier(0.16,1,0.3,1); }
+.bar-fill { display: block; height: 100%; width: 0; background: linear-gradient(90deg, rgba(205, 163, 73,.6), $color-accent); border-radius: 999px; transition: width 700ms cubic-bezier(0.16,1,0.3,1); }
 .bar-pct { color: $color-text-light; font-size: 13px; font-weight: 600; text-align: right; font-variant-numeric: tabular-nums; }
 
 // Chart
 .chart { display: flex; align-items: flex-end; gap: 12px; height: 180px; padding: 0 4px; margin-bottom: 24px; }
 .chart-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; height: 100%; justify-content: flex-end; }
-.chart-bar { position: relative; width: 100%; max-width: 46px; min-height: 4px; background: linear-gradient(180deg, $color-accent, rgba(7,172,222,.35)); border-radius: 8px 8px 0 0; transition: height 700ms cubic-bezier(0.16,1,0.3,1); }
+.chart-bar { position: relative; width: 100%; max-width: 46px; min-height: 4px; background: linear-gradient(180deg, $color-accent, rgba(205, 163, 73,.35)); border-radius: 8px 8px 0 0; transition: height 700ms cubic-bezier(0.16,1,0.3,1); }
 .chart-val { position: absolute; top: -20px; left: 50%; transform: translateX(-50%); color: $text-white-secondary; font-size: 12px; font-weight: 600; }
 .chart-label { color: $text-white-muted; font-size: 12px; }
 
 // Clientes
 .client-list { list-style: none; padding: 0; margin: 0 0 14px; display: flex; flex-direction: column; gap: 8px; }
 .client-row { display: flex; align-items: center; gap: 14px; padding: 12px 14px; background: rgba(255,255,255,.02); border: 1px solid $divider-subtle; border-radius: 10px; animation: apptIn 320ms cubic-bezier(0.16,1,0.3,1); }
-.client-avatar { width: 38px; height: 38px; border-radius: 10px; background: rgba(7,172,222,.12); border: 1px solid rgba(7,172,222,.3); color: $color-accent; display: grid; place-items: center; font-weight: 700; font-size: 16px; flex-shrink: 0; }
+.client-avatar { width: 38px; height: 38px; border-radius: 10px; background: rgba(205, 163, 73,.12); border: 1px solid rgba(205, 163, 73,.3); color: $color-accent; display: grid; place-items: center; font-weight: 700; font-size: 16px; flex-shrink: 0; }
 .client-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
 .client-name { color: $color-text-light; font-size: 14px; font-weight: 600; }
 .client-meta { flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 2px; text-align: right; }
@@ -222,9 +222,9 @@
 
 // CTA
 .sis-cta { text-align: center; margin-top: 48px; }
-.cta-question { color: $color-text-light; font-size: 26px; font-weight: 300; letter-spacing: -.02em; margin: 0 0 24px; .headline-dot { color: $color-accent; text-shadow: 0 0 16px rgba(7,172,222,.55); } @media (max-width: 768px){ font-size: 21px; } }
+.cta-question { color: $color-text-light; font-size: 26px; font-weight: 300; letter-spacing: -.02em; margin: 0 0 24px; .headline-dot { color: $color-accent; text-shadow: 0 0 16px rgba(205, 163, 73,.55); } @media (max-width: 768px){ font-size: 21px; } }
 .cta-button { display: inline-flex; align-items: center; gap: 10px; padding: 14px 32px; background: $color-accent; color: #fff; border-radius: $radius-pill; font-weight: 600; font-size: 15px; text-decoration: none; transition: background $transition-fast, transform $transition-fast, box-shadow $transition-fast;
-  &:hover { background: $color-success-dark; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(7,172,222,.35); }
+  &:hover { background: $color-success-dark; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(205, 163, 73,.35); }
   &:focus-visible { outline: 2px solid $color-accent; outline-offset: 3px; } }
 .cta-disclaimer { margin: 18px 0 0; color: $text-white-muted; font-size: 12px; }
 

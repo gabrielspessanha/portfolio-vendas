@@ -44,7 +44,7 @@
   height: 560px;
   top: -140px;
   left: -120px;
-  background: radial-gradient(circle, rgba(7, 172, 222, 0.16), transparent 70%);
+  background: radial-gradient(circle, rgba(205, 163, 73, 0.16), transparent 70%);
 
   @media (max-width: 768px) {
     width: 360px;
@@ -150,12 +150,12 @@
   .green-period {
     display: inline;
     color: $color-success;
-    text-shadow: 0 0 24px rgba(7, 172, 222, 0.55);
+    text-shadow: 0 0 24px rgba(205, 163, 73, 0.55);
   }
 
   @media (max-width: 768px) {
     .green-period {
-      text-shadow: 0 0 16px rgba(7, 172, 222, 0.5);
+      text-shadow: 0 0 16px rgba(205, 163, 73, 0.5);
     }
   }
 }
@@ -205,16 +205,16 @@
       color $transition-fast;
 
     &:hover:not(.active) {
-      border-color: rgba(7, 172, 222, 0.3);
-      background: rgba(7, 172, 222, 0.04);
+      border-color: rgba(205, 163, 73, 0.3);
+      background: rgba(205, 163, 73, 0.04);
       color: $color-text-light;
     }
 
     &.active {
-      background: rgba(7, 172, 222, 0.12);
-      border-color: rgba(7, 172, 222, 0.45);
+      background: rgba(205, 163, 73, 0.12);
+      border-color: rgba(205, 163, 73, 0.45);
       color: $color-text-light;
-      box-shadow: 0 0 20px rgba(7, 172, 222, 0.18);
+      box-shadow: 0 0 20px rgba(205, 163, 73, 0.18);
     }
 
     &:focus-visible {
@@ -225,7 +225,7 @@
     // Chips que são atalho pra outra seção (Sistemas, IA)
     &.shortcut {
       color: $color-accent;
-      border-color: rgba(7, 172, 222, 0.3);
+      border-color: rgba(205, 163, 73, 0.3);
 
       .shortcut-arrow {
         display: inline-block;
@@ -236,8 +236,8 @@
       }
 
       &:hover {
-        background: rgba(7, 172, 222, 0.08);
-        border-color: rgba(7, 172, 222, 0.5);
+        background: rgba(205, 163, 73, 0.08);
+        border-color: rgba(205, 163, 73, 0.5);
         color: $color-text-light;
 
         .shortcut-arrow { transform: translateY(2px); }
@@ -372,8 +372,8 @@
 
   &:hover {
     transform: translateY(-4px);
-    border-color: rgba(7, 172, 222, 0.35);
-    background: rgba(7, 172, 222, 0.04);
+    border-color: rgba(205, 163, 73, 0.35);
+    background: rgba(205, 163, 73, 0.04);
 
     .card-glow { opacity: 1; }
 
@@ -406,7 +406,7 @@
   right: -100px;
   width: 240px;
   height: 240px;
-  background: radial-gradient(circle, rgba(7, 172, 222, 0.22), transparent 70%);
+  background: radial-gradient(circle, rgba(205, 163, 73, 0.22), transparent 70%);
   opacity: 0;
   transition: opacity 400ms ease;
   pointer-events: none;
@@ -437,7 +437,7 @@
     padding: 6px 14px;
     background: rgba(10, 10, 10, 0.75);
     backdrop-filter: blur(8px);
-    border: 1px solid rgba(7, 172, 222, 0.4);
+    border: 1px solid rgba(205, 163, 73, 0.4);
     color: $color-success;
     font-size: 11px;
     font-weight: 600;
@@ -480,8 +480,8 @@
   align-items: center;
   gap: 5px;
   padding: 4px 10px;
-  background: rgba(7, 172, 222, 0.1);
-  border: 1px solid rgba(7, 172, 222, 0.28);
+  background: rgba(205, 163, 73, 0.1);
+  border: 1px solid rgba(205, 163, 73, 0.28);
   border-radius: 100px;
   color: $color-success;
   font-size: 11px;
@@ -538,7 +538,7 @@
 
   .green-period {
     color: $color-success;
-    text-shadow: 0 0 16px rgba(7, 172, 222, 0.55);
+    text-shadow: 0 0 16px rgba(205, 163, 73, 0.55);
   }
 
   @media (max-width: 768px) {
@@ -566,7 +566,7 @@
   &:hover {
     background: $color-success-dark;
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(7, 172, 222, 0.35);
+    box-shadow: 0 8px 24px rgba(205, 163, 73, 0.35);
   }
 
   &:focus-visible {
