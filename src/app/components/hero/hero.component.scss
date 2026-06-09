@@ -7,11 +7,37 @@
 .hero-section {
   position: relative;
   min-height: 100vh;
-  background: $color-light-bg;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
   padding-top: $header-height;
+  // Glows ambientes (cyan + dourado) que desbotam no transparente — sem bordas/caixa.
+  background:
+    radial-gradient(820px 600px at 22% 48%, rgba(46, 198, 222, 0.22), transparent 60%),
+    radial-gradient(620px 520px at 2% 84%, rgba(217, 180, 90, 0.14), transparent 62%),
+    radial-gradient(560px 460px at 40% 24%, rgba(217, 180, 90, 0.07), transparent 60%),
+    radial-gradient(1200px 820px at 50% 60%, rgba(46, 198, 222, 0.08), transparent 55%),
+    $color-dark-bg;
+
+  // Grade técnica sutil, mascarada num halo atrás do título.
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(46, 198, 222, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(46, 198, 222, 0.06) 1px, transparent 1px);
+    background-size: 46px 46px;
+    -webkit-mask-image: radial-gradient(circle 560px at 24% 48%, #000, transparent 72%);
+    mask-image: radial-gradient(circle 560px at 24% 48%, #000, transparent 72%);
+
+    @media (max-width: 768px) {
+      -webkit-mask-image: radial-gradient(circle 300px at 50% 30%, #000, transparent 78%);
+      mask-image: radial-gradient(circle 300px at 50% 30%, #000, transparent 78%);
+    }
+  }
 
   @media (max-width: 768px) {
     padding-top: $header-height-mobile;
@@ -122,7 +148,7 @@
   border-radius: $radius-pill;
   font-size: 0.78rem;
   font-weight: 600;
-  color: $color-success-dark;
+  color: $color-accent; // cyan claro p/ ler no fundo escuro
   letter-spacing: 0.02em;
   width: fit-content;
   max-width: 100%;
@@ -159,24 +185,30 @@
   display: block;
   font-family: 'Space Grotesk', 'Inter', sans-serif;
   font-size: clamp(2rem, 3.8vw, 3.8rem);
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.02;
-  color: $color-text-dark;
+  color: $color-accent; // cyan vibrante — linha 1
   letter-spacing: -0.035em;
-  text-shadow: none;
+  text-shadow: 0 0 26px rgba(46, 198, 222, 0.40);
 
   &--highlight {
-    color: $color-success;
-    font-weight: 700;
-    text-shadow: 0 0 24px rgba(7, 172, 222, 0.18);
+    // gradiente dourado + glow forte — linha 2 (mais chamativo)
+    background: linear-gradient(95deg, #F4E2AC 0%, #E9CE86 42%, #C99B3F 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    text-shadow: none;
+    filter: drop-shadow(0 0 20px rgba(217, 180, 90, 0.50));
   }
 
   @media (max-width: 768px) {
     font-size: clamp(1.75rem, 8vw, 2.6rem);
-    text-shadow: none;
+    text-shadow: 0 0 18px rgba(46, 198, 222, 0.32);
 
     &--highlight {
-      text-shadow: 0 0 18px rgba(7, 172, 222, 0.14);
+      text-shadow: none;
+      filter: drop-shadow(0 0 14px rgba(217, 180, 90, 0.40));
     }
   }
 }
@@ -188,7 +220,7 @@
 .subtitle {
   font-size: 0.95rem;
   font-weight: 400;
-  color: $color-text-medium;
+  color: $text-white-secondary;
   letter-spacing: 0.01em;
   line-height: 1.6;
   max-width: 46ch;
@@ -238,7 +270,7 @@
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 8px 32px rgba($color-success, 0.55);
-    background-color: #0590BC;
+    background-color: #1AA6C2;
   }
 
   &:active { transform: translateY(0); }
@@ -255,13 +287,13 @@
   gap: 0.4rem;
   font-size: 0.88rem;
   font-weight: 600;
-  color: $color-text-medium;
+  color: $text-white-secondary;
   text-decoration: none;
   letter-spacing: 0.01em;
   transition: color $transition-fast, gap $transition-fast;
 
   &:hover {
-    color: $color-text-dark;
+    color: $color-text-light;
     gap: 0.7rem;
   }
 }
@@ -281,7 +313,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    color: $color-text-secondary;
+    color: $text-white-secondary;
     font-size: 0.8rem;
     font-weight: 400;
     letter-spacing: 0.005em;
@@ -292,13 +324,13 @@
     }
 
     strong {
-      color: $color-text-dark;
+      color: $color-text-light;
       font-weight: 600;
     }
   }
 
   .risk-divider {
-    color: $color-text-muted;
+    color: $text-white-muted;
     font-size: 0.9rem;
     line-height: 1;
   }
@@ -327,7 +359,7 @@
 }
 
 .trust-divider {
-  color: $color-text-muted;
+  color: $text-white-muted;
   font-size: 1.1rem;
   line-height: 1;
 }
@@ -335,11 +367,11 @@
 .trust-text {
   font-size: 0.8rem;
   font-weight: 500;
-  color: $color-text-secondary;
+  color: $text-white-secondary;
   letter-spacing: 0.01em;
 
   strong {
-    color: $color-text-dark;
+    color: $color-text-light;
     font-weight: 700;
   }
 }
@@ -506,11 +538,11 @@
       rgba(11, 11, 15, 0.12) 52%,
       rgba(11, 11, 15, 0.32) 100%
     ),
-    radial-gradient(ellipse at 72% 38%, rgba(7, 172, 222, 0.10), transparent 60%);
+    radial-gradient(ellipse at 72% 38%, rgba(46, 198, 222, 0.10), transparent 60%);
 
   @media (max-width: 768px) {
     // Sem diagonal no mobile: só um leve tint, sem escurecer demais
-    background: radial-gradient(ellipse at 50% 30%, rgba(7, 172, 222, 0.10), transparent 65%);
+    background: radial-gradient(ellipse at 50% 30%, rgba(46, 198, 222, 0.10), transparent 65%);
   }
 }
 

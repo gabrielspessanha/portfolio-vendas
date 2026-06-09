@@ -15,8 +15,8 @@ import {
   styleUrl: './header.component.scss',
   animations: [
     trigger('ctaHover', [
-      state('default', style({ boxShadow: '0 2px 8px rgba(7, 172, 222, 0.2)' })),
-      state('hovered', style({ boxShadow: '0 4px 22px rgba(7, 172, 222, 0.55)' })),
+      state('default', style({ boxShadow: '0 2px 8px rgba(46, 198, 222, 0.2)' })),
+      state('hovered', style({ boxShadow: '0 4px 22px rgba(46, 198, 222, 0.55)' })),
       transition('default <=> hovered', animate('200ms ease')),
     ]),
     trigger('slideDown', [

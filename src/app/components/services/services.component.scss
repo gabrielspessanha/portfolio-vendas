@@ -1,4 +1,5 @@
 @use 'variables' as *;
+@use 'mixins' as *;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Section base
@@ -46,7 +47,7 @@
   left: -80px;
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(7, 172, 222, 0.45) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(46, 198, 222, 0.45) 0%, transparent 70%);
   animation: float-orb 20s ease-in-out infinite;
 }
 
@@ -208,6 +209,8 @@
     transform $transition-smooth,
     border-color $transition-smooth,
     background $transition-smooth;
+
+  @include card-accent-border;
 
   .card-glow {
     position: absolute;

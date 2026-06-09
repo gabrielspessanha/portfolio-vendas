@@ -64,6 +64,14 @@
   svg {
     flex-shrink: 0;
   }
+
+  .brand-logo-img {
+    height: 48px;
+    width: auto;
+    display: block;
+    flex-shrink: 0;
+    filter: drop-shadow(0 0 8px rgba(46, 198, 222, 0.25));
+  }
 }
 
 .brand-name {

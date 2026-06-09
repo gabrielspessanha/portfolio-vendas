@@ -1,17 +1,27 @@
 @use 'variables' as *;
+@use 'mixins' as *;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Section wrapper
 // ─────────────────────────────────────────────────────────────────────────────
 
 .about-section {
-  background: $color-dark-bg;
+  // Wordmark Lumon como background (overlay escuro p/ legibilidade).
+  // Fallback no $color-dark-bg caso a imagem ainda não exista.
+  background:
+    linear-gradient(rgba(11, 11, 15, 0.80), rgba(11, 11, 15, 0.88)),
+    url('/images/sobre-lumon-bg.jpeg') center / cover no-repeat,
+    $color-dark-bg;
   padding: 160px 80px;
   position: relative;
   overflow: hidden;
 
   @media (max-width: 768px) {
     padding: 100px 24px;
+    background:
+      linear-gradient(rgba(11, 11, 15, 0.82), rgba(11, 11, 15, 0.90)),
+      url('/images/sobre-lumon-bg.jpeg') center / cover no-repeat,
+      $color-dark-bg;
   }
 }
 
@@ -34,7 +44,7 @@
   height: 560px;
   top: -140px;
   right: -120px;
-  background: radial-gradient(circle, rgba(7, 172, 222, 0.18), transparent 70%);
+  background: radial-gradient(circle, rgba(46, 198, 222, 0.18), transparent 70%);
 
   @media (max-width: 768px) {
     width: 360px;
@@ -149,7 +159,7 @@
   .green-period {
     display: inline;
     color: $color-success;
-    text-shadow: 0 0 24px rgba(7, 172, 222, 0.55);
+    text-shadow: 0 0 24px rgba(46, 198, 222, 0.55);
     position: relative;
   }
 
@@ -162,7 +172,7 @@
     margin-bottom: 48px;
 
     .green-period {
-      text-shadow: 0 0 16px rgba(7, 172, 222, 0.5);
+      text-shadow: 0 0 16px rgba(46, 198, 222, 0.5);
     }
   }
 
@@ -250,8 +260,8 @@
   display: grid;
   place-items: center;
   border-radius: 10px;
-  background: rgba(7, 172, 222, 0.08);
-  border: 1px solid rgba(7, 172, 222, 0.18);
+  background: rgba(46, 198, 222, 0.08);
+  border: 1px solid rgba(46, 198, 222, 0.18);
   color: $color-success;
   transition: background $transition-fast, border-color $transition-fast,
     box-shadow $transition-fast, transform $transition-fast;
@@ -262,9 +272,9 @@
 }
 
 .pillar:hover .pillar-icon {
-  background: rgba(7, 172, 222, 0.14);
-  border-color: rgba(7, 172, 222, 0.4);
-  box-shadow: 0 0 24px rgba(7, 172, 222, 0.25);
+  background: rgba(46, 198, 222, 0.14);
+  border-color: rgba(46, 198, 222, 0.4);
+  box-shadow: 0 0 24px rgba(46, 198, 222, 0.25);
   transform: translateY(-2px);
 }
 
@@ -312,10 +322,12 @@
   transition: transform $transition-fast, border-color $transition-fast,
     background $transition-fast;
 
+  @include card-accent-border;
+
   &:hover {
     transform: translateY(-4px);
-    border-color: rgba(7, 172, 222, 0.35);
-    background: rgba(7, 172, 222, 0.04);
+    border-color: $color-gold-soft;
+    background: rgba(46, 198, 222, 0.04);
 
     .stat-glow {
       opacity: 1;
@@ -329,7 +341,7 @@
   right: -80px;
   width: 200px;
   height: 200px;
-  background: radial-gradient(circle, rgba(7, 172, 222, 0.25), transparent 70%);
+  background: radial-gradient(circle, rgba(46, 198, 222, 0.25), transparent 70%);
   opacity: 0;
   transition: opacity 400ms ease;
   pointer-events: none;
