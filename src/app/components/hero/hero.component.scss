@@ -17,12 +17,12 @@
   &::before {
     content: '';
     position: absolute;
-    left: -8%;
+    left: 16%;
     top: 50%;
     transform: translateY(-50%);
-    width: min(760px, 70%);
+    width: min(720px, 64%);
     aspect-ratio: 1000 / 747;
-    background: url('/images/logo-lumon-web.png') center / contain no-repeat;
+    background: url('/images/logo-lumon-glow.jpg') center / contain no-repeat;
     opacity: 0.55;
     z-index: 0;
     pointer-events: none;
