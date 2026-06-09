@@ -63,15 +63,21 @@
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: $color-text-dark;
   transition: opacity $transition-fast;
 
-  svg {
-    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.15));
+  .logo-img {
+    height: 54px;
+    width: auto;
+    display: block;
+    filter: drop-shadow(0 0 10px rgba(46, 198, 222, 0.25));
+
+    @media (max-width: 768px) {
+      height: 46px;
+    }
   }
 
   &:hover {
-    opacity: 0.8;
+    opacity: 0.85;
   }
 }
 

@@ -7,15 +7,33 @@
 .hero-section {
   position: relative;
   min-height: 100vh;
-  // Fundo escuro + wordmark Lumon (glow) atrás do texto. Overlay forte p/ contraste do título.
-  background:
-    linear-gradient(rgba(11, 11, 15, 0.84), rgba(11, 11, 15, 0.92)),
-    url('/images/sobre-lumon-bg.jpeg') center / cover no-repeat,
-    $color-dark-bg;
+  background: $color-dark-bg;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
   padding-top: $header-height;
+
+  // Lâmpada (glow) atrás do texto, à esquerda. A imagem já tem fundo escuro → funde no dark.
+  &::before {
+    content: '';
+    position: absolute;
+    left: -8%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: min(760px, 70%);
+    aspect-ratio: 1000 / 747;
+    background: url('/images/logo-lumon-web.png') center / contain no-repeat;
+    opacity: 0.55;
+    z-index: 0;
+    pointer-events: none;
+
+    @media (max-width: 768px) {
+      width: 115%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0.35;
+    }
+  }
 
   @media (max-width: 768px) {
     padding-top: $header-height-mobile;
@@ -163,24 +181,30 @@
   display: block;
   font-family: 'Space Grotesk', 'Inter', sans-serif;
   font-size: clamp(2rem, 3.8vw, 3.8rem);
-  font-weight: 600;
+  font-weight: 700;
   line-height: 1.02;
-  color: $color-text-light; // branco no fundo escuro
+  color: $color-accent; // cyan vibrante — linha 1
   letter-spacing: -0.035em;
-  text-shadow: none;
+  text-shadow: 0 0 26px rgba(46, 198, 222, 0.40);
 
   &--highlight {
-    color: $color-gold; // destaque dourado
-    font-weight: 700;
-    text-shadow: 0 0 28px rgba(217, 180, 90, 0.30);
+    // gradiente dourado + glow forte — linha 2 (mais chamativo)
+    background: linear-gradient(95deg, #F4E2AC 0%, #E9CE86 42%, #C99B3F 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    text-shadow: none;
+    filter: drop-shadow(0 0 20px rgba(217, 180, 90, 0.50));
   }
 
   @media (max-width: 768px) {
     font-size: clamp(1.75rem, 8vw, 2.6rem);
-    text-shadow: none;
+    text-shadow: 0 0 18px rgba(46, 198, 222, 0.32);
 
     &--highlight {
-      text-shadow: 0 0 20px rgba(217, 180, 90, 0.22);
+      text-shadow: none;
+      filter: drop-shadow(0 0 14px rgba(217, 180, 90, 0.40));
     }
   }
 }
