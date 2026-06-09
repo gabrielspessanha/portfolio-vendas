@@ -7,11 +7,37 @@
 .hero-section {
   position: relative;
   min-height: 100vh;
-  background: $color-dark-bg;
   overflow-x: hidden;
   display: flex;
   flex-direction: column;
   padding-top: $header-height;
+  // Glows ambientes (cyan + dourado) que desbotam no transparente — sem bordas/caixa.
+  background:
+    radial-gradient(820px 600px at 22% 48%, rgba(46, 198, 222, 0.22), transparent 60%),
+    radial-gradient(620px 520px at 2% 84%, rgba(217, 180, 90, 0.14), transparent 62%),
+    radial-gradient(560px 460px at 40% 24%, rgba(217, 180, 90, 0.07), transparent 60%),
+    radial-gradient(1200px 820px at 50% 60%, rgba(46, 198, 222, 0.08), transparent 55%),
+    $color-dark-bg;
+
+  // Grade técnica sutil, mascarada num halo atrás do título.
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgba(46, 198, 222, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(46, 198, 222, 0.06) 1px, transparent 1px);
+    background-size: 46px 46px;
+    -webkit-mask-image: radial-gradient(circle 560px at 24% 48%, #000, transparent 72%);
+    mask-image: radial-gradient(circle 560px at 24% 48%, #000, transparent 72%);
+
+    @media (max-width: 768px) {
+      -webkit-mask-image: radial-gradient(circle 300px at 50% 30%, #000, transparent 78%);
+      mask-image: radial-gradient(circle 300px at 50% 30%, #000, transparent 78%);
+    }
+  }
 
   @media (max-width: 768px) {
     padding-top: $header-height-mobile;
