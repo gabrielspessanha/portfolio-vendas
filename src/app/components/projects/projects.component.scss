@@ -1,4 +1,5 @@
 @use 'variables' as *;
+@use 'mixins' as *;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Section wrapper
@@ -369,6 +370,8 @@
   // Scroll-reveal initial state
   opacity: 0;
   transform: translateY(28px) scale(0.97);
+
+  @include card-accent-border;
 
   &:hover {
     transform: translateY(-4px);

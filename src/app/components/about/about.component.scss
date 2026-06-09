@@ -1,4 +1,5 @@
 @use 'variables' as *;
+@use 'mixins' as *;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Section wrapper
@@ -321,9 +322,11 @@
   transition: transform $transition-fast, border-color $transition-fast,
     background $transition-fast;
 
+  @include card-accent-border;
+
   &:hover {
     transform: translateY(-4px);
-    border-color: rgba(46, 198, 222, 0.35);
+    border-color: $color-gold-soft;
     background: rgba(46, 198, 222, 0.04);
 
     .stat-glow {

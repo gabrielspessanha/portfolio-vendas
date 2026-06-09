@@ -1,0 +1,33 @@
+@use 'variables' as *;
+
+// Detalhe de borda em gradiente cyan -> dourado que acende no hover.
+// Usa a técnica de mask-composite p/ respeitar o border-radius do card.
+// Pré-requisito: o card já deve ter `position: relative` e `border-radius`.
+@mixin card-accent-border {
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    padding: 1.5px;
+    background: linear-gradient(135deg, $color-accent 0%, $color-accent 30%, $color-gold 100%);
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+            mask-composite: exclude;
+    opacity: 0;
+    transition: opacity $transition-fast;
+    pointer-events: none;
+    z-index: 3;
+  }
+
+  &:hover::after,
+  &:focus-visible::after {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &::after { transition: none; }
+  }
+}

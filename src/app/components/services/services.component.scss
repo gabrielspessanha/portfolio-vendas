@@ -1,4 +1,5 @@
 @use 'variables' as *;
+@use 'mixins' as *;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Section base
@@ -208,6 +209,8 @@
     transform $transition-smooth,
     border-color $transition-smooth,
     background $transition-smooth;
+
+  @include card-accent-border;
 
   .card-glow {
     position: absolute;
