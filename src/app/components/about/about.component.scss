@@ -9,7 +9,7 @@
   // Fallback no $color-dark-bg caso a imagem ainda não exista.
   background:
     linear-gradient(rgba(11, 11, 15, 0.80), rgba(11, 11, 15, 0.88)),
-    url('/sobre-lumon-bg.png') center / cover no-repeat,
+    url('/images/sobre-lumon-bg.jpeg') center / cover no-repeat,
     $color-dark-bg;
   padding: 160px 80px;
   position: relative;
@@ -19,7 +19,7 @@
     padding: 100px 24px;
     background:
       linear-gradient(rgba(11, 11, 15, 0.82), rgba(11, 11, 15, 0.90)),
-      url('/sobre-lumon-bg.png') center / cover no-repeat,
+      url('/images/sobre-lumon-bg.jpeg') center / cover no-repeat,
       $color-dark-bg;
   }
 }
