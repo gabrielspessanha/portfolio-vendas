@@ -13,28 +13,6 @@
   flex-direction: column;
   padding-top: $header-height;
 
-  // Lâmpada (glow) atrás do texto, à esquerda. A imagem já tem fundo escuro → funde no dark.
-  &::before {
-    content: '';
-    position: absolute;
-    left: 9%;
-    top: 50%;
-    transform: translateY(-50%);
-    width: min(540px, 46%);
-    aspect-ratio: 1000 / 747;
-    background: url('/images/logo-lumon-glow.jpg') center / contain no-repeat;
-    opacity: 0.55;
-    z-index: 0;
-    pointer-events: none;
-
-    @media (max-width: 768px) {
-      width: 115%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      opacity: 0.35;
-    }
-  }
-
   @media (max-width: 768px) {
     padding-top: $header-height-mobile;
     min-height: auto;
