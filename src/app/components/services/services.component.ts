@@ -59,7 +59,7 @@ export class ServicesComponent implements AfterViewInit, OnDestroy {
       id: 'sites',
       title: 'Sites Profissionais',
       tagline: 'Vendem 24h pra você',
-      description: 'Sites institucionais, landing pages e e-commerces que convertem visitantes em clientes pagantes.',
+      description: 'Sites institucionais, landing pages e e-commerces estruturados para atrair e converter visitantes.',
       features: [
         'Aparece no Google quando buscam você',
         'Cliente fecha direto pelo WhatsApp',
@@ -89,7 +89,7 @@ export class ServicesComponent implements AfterViewInit, OnDestroy {
       features: [
         'Vende enquanto você dorme',
         'Funciona no WhatsApp, site e Instagram',
-        'Aprende com o seu negócio',
+        'Configurada com as informações do seu negócio',
       ],
       icon: 'robot',
       pricingAnchor: '#precos',

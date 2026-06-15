@@ -184,7 +184,7 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
           priceMonthly: '≈ R$ 250/mês em 12x',
           inheritsFrom: 'Essencial',
           highlights: [
-            'Vende e captura leads 24h por dia',
+            'Disponível pra capturar leads 24h por dia',
             'Posiciona seu negócio acima dos concorrentes no Google',
             'Você atualiza textos e fotos sem chamar programador',
             'Animações que prendem o visitante',
@@ -219,7 +219,7 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
           priceMonthly: '≈ R$ 417/mês em 12x',
           inheritsFrom: 'Profissional',
           highlights: [
-            'Loja online vendendo enquanto você dorme',
+            'Loja online pronta pra receber pedidos 24h',
             'Recebe Pix, cartão e boleto direto na conta',
             'Sistema sob medida pro seu jeito de operar',
             'Sua equipe treinada pra usar tudo sozinha',
@@ -333,7 +333,7 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
             'Cada cargo com tela e permissão própria',
           ],
           extras: [
-            'Funcionalidades ilimitadas',
+            'Escopo sem teto fixo de funcionalidades',
             'App instalável no celular (PWA)',
             '90 dias de suporte',
           ],
@@ -394,13 +394,13 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
           id: 'ia-profissional',
           tier: 'PROFISSIONAL',
           name: 'IA Profissional',
-          tagline: 'Vende enquanto você dorme',
+          tagline: 'Disponível enquanto você dorme',
           price: '1.997',
           priceNote: '+ R$ 397/mês',
           inheritsFrom: 'Essencial',
           highlights: [
             'Qualifica lead e marca atendimento sozinha',
-            'Vende mesmo com você ocupado ou dormindo',
+            'Atende mesmo com você ocupado ou dormindo',
             'Atende no WhatsApp, site e Instagram ao mesmo tempo',
             'Manda dados quentes direto pra sua planilha',
           ],

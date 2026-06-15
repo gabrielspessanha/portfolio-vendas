@@ -103,10 +103,87 @@
     <div class="footer-bottom">
       <p class="copyright">© {{ currentYear }} Lumon · CNPJ 55.947.546/0001-46 · Todos os direitos reservados.</p>
       <div class="legal-links">
-        <a href="#">Política de Privacidade</a>
-        <a href="#">Termos de Uso</a>
+        <button class="legal-btn" (click)="openPolicy('privacidade')">Política de Privacidade</button>
+        <button class="legal-btn" (click)="openPolicy('termos')">Termos de Uso</button>
       </div>
     </div>
 
   </div>
 </footer>
+
+<!-- ── Modais de Política de Privacidade e Termos de Uso ────────────────── -->
+@if (selectedPolicy) {
+  <div
+    class="policy-backdrop"
+    role="dialog"
+    [attr.aria-label]="selectedPolicy === 'privacidade' ? 'Política de Privacidade' : 'Termos de Uso'"
+    aria-modal="true"
+    (click)="closePolicy()"
+  >
+    <div class="policy-panel" (click)="$event.stopPropagation()">
+
+      <button class="policy-close" (click)="closePolicy()" aria-label="Fechar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+
+      <!-- ── Política de Privacidade ──────────────────────────────────────── -->
+      @if (selectedPolicy === 'privacidade') {
+        <h2 class="policy-title">Política de Privacidade</h2>
+        <p class="policy-updated">Última atualização: junho de 2025</p>
+
+        <div class="policy-body">
+          <h3>1. Quem somos</h3>
+          <p>Lumon Tecnologia, CNPJ 55.947.546/0001-46, com atendimento online em todo o Brasil. Contato: <a href="mailto:lumon.projetos@gmail.com">lumon.projetos&#64;gmail.com</a>.</p>
+
+          <h3>2. Dados que coletamos</h3>
+          <p>Este site não coleta dados pessoais diretamente. Ao carregar as fontes tipográficas, utilizamos o serviço Google Fonts (Google LLC), que pode registrar o endereço IP do visitante conforme a <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Política de Privacidade do Google</a>. Não armazenamos nem acessamos esse dado.</p>
+          <p>Quando você envia uma mensagem pelo WhatsApp ou e-mail, os dados informados (nome, telefone, mensagem) são usados exclusivamente para responder ao seu contato e nunca são compartilhados com terceiros.</p>
+
+          <h3>3. Finalidade do uso</h3>
+          <p>Os dados de contato recebidos voluntariamente pelo visitante são usados apenas para: (a) responder à sua solicitação; (b) enviar orçamentos e informações sobre os serviços da Lumon.</p>
+
+          <h3>4. Cookies</h3>
+          <p>Este site não utiliza cookies próprios para rastreamento ou publicidade. O serviço Google Fonts pode utilizar cookies conforme sua política própria.</p>
+
+          <h3>5. Seus direitos (LGPD — Lei 13.709/2018)</h3>
+          <p>Você tem direito a: confirmar a existência de tratamento de dados, acessar seus dados, solicitar correção ou exclusão, e revogar consentimento. Para exercer esses direitos, entre em contato via <a href="mailto:lumon.projetos@gmail.com">lumon.projetos&#64;gmail.com</a>.</p>
+
+          <h3>6. Alterações</h3>
+          <p>Esta política pode ser atualizada a qualquer momento. A data de "última atualização" acima sempre indicará a versão vigente.</p>
+        </div>
+      }
+
+      <!-- ── Termos de Uso ───────────────────────────────────────────────── -->
+      @if (selectedPolicy === 'termos') {
+        <h2 class="policy-title">Termos de Uso</h2>
+        <p class="policy-updated">Última atualização: junho de 2025</p>
+
+        <div class="policy-body">
+          <h3>1. Serviços</h3>
+          <p>A Lumon (CNPJ 55.947.546/0001-46) oferece desenvolvimento de sites, sistemas web, automações com IA e produção de vídeos e design digital. Os serviços são prestados conforme escopo definido em proposta comercial aprovada por escrito pelo cliente.</p>
+
+          <h3>2. Contratação e pagamento</h3>
+          <p>O início do projeto está condicionado à aprovação do briefing e ao pagamento da entrada acordada. Preços exibidos no site são referências; o valor final é definido na proposta após entendimento do escopo. A Lumon reserva-se o direito de recusar projetos sem necessidade de justificativa.</p>
+
+          <h3>3. Prazos de entrega</h3>
+          <p>Os prazos indicados neste site são estimativas e podem variar conforme a complexidade do projeto, a disponibilidade de materiais fornecidos pelo cliente (textos, logotipo, imagens) e aprovações intermediárias. Atrasos causados pela falta de retorno do cliente não são de responsabilidade da Lumon.</p>
+
+          <h3>4. Responsabilidade sobre resultados</h3>
+          <p>A Lumon entrega soluções técnicas de qualidade, porém não garante resultados comerciais específicos (vendas, leads ou faturamento), pois estes dependem de fatores externos ao controle da empresa, como mercado, produto e estratégia do cliente.</p>
+
+          <h3>5. Propriedade intelectual</h3>
+          <p>Após a quitação integral do projeto, todos os direitos patrimoniais sobre o material produzido são transferidos ao cliente. Códigos e frameworks de terceiros permanecem sujeitos às suas licenças originais.</p>
+
+          <h3>6. Limitação de responsabilidade</h3>
+          <p>A Lumon não se responsabiliza por danos indiretos, lucros cessantes ou perdas decorrentes do uso ou indisponibilidade dos serviços, exceto nos casos previstos pelo Código de Defesa do Consumidor (Lei 8.078/1990).</p>
+
+          <h3>7. Foro</h3>
+          <p>Fica eleito o foro da Comarca do Rio de Janeiro/RJ para dirimir eventuais controvérsias, com renúncia a qualquer outro, por mais privilegiado que seja.</p>
+        </div>
+      }
+
+    </div>
+  </div>
+}

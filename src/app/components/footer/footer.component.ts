@@ -4,6 +4,7 @@ import {
   AfterViewInit,
   OnDestroy,
   ChangeDetectorRef,
+  HostListener,
 } from '@angular/core';
 
 @Component({
@@ -16,6 +17,22 @@ import {
 export class FooterComponent implements AfterViewInit, OnDestroy {
   isVisible = false;
   readonly currentYear = new Date().getFullYear();
+  selectedPolicy: 'privacidade' | 'termos' | null = null;
+
+  openPolicy(type: 'privacidade' | 'termos'): void {
+    this.selectedPolicy = type;
+  }
+
+  closePolicy(): void {
+    this.selectedPolicy = null;
+  }
+
+  @HostListener('keydown', ['$event'])
+  onKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Escape' && this.selectedPolicy) {
+      this.closePolicy();
+    }
+  }
 
   private observer: IntersectionObserver | null = null;
 
