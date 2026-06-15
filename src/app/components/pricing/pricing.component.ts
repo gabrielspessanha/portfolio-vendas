@@ -80,8 +80,8 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
     priceFootnote: 'Preço final conforme o escopo. Você fala direto com quem programa.',
     highlights: [
       'Site profissional pronto pra vender',
-      'Aparece quando buscam você no Google',
-      'Você atualiza textos e fotos sem chamar programador',
+      'Estrutura de SEO configurada desde o início',
+      'Manutenção e atualizações feitas pela Lumon',
       'Funciona perfeito no celular',
     ],
     ctaText: 'Quero meu site',
