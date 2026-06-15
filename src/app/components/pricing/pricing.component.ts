@@ -15,6 +15,11 @@ import {
   trigger,
 } from '@angular/animations';
 
+interface HowItWorks {
+  steps: string[];
+  timeline: string;
+}
+
 interface Package {
   id: string;
   tier: string;
@@ -30,6 +35,7 @@ interface Package {
   isFeatured: boolean;
   /** Link de pagamento Mercado Pago (https://mpago.la/XXXXXXX). Deixe '' até ter a URL real. */
   paymentUrl?: string;
+  howItWorks: HowItWorks;
 }
 
 interface PackageCategory {
@@ -37,6 +43,12 @@ interface PackageCategory {
   label: string;
   icon: string;
   packages: Package[];
+}
+
+interface ModalData {
+  name: string;
+  tagline: string;
+  howItWorks: HowItWorks;
 }
 
 @Component({
@@ -68,8 +80,60 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
   isVisible = false;
   filterVersion = 0;
   activeCategory = '';
+  selectedModal: ModalData | null = null;
+
+  designCounters = [
+    { id: 'posts',   label: 'Posts para feed',      value: 10, min: 0, max: 60 },
+    { id: 'stories', label: 'Stories animados',      value: 5,  min: 0, max: 30 },
+    { id: 'reels',   label: 'Reels / TikToks',       value: 0,  min: 0, max: 20 },
+    { id: 'banners', label: 'Banners para anúncio',  value: 0,  min: 0, max: 20 },
+  ];
+
+  designToggles = [
+    { id: 'logo',         label: 'Logo profissional (3 versões)', active: false },
+    { id: 'brand-guide',  label: 'Manual de marca',               active: false },
+    { id: 'business-card',label: 'Cartão de visita',              active: false },
+    { id: 'profile-cover',label: 'Capa de perfil nas redes',      active: false },
+  ];
+
+  get hasDesignSelection(): boolean {
+    return this.designCounters.some(c => c.value > 0) || this.designToggles.some(t => t.active);
+  }
+
+  get designSummary(): string {
+    const parts: string[] = [];
+    this.designCounters.forEach(c => { if (c.value > 0) parts.push(`${c.value} ${c.label.toLowerCase()}`); });
+    this.designToggles.forEach(t => { if (t.active) parts.push(t.label); });
+    return parts.join(' · ');
+  }
 
   private observer: IntersectionObserver | null = null;
+
+  /** Conteúdo do card único da aba Sites (substitui os 3 planos). */
+  readonly sitesIntro = {
+    tagline: 'Sites profissionais sob medida',
+    name: 'Seu site profissional',
+    price: '700',
+    priceNote: '/projeto',
+    priceFootnote: 'Preço final conforme o escopo. Você fala direto com quem programa.',
+    highlights: [
+      'Site profissional pronto pra vender',
+      'Estrutura de SEO configurada desde o início',
+      'Manutenção e atualizações feitas pela Lumon',
+      'Funciona perfeito no celular',
+    ],
+    ctaText: 'Quero meu site',
+    howItWorks: {
+      steps: [
+        'Reunião de briefing pelo WhatsApp ou Google Meet (30 min)',
+        'Você envia logo, textos e fotos — ou a Lumon cria junto com você',
+        'Desenvolvemos o site com SEO configurado desde o início',
+        'Você aprova o resultado e pedimos ajustes sem custo extra',
+        'Publicamos e configuramos tudo no ar',
+      ],
+      timeline: 'Entrega estimada em 7 a 15 dias úteis conforme escopo',
+    },
+  };
 
   readonly categories: PackageCategory[] = [
     {
@@ -98,7 +162,17 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
           ],
           ctaText: 'Quero o Essencial',
           isFeatured: false,
-          paymentUrl: '', // TODO: cole aqui o link do MP → https://mpago.la/XXXXXXX
+          paymentUrl: '',
+          howItWorks: {
+            steps: [
+              'Reunião de briefing para entender o negócio (30 min)',
+              'Você envia logo e textos — orientamos no que for precisar',
+              'Desenvolvemos as 5 páginas com formulário de contato',
+              'Configuramos SEO básico (título, meta e Google Search Console)',
+              'Você aprova, pedimos ajustes e publicamos',
+            ],
+            timeline: '8 a 12 dias úteis',
+          },
         },
         {
           id: 'site-profissional',
@@ -123,7 +197,17 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
           ],
           ctaText: 'Quero o Profissional',
           isFeatured: true,
-          paymentUrl: '', // TODO: cole aqui o link do MP → https://mpago.la/XXXXXXX
+          paymentUrl: '',
+          howItWorks: {
+            steps: [
+              'Briefing completo + análise dos concorrentes no Google',
+              'Design aprovado antes de codificar',
+              'Desenvolvemos com painel de edição (CMS) para você trocar textos sozinho',
+              'Blog integrado e Google Analytics configurados',
+              'Publicamos e treinamos você em como usar o CMS',
+            ],
+            timeline: '15 a 25 dias úteis',
+          },
         },
         {
           id: 'site-premium',
@@ -147,7 +231,17 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
           ],
           ctaText: 'Quero o Premium',
           isFeatured: false,
-          paymentUrl: '', // TODO: cole aqui o link do MP → https://mpago.la/XXXXXXX
+          paymentUrl: '',
+          howItWorks: {
+            steps: [
+              'Reunião de escopo detalhado com toda a equipe',
+              'Desenvolvimento da loja com carrinho e checkout integrado',
+              'Pix, cartão e boleto configurados via Mercado Pago',
+              'Treinamento da equipe em vídeo passo a passo',
+              'Suporte dedicado por 90 dias após a entrega',
+            ],
+            timeline: '25 a 40 dias úteis conforme volume de produtos',
+          },
         },
       ],
     },
@@ -177,7 +271,17 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
           ],
           ctaText: 'Quero o Essencial',
           isFeatured: false,
-          paymentUrl: '', // TODO: cole aqui o link do MP → https://mpago.la/XXXXXXX
+          paymentUrl: '',
+          howItWorks: {
+            steps: [
+              'Mapeamos os processos que você quer automatizar',
+              'Definimos as 5 funcionalidades juntos — sem surpresa no escopo',
+              'Desenvolvemos o sistema web com login por usuário',
+              'Você testa em ambiente de testes antes de aprovar',
+              'Publicamos e entregamos o acesso de administrador',
+            ],
+            timeline: '10 a 18 dias úteis',
+          },
         },
         {
           id: 'sistema-profissional',
@@ -190,18 +294,28 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
           inheritsFrom: 'Essencial',
           highlights: [
             'Cliente, agenda e operação num só lugar',
-            'Manda lembretes automáticos no WhatsApp e email',
+            'Manda lembretes automáticos no WhatsApp e e-mail',
             'Conecta com sistemas que você já usa',
             'Decide com base em dados, não no achismo',
           ],
           extras: [
             'Até 15 funcionalidades',
-            'CRM integrado',
+            'Gestão de clientes e histórico de contatos',
             '60 dias de suporte',
           ],
           ctaText: 'Quero o Profissional',
           isFeatured: true,
-          paymentUrl: '', // TODO: cole aqui o link do MP → https://mpago.la/XXXXXXX
+          paymentUrl: '',
+          howItWorks: {
+            steps: [
+              'Workshop de mapeamento das até 15 funcionalidades',
+              'Desenvolvimento do painel de gestão de clientes com histórico de contatos',
+              'Automações de mensagem via WhatsApp e e-mail configuradas',
+              'Integração com ferramentas que você já usa (Google, planilhas, etc.)',
+              'Suporte e ajustes por 60 dias após a entrega',
+            ],
+            timeline: '25 a 40 dias úteis',
+          },
         },
         {
           id: 'sistema-premium',
@@ -214,18 +328,28 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
           inheritsFrom: 'Profissional',
           highlights: [
             'Operação completa rodando sozinha',
-            'App pra cliente ou equipe usar do celular',
+            'App instalável no celular pra cliente ou equipe',
             'Dashboard mostra a saúde do negócio em tempo real',
             'Cada cargo com tela e permissão própria',
           ],
           extras: [
             'Funcionalidades ilimitadas',
-            'App iOS + Android (opcional)',
+            'App instalável no celular (PWA)',
             '90 dias de suporte',
           ],
           ctaText: 'Quero o Premium',
           isFeatured: false,
-          paymentUrl: '', // TODO: cole aqui o link do MP → https://mpago.la/XXXXXXX
+          paymentUrl: '',
+          howItWorks: {
+            steps: [
+              'Escopo detalhado com todos os departamentos envolvidos',
+              'Desenvolvimento do sistema completo com permissões por cargo',
+              'Dashboard em tempo real com os indicadores do negócio',
+              'App instalável no celular via navegador (funciona em Android e iOS sem loja)',
+              'Treinamento da equipe com documentação completa',
+            ],
+            timeline: '45 a 70 dias úteis conforme volume de funcionalidades',
+          },
         },
       ],
     },
@@ -248,13 +372,23 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
             'Ajustamos as respostas todo mês',
           ],
           extras: [
-            'Treinada com até 50 perguntas',
+            'Treinada com as 50 perguntas mais frequentes',
             'Relatórios mensais',
             'Horário comercial configurável',
           ],
           ctaText: 'Quero o Essencial',
           isFeatured: false,
-          paymentUrl: '', // TODO: cole aqui o link do MP → https://mpago.la/XXXXXXX
+          paymentUrl: '',
+          howItWorks: {
+            steps: [
+              'Você nos envia as 50 perguntas mais frequentes dos clientes',
+              'Configuramos o chatbot com a linguagem e identidade da sua marca',
+              'Integramos no WhatsApp Business ou como widget no seu site',
+              'Testamos todos os fluxos antes de ligar para os clientes',
+              'Ajuste mensal de respostas incluso no plano',
+            ],
+            timeline: '5 a 8 dias úteis',
+          },
         },
         {
           id: 'ia-profissional',
@@ -268,39 +402,59 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
             'Qualifica lead e marca atendimento sozinha',
             'Vende mesmo com você ocupado ou dormindo',
             'Atende no WhatsApp, site e Instagram ao mesmo tempo',
-            'Manda dados quentes direto pro seu CRM',
+            'Manda dados quentes direto pra sua planilha',
           ],
           extras: [
-            '200+ cenários treinados',
+            'Base de conhecimento completa do negócio',
             'Relatórios em tempo real',
             'Múltiplos canais',
           ],
           ctaText: 'Quero a Profissional',
           isFeatured: true,
-          paymentUrl: '', // TODO: cole aqui o link do MP → https://mpago.la/XXXXXXX
+          paymentUrl: '',
+          howItWorks: {
+            steps: [
+              'Mapeamos todos os cenários de atendimento do negócio',
+              'Configuramos qualificação de leads e agendamento automático',
+              'Integramos no WhatsApp, site e Instagram ao mesmo tempo',
+              'Conectamos à sua planilha para registrar os atendimentos',
+              'Painel com histórico e métricas em tempo real',
+            ],
+            timeline: '12 a 18 dias úteis',
+          },
         },
         {
           id: 'ia-premium',
           tier: 'PREMIUM',
           name: 'IA Premium',
-          tagline: 'Pra IA que aprende sozinha',
+          tagline: 'Pra operação de atendimento completa',
           price: '3.997',
           priceNote: '+ R$ 797/mês',
           inheritsFrom: 'Profissional',
           highlights: [
-            'Aprende sozinha conforme conversa com clientes',
-            'Vários atendentes IA trabalhando em paralelo',
-            'Prevê quem está perto de comprar',
-            'Conversa por voz e áudio (opcional)',
+            'Refinamento mensal com base nos atendimentos reais',
+            'Atende dezenas de clientes ao mesmo tempo, sem fila',
+            'Histórico completo de conversas com relatório semanal',
+            'Integração com Google Sheets e ferramentas web',
           ],
           extras: [
-            'Treinamento ilimitado',
-            'Integração com sistemas internos',
+            'Treinamento ilimitado de conteúdo',
+            'Integração com Google Sheets e ferramentas web via API',
             'Suporte prioritário',
           ],
           ctaText: 'Quero a Premium',
           isFeatured: false,
-          paymentUrl: '', // TODO: cole aqui o link do MP → https://mpago.la/XXXXXXX
+          paymentUrl: '',
+          howItWorks: {
+            steps: [
+              'Análise completa da operação de atendimento atual',
+              'Chatbot treinado com todo o material e histórico do negócio',
+              'Integração com Google Sheets e ferramentas web via API',
+              'Painel de histórico completo com relatórios semanais',
+              'Refinamento mensal incluso por 6 meses após a entrega',
+            ],
+            timeline: '18 a 25 dias úteis',
+          },
         },
       ],
     },
@@ -308,75 +462,7 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
       id: 'design',
       label: 'Design',
       icon: 'palette',
-      packages: [
-        {
-          id: 'design-essencial',
-          tier: 'ESSENCIAL',
-          name: 'Design Essencial',
-          tagline: 'Pra começar nas redes',
-          price: '797',
-          priceNote: '/projeto',
-          highlights: [
-            'Sua marca pronta pra postar nas redes',
-            'Stories que param o dedo do cliente',
-            'Visual coeso de feed em 5 dias',
-            'Paleta e estilo definidos pra sempre usar',
-          ],
-          extras: [
-            '10 posts + 3 stories animados',
-            'Banner principal personalizado',
-            'Capa de perfil + foto',
-          ],
-          ctaText: 'Quero o Essencial',
-          isFeatured: false,
-          paymentUrl: '', // TODO: cole aqui o link do MP → https://mpago.la/XXXXXXX
-        },
-        {
-          id: 'design-profissional',
-          tier: 'PROFISSIONAL',
-          name: 'Design Profissional',
-          tagline: 'Pra postar todo dia sem se preocupar',
-          price: '1.497',
-          priceNote: '/mês',
-          highlights: [
-            'Sua marca postando todo dia sem você se preocupar',
-            'Banner pra anúncio sempre que precisar',
-            'Material de campanha sob demanda',
-            'Revisamos até você curtir o resultado',
-          ],
-          extras: [
-            '30 posts + 15 stories por mês',
-            '5 banners pra anúncios',
-            'Suporte prioritário',
-          ],
-          ctaText: 'Quero o Profissional',
-          isFeatured: true,
-          paymentUrl: '', // TODO: cole aqui o link do MP → https://mpago.la/XXXXXXX
-        },
-        {
-          id: 'design-premium',
-          tier: 'PREMIUM',
-          name: 'Design Premium',
-          tagline: 'Pra marca completa do zero',
-          price: '2.997',
-          priceNote: '/projeto',
-          priceMonthly: '≈ R$ 250/mês em 12x',
-          highlights: [
-            'Marca completa do zero, pronta pra crescer',
-            'Logo profissional em 3 versões pra qualquer uso',
-            'Manual que sua equipe segue sem errar',
-            'Cartão, papel timbrado e papelaria inclusos',
-          ],
-          extras: [
-            '50 posts iniciais',
-            'Templates pra redes sociais',
-            'Treinamento de uso da marca',
-          ],
-          ctaText: 'Quero o Premium',
-          isFeatured: false,
-          paymentUrl: '', // TODO: cole aqui o link do MP → https://mpago.la/XXXXXXX
-        },
-      ],
+      packages: [],
     },
     {
       id: 'videos',
@@ -403,7 +489,16 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
           ],
           ctaText: 'Quero o Essencial',
           isFeatured: false,
-          paymentUrl: '', // TODO: cole aqui o link do MP → https://mpago.la/XXXXXXX
+          paymentUrl: '',
+          howItWorks: {
+            steps: [
+              'Orientamos como gravar o material bruto no celular',
+              'Editamos com cortes, legendas embutidas e trilha licenciada',
+              '1 revisão de ajustes inclusa',
+              'Entrega em MP4 otimizado para Reels, Stories e TikTok',
+            ],
+            timeline: '3 a 5 dias úteis após receber o material',
+          },
         },
         {
           id: 'video-profissional',
@@ -425,7 +520,17 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
           ],
           ctaText: 'Quero o Profissional',
           isFeatured: true,
-          paymentUrl: '', // TODO: cole aqui o link do MP → https://mpago.la/XXXXXXX
+          paymentUrl: '',
+          howItWorks: {
+            steps: [
+              'Criamos o roteiro dos 8 vídeos do mês',
+              'Você grava com nossa orientação ou envia o material bruto',
+              'Editamos com a identidade visual da sua marca',
+              'Trilhas sonoras licenciadas para uso comercial',
+              'Entrega de 2 vídeos por semana no dia combinado',
+            ],
+            timeline: 'Recorrente mensal — entrega semanal',
+          },
         },
         {
           id: 'video-premium',
@@ -448,7 +553,17 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
           ],
           ctaText: 'Quero o Premium',
           isFeatured: false,
-          paymentUrl: '', // TODO: cole aqui o link do MP → https://mpago.la/XXXXXXX
+          paymentUrl: '',
+          howItWorks: {
+            steps: [
+              'Roteirização profissional do vídeo institucional de 2-3 min',
+              'Filmagem no seu estabelecimento (deslocamento incluso na região)',
+              'Edição cinematográfica com color grading e motion graphics',
+              'Trilha sonora exclusiva criada para o seu vídeo',
+              '5 vídeos curtos derivados para alimentar as redes sociais',
+            ],
+            timeline: '15 a 25 dias úteis',
+          },
         },
       ],
     },
@@ -491,7 +606,45 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
     this.filterVersion++;
   }
 
-  openWhatsApp(pkg: Package): void {
+  incrementCounter(counter: { value: number; max: number }): void {
+    if (counter.value < counter.max) counter.value++;
+  }
+
+  decrementCounter(counter: { value: number; min: number }): void {
+    if (counter.value > counter.min) counter.value--;
+  }
+
+  toggleDesignItem(toggle: { active: boolean }): void {
+    toggle.active = !toggle.active;
+  }
+
+  openDesignWhatsApp(): void {
+    const lines: string[] = ['Olá! Quero um orçamento de Design personalizado:\n'];
+    const counters = this.designCounters.filter(c => c.value > 0);
+    if (counters.length) {
+      lines.push('📅 *Conteúdo mensal:*');
+      counters.forEach(c => lines.push(`• ${c.value} ${c.label.toLowerCase()}`));
+    }
+    const toggles = this.designToggles.filter(t => t.active);
+    if (toggles.length) {
+      if (counters.length) lines.push('');
+      lines.push('🎨 *Identidade visual:*');
+      toggles.forEach(t => lines.push(`• ${t.label}`));
+    }
+    lines.push('\nPodem me passar um orçamento?');
+    const text = encodeURIComponent(lines.join('\n'));
+    window.open(`https://wa.me/5521974767624?text=${text}`, '_blank', 'noopener,noreferrer');
+  }
+
+  openModal(data: ModalData): void {
+    this.selectedModal = data;
+  }
+
+  closeModal(): void {
+    this.selectedModal = null;
+  }
+
+  openWhatsApp(pkg: { name: string }): void {
     const text = encodeURIComponent(
       `Olá! Tenho interesse no pacote ${pkg.name}. Pode me passar mais detalhes?`,
     );
@@ -506,6 +659,11 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
 
   @HostListener('keydown', ['$event'])
   onKeydown(event: KeyboardEvent): void {
+    if (event.key === 'Escape' && this.selectedModal) {
+      this.closeModal();
+      return;
+    }
+
     if (!['ArrowRight', 'ArrowLeft'].includes(event.key)) return;
 
     const toggle = (event.target as HTMLElement).closest('[role="tablist"]');
