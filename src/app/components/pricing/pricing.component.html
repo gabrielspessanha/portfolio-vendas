@@ -48,6 +48,7 @@
   <div
     class="packages-grid"
     [class.packages-grid--single]="activeCategory === 'sites'"
+    [class.packages-grid--design]="activeCategory === 'design'"
     [@categorySwitch]="filterVersion"
   >
     @if (activeCategory === 'sites') {
@@ -80,6 +81,18 @@
         </ul>
 
         <button
+          class="details-btn"
+          (click)="openModal({ name: sitesIntro.name, tagline: sitesIntro.tagline, howItWorks: sitesIntro.howItWorks })"
+          aria-label="Ver como funciona o pacote site profissional"
+        >
+          Como funciona
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 8v4M12 16h.01"/>
+          </svg>
+        </button>
+
+        <button
           class="cta-btn cta-featured"
           (click)="openWhatsApp(sitesIntro)"
           aria-label="Quero meu site"
@@ -93,6 +106,98 @@
           <li><span class="trust-dot"></span>Suporte incluso</li>
         </ul>
       </article>
+    } @else if (activeCategory === 'design') {
+
+      <!-- ── Design Configurador ────────────────────────────────────── -->
+      <article class="pricing-card design-config-card">
+        <div class="card-glow" aria-hidden="true"></div>
+
+        <p class="package-tagline">Você escolhe, a gente faz</p>
+        <h3 class="package-name">Monte seu pacote de design</h3>
+        <p class="design-intro">Selecione exatamente o que você precisa. A Lumon calcula e te passa o valor direto no WhatsApp.</p>
+
+        <!-- Conteúdo para redes (recorrente) -->
+        <div class="design-section">
+          <p class="design-section-label">
+            Conteúdo para redes sociais
+            <span class="design-badge">por mês</span>
+          </p>
+          @for (counter of designCounters; track counter.id) {
+            <div class="design-counter-row">
+              <span class="counter-label">{{ counter.label }}</span>
+              <div class="counter-control" role="group" [attr.aria-label]="counter.label">
+                <button
+                  class="counter-btn"
+                  (click)="decrementCounter(counter)"
+                  [disabled]="counter.value <= counter.min"
+                  [attr.aria-label]="'Diminuir ' + counter.label"
+                >−</button>
+                <span class="counter-value" aria-live="polite">{{ counter.value }}</span>
+                <button
+                  class="counter-btn"
+                  (click)="incrementCounter(counter)"
+                  [disabled]="counter.value >= counter.max"
+                  [attr.aria-label]="'Aumentar ' + counter.label"
+                >+</button>
+              </div>
+            </div>
+          }
+        </div>
+
+        <!-- Identidade visual (projeto único) -->
+        <div class="design-section">
+          <p class="design-section-label">
+            Identidade visual
+            <span class="design-badge design-badge--gold">projeto único</span>
+          </p>
+          @for (toggle of designToggles; track toggle.id) {
+            <button
+              class="design-toggle-row"
+              [class.active]="toggle.active"
+              (click)="toggleDesignItem(toggle)"
+              role="checkbox"
+              [attr.aria-checked]="toggle.active"
+            >
+              <span class="toggle-check" aria-hidden="true">
+                @if (toggle.active) {
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 6L9 17L4 12"/>
+                  </svg>
+                }
+              </span>
+              <span class="toggle-label">{{ toggle.label }}</span>
+            </button>
+          }
+        </div>
+
+        <!-- Resumo da seleção -->
+        @if (hasDesignSelection) {
+          <div class="design-summary">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/>
+            </svg>
+            <span>{{ designSummary }}</span>
+          </div>
+        }
+
+        <!-- CTA -->
+        <button
+          class="cta-btn cta-featured design-cta"
+          [class.cta-disabled]="!hasDesignSelection"
+          (click)="hasDesignSelection && openDesignWhatsApp()"
+          [attr.aria-disabled]="!hasDesignSelection"
+          aria-label="Pedir orçamento de design personalizado no WhatsApp"
+        >
+          {{ hasDesignSelection ? 'Pedir orçamento personalizado' : 'Selecione o que você precisa' }}
+        </button>
+
+        <ul class="cta-trust" aria-hidden="true">
+          <li><span class="trust-dot"></span>Resposta em até 1h</li>
+          <li><span class="trust-dot"></span>Sem taxa de setup</li>
+          <li><span class="trust-dot"></span>Suporte incluso</li>
+        </ul>
+      </article>
+
     } @else {
     @for (pkg of activePackages; track pkg.id) {
       <article
@@ -153,6 +258,19 @@
             <li>{{ item }}</li>
           }
         </ul>
+
+        <!-- Como funciona -->
+        <button
+          class="details-btn"
+          (click)="openModal({ name: pkg.name, tagline: pkg.tagline, howItWorks: pkg.howItWorks })"
+          [attr.aria-label]="'Ver como funciona o pacote ' + pkg.name"
+        >
+          Como funciona
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="9"/>
+            <path d="M12 8v4M12 16h.01"/>
+          </svg>
+        </button>
 
         <!-- CTA -->
         <button
@@ -234,3 +352,46 @@
     </ul>
   </div>
 </section>
+
+<!-- ── Modal "Como funciona" ──────────────────────────────────────────────── -->
+@if (selectedModal) {
+  <div
+    class="modal-backdrop"
+    (click)="closeModal()"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-title"
+  >
+    <div class="modal-panel" (click)="$event.stopPropagation()">
+      <button class="modal-close" (click)="closeModal()" aria-label="Fechar modal">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+
+      <p class="modal-tagline">{{ selectedModal.tagline }}</p>
+      <h3 class="modal-title" id="modal-title">Como funciona: {{ selectedModal.name }}</h3>
+
+      <ol class="modal-steps">
+        @for (step of selectedModal.howItWorks.steps; track $index) {
+          <li>
+            <span class="step-number">{{ $index + 1 }}</span>
+            <span class="step-text">{{ step }}</span>
+          </li>
+        }
+      </ol>
+
+      <div class="modal-timeline">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="9"/>
+          <path d="M12 7v5l3 3"/>
+        </svg>
+        {{ selectedModal.howItWorks.timeline }}
+      </div>
+
+      <button class="modal-cta" (click)="closeModal()">
+        Entendido
+      </button>
+    </div>
+  </div>
+}
