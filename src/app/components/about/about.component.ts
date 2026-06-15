@@ -58,7 +58,7 @@ export class AboutComponent implements AfterViewInit, OnDestroy {
   readonly stats: Stat[] = [
     { value: 100, suffix: '%', label: 'Foco em comércio local' },
     { value: 5, suffix: '', label: 'Áreas de especialização' },
-    { value: 7, suffix: '+', label: 'Dias de entrega rápida' },
+    { value: 12, suffix: '+', label: 'Negócios atendidos' },
   ];
 
   displayValues: number[] = this.stats.map(() => 0);
