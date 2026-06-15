@@ -537,9 +537,9 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
           tier: 'PREMIUM',
           name: 'Vídeo Premium',
           tagline: 'Pra quem quer acabamento profissional',
-          price: '2.497',
+          price: '1.200',
           priceNote: '/projeto',
-          priceMonthly: '≈ R$ 208/mês em 12x',
+          priceMonthly: '≈ R$ 100/mês em 12x',
           highlights: [
             'Vídeo institucional de 2-3 min com edição profissional',
             'Motion graphics: textos animados, transições e logo em movimento',
