@@ -71,6 +71,22 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
 
   private observer: IntersectionObserver | null = null;
 
+  /** Conteúdo do card único da aba Sites (substitui os 3 planos). */
+  readonly sitesIntro = {
+    tagline: 'Sites profissionais sob medida',
+    name: 'Seu site profissional',
+    price: '700',
+    priceNote: '/projeto',
+    priceFootnote: 'Preço final conforme o escopo. Você fala direto com quem programa.',
+    highlights: [
+      'Site profissional pronto pra vender',
+      'Aparece quando buscam você no Google',
+      'Você atualiza textos e fotos sem chamar programador',
+      'Funciona perfeito no celular',
+    ],
+    ctaText: 'Quero meu site',
+  };
+
   readonly categories: PackageCategory[] = [
     {
       id: 'sites',
@@ -491,7 +507,7 @@ export class PricingComponent implements AfterViewInit, OnDestroy {
     this.filterVersion++;
   }
 
-  openWhatsApp(pkg: Package): void {
+  openWhatsApp(pkg: { name: string }): void {
     const text = encodeURIComponent(
       `Olá! Tenho interesse no pacote ${pkg.name}. Pode me passar mais detalhes?`,
     );

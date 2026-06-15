@@ -237,6 +237,24 @@
   }
 }
 
+// Aba Sites: um único card centralizado
+.packages-grid--single {
+  grid-template-columns: 1fr;
+  max-width: 480px;
+
+  @media (max-width: 768px) {
+    max-width: 420px;
+  }
+}
+
+.pricing-card--single {
+  text-align: left;
+
+  .price-block {
+    margin-bottom: 4px;
+  }
+}
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Pricing card (DNA)
 // ─────────────────────────────────────────────────────────────────────────────

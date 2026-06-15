@@ -45,7 +45,55 @@
   </div>
 
   <!-- ── Packages grid ───────────────────────────────────────────────────── -->
-  <div class="packages-grid" [@categorySwitch]="filterVersion">
+  <div
+    class="packages-grid"
+    [class.packages-grid--single]="activeCategory === 'sites'"
+    [@categorySwitch]="filterVersion"
+  >
+    @if (activeCategory === 'sites') {
+      <!-- Card único para Sites (sem botão de pagar) -->
+      <article class="pricing-card pricing-card--single">
+        <div class="card-glow" aria-hidden="true"></div>
+
+        <p class="package-tagline">{{ sitesIntro.tagline }}</p>
+        <h3 class="package-name">{{ sitesIntro.name }}</h3>
+
+        <div class="price-block">
+          <span class="price-label">A partir de</span>
+          <div class="price-value" [attr.aria-label]="'Preço a partir de R$ ' + sitesIntro.price + ' ' + sitesIntro.priceNote">
+            <span class="price-currency">R$</span>
+            <span class="price-number">{{ sitesIntro.price }}</span>
+            <span class="price-note">{{ sitesIntro.priceNote }}</span>
+          </div>
+          <p class="price-monthly">{{ sitesIntro.priceFootnote }}</p>
+        </div>
+
+        <ul class="highlights-list" aria-label="Principais resultados">
+          @for (item of sitesIntro.highlights; track item) {
+            <li>
+              <svg class="check-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M20 6L9 17L4 12" stroke="#2EC6DE" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+              {{ item }}
+            </li>
+          }
+        </ul>
+
+        <button
+          class="cta-btn cta-featured"
+          (click)="openWhatsApp(sitesIntro)"
+          aria-label="Quero meu site"
+        >
+          {{ sitesIntro.ctaText }}
+        </button>
+
+        <ul class="cta-trust" aria-hidden="true">
+          <li><span class="trust-dot"></span>Resposta em até 1h</li>
+          <li><span class="trust-dot"></span>Sem taxa de setup</li>
+          <li><span class="trust-dot"></span>Suporte incluso</li>
+        </ul>
+      </article>
+    } @else {
     @for (pkg of activePackages; track pkg.id) {
       <article
         class="pricing-card"
@@ -141,6 +189,7 @@
           <li><span class="trust-dot"></span>Suporte incluso</li>
         </ul>
       </article>
+    }
     }
   </div>
 
